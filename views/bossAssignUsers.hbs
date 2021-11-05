@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Assign Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="date.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+-->
+</head>
+
+<body>
+    
+    {{> navbarBoss}}
+
+    <div class="bg-light mx-0 py-3  vh-100">
+        <div class="p-3">
+            <section>
+                <div class="card pb-1 mb-3 border-3 " style="border-bottom-color: #0d6efd">
+                    <div class="card-body rounded text-right row">
+                        <span class="col">
+                            <h3 class="text-secondary">Users List</h3>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+
+            <div class="col-md-12 mt-3">
+                <div class="card">
+                    <div class="card-body overflow-auto rounded" style="height: 75vh">
+                        <div class="table-responsive">
+                            <table class="table overflow-auto table-hover">
+                                <thead>
+                                    <tr class="bg-secondary bg-linear-gradien, text-light">
+                                        <th class="text-left">Name</th>
+                                        <th class="text-left">Email</th>
+                                        <th class="text-center">Role</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each Users}}
+                                    <tr>
+                                        <td class="text-left">{{firstName}} {{lastName}}</td>
+                                        <td class="text-left">{{email}}</td>
+                                        <td class="text-center">{{role}}</td>
+                                        <td class="text-center">
+                                            <form method="get" action="/boss/getAssignRole/{{email}}">
+                                                {{#compare email "==" ../session.email}}
+                                                    <button type="assignRole" class="btn btn-disabled" disabled>Assign Own Unallowed</button>
+                                                    {{else}}
+                                                    <button type="assignRole" class="btn btn-primary">Assign Role</button>
+                                                {{/compare}}
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html> 

@@ -1,0 +1,92 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{!-- <script src="/js/validator.min.js" type="text/javascript"></script> --}}
+    <script src="/js/signup.js" type="text/javascript"></script>
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <!-- Login Form -->
+    <div class="container">
+        <div class="mx-auto" style="width: 200px;"><a href="/"><img src="/images/loginlogo.png" style="width: 200px; height: 100px; object-fit: contain" alt="LOGO"></a></div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-4 col-md-8">
+                <div class="card shadow border-secondary border-5">
+                    <div class="card-title text-center border-bottom ">
+                        <h2 class="p-3">Sign Up</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/signup">
+                            {{!-- <div class="row">
+                                <div class="col">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required/>
+
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required/>
+                                </div>
+                            </div> --}}
+
+                            <div class="mb-4">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" name="firstName" id="firstName" class="form-control field" required/>
+                                <p id="firstNameError" class="error">{{firstNameError}}</p>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" name="lastName" id="lastName" class="form-control field" required/>
+                                <p id="lastNameError" class="error">{{lastNameError}}</p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control field" required/>
+                                <p id="emailError" class="error">{{emailError}}</p>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control field" required/>
+                                <p id="passwordError" class="error">{{passwordError}}</p>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Confirm Password</label>
+                                <input type="password" name="confirmPW" id="confirmPW" class="form-control field" required/>
+                                <p id="confirmPasswordError" class="error">{{confirmPasswordError}}</p>
+                            </div>
+
+                            {{!-- USERS SHOULD NOT BE ABLE TO ASSIGN ROLES OR THEMSELVES, ONLY THE BOSS CAN DO IT --}}
+                            {{!-- <div class="mb-4">
+                                <label for="role" class="form-label">Role</label>
+                                <select id="single" name="role" id="role" class="form-select form-select-chosen field" data-placeholder="ROLE TYPE" required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option value="boss">Boss</option>
+                                    <option value="cashier">Cashier</option>
+                                    <option value="sales manager">Sales Manager</option>
+                                    <option value="inventory">Inventory</option>
+                                    <option value="purchasing">Purchasing</option>
+                                </select>
+                            </div> --}}
+
+                            <div class="d-grid">
+                                <button type="signup" id="submit" class="btn btn-primary">Sign Up</button>
+                            </div>
+                        </form>
+                            <div class="d-grid">
+                                <a href="/login" class="link-primary text-decoration-none text-center">Already have an account? Login</a>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

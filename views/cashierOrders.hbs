@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+  crossorigin="anonymous"
+  />
+  <link
+  rel="stylesheet"
+  href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css"
+  />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <title>Orders</title>
+</head>
+<body>
+
+  {{> navbarCashier}}
+
+  <div class="row p-3 bg-light vw-100">
+    <!-- Left Column Orders -->
+    <div class="col-sm-8">
+      <div class="card pb-3 mb-3 border-3 " style="border-bottom-color: #0d6efd">
+        <div class="card-body rounded " style="height: 9vh">
+          <h3 class="text-secondary">Order</h3>
+        </div>
+      </div>
+
+      <div class="row row-cols-md-3 g-2">
+        {{#each menuItem}}
+        <div class="col">
+          <div
+          class="card rounded addOrder"
+          style="border-color:green"
+          >
+          <div class="card-body">
+            <h5 class="card-title text-center text-info menuItemName" date-value="{{{menuItemName}}}">{{menuItemName}}</h5>
+            <p class="card-text text-center menuItemPrice" date-value="{{{price}}}">₱{{price}}</p>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- Right Column Cart -->
+  <div class="col-sm-4">
+    <div class="card overflow-auto" style="height: 60vh">
+      <div class="card-body rounded">
+        <h3 class="text-secondary">Orders</h3>
+        <hr />
+        <ul id="orderList" class="list-unstyled">
+
+
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body rounded" style="height: 9vh">
+        <div class="total-amount fs-5 row">
+          <span class="col fw-bold">Total Amount:</span>
+          <span id="total" class="col text-end fw-bolder"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body rounded" style="height: 9vh">
+        <div class="fs-5 row">
+          <span class="col fw-bold">Payment:</span>
+          <span class="col"
+          ><input type="number" min="0" id="payment" name="payment" class="form-control-sm mb-4"
+          /></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body rounded">
+        <button id="confirm" class="w-100 btn btn-lg bg-primary text-light">
+          Confirm Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ $(document).ready( () => {
+  var cart = [];
+  var priceCart = [];
+  var totalPrice = 0;
+  var index = 0;
+  $('.addOrder').click(function() {
+    const menuItem = $(this).find('h5.menuItemName').text();
+    const menuPricePeso = $(this).find('p.menuItemPrice').text();
+    const menuPrice = menuPricePeso.substring(1);
+    const amount = parseInt(menuPrice, 10);
+
+    let ordered = `<li id="row`+index+`" class="row">
+    <div class="col-6">
+    <h4 id="menu`+index+`">`+menuItem+`</h4>
+    </div>
+    <div class="col-4">
+    <div class="price fs-5 text-primary">`+menuPricePeso+`</div>
+    </div>
+    <div class="fs-4 col mb-2">
+    <button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="`+index+`">X</button>
+    </div>
+    <hr />
+    </li>`;
+    $("#orderList").append(ordered);
+
+    cart.push(menuItem);
+    priceCart.push(amount);
+    totalPrice += amount;
+    index++;
+    $("#total").text("₱" +  totalPrice);
+  });
+
+
+
+  $(document).on('click', '.remove', function() {
+    const button_id = $(this).attr("id");
+    $(`#row`+button_id+``).remove();
+    let i = button_id ;
+    cart.splice(i, 1);
+     index--;
+     let amount = priceCart[i];
+
+    totalPrice -= amount;
+    $("#total").text("₱" +  totalPrice);
+  });
+
+  $("#confirm").click( () => {
+    const payment = $("#payment").val();
+
+    if (cart.length === 0 )
+      alert('Add Orders First!');
+    else if (payment == 0)
+      alert('Enter payment first!');
+    else if (payment < totalPrice)
+      alert('Insufficient Payment!');
+    else {
+      const change = payment - totalPrice;
+
+      if (change > 0)
+        alert('Change is: ₱'+change);
+      else 
+        alert("Order Complete");
+
+      $.get('/sell', {
+        cart: cart,
+        totalPrice: totalPrice
+      }, result => {
+         cart = [];
+         totalPrice = 0;
+         $("#orderList").remove();
+          $("#total").text('');
+          $("#payment").val('');
+         alert("Order Again!");
+         location.reload();
+      });
+
+              }
+
+
+            });
+
+
+});
+
+</script>
+</body>
+</html>

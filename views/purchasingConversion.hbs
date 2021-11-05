@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css"
+		/>
+		<title>Add conversion</title>
+	</head>
+
+	{{> navbarPurchasing}}
+
+	<body class="bg-light">
+		<!-- navbar -->
+		<!-- sidebar -->
+		<div
+			class="card position-absolute top-50 start-50 translate-middle"
+			style="width: 100vh"
+		>
+			<div class="card-body rounded-pill">
+				<form action="/addConversion" method="POST" class="m-4 pb-4" >
+					<header class="pb-1">
+						<h1>Add Conversion</h1>
+					</header>
+
+					<section>
+						<div class="input-group mb-3">
+							<span
+								class="input-group-text col-5 bg-info"
+								id="basic-addon3"
+								>Unit of Measurement A</span
+							>
+							<select
+                                                      class="form-select"
+                                                      name="unitA"
+                                                      >
+                                                      <option selected>Choose...</option>
+                                                      {{#each uom}}
+                                                      <option value="{{{abbrev}}}">{{abbrev}}</option>
+                                                      {{/each}}
+                                                  </select>
+							<input
+								type="text"
+								class="form-control"
+				
+								aria-describedby="basic-addon3"
+								
+								placeholder="1"
+								readonly
+							/>
+						</div>
+
+						<div class="input-group mb-3">
+							<span
+								class="input-group-text col-5 bg-info"
+								id="basic-addon3"
+								>Unit of Measurement B</span
+							>
+							<select
+                                                      class="form-select"
+                                                      name="unitB"
+                                                      >
+                                                      <option selected>Choose...</option>
+                                                      {{#each uom}}
+                                                      <option value="{{{abbrev}}}">{{abbrev}}</option>
+                                                      {{/each}}
+                                                  </select>
+						</div>
+						<div class="input-group mb-3">
+							<span
+								class="input-group-text col-6 bg-info"
+								id="basic-addon3"
+								>1 measure of unit A is equal to: </span
+							>
+						
+							<input
+								class="form-control"
+								id="unitBNum"
+								type="number"
+								step="any"
+								min="0"
+								aria-describedby="basic-addon3"
+								name="unitBNum"
+							/>
+						</div>
+
+						<div class="float-end">
+							<button type="submit" class="btn btn-primary">
+								Save
+							</button>
+
+
+						</div>
+					</section>
+				</form>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
