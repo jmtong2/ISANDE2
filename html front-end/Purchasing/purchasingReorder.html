@@ -4,19 +4,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-  <title>Reorder</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <title>Purchased Ingredients</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+  
 
 </head>
 
 <body>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-  <title>Reorder</title>
-<!-- Start of navbar -->
+  <title>Purchasing</title>
+  
+  <!-- Start of navbar -->
 
   <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -51,66 +55,168 @@
 
   <div class="bg-light p-3" style="height: 85vh;">
     <div class="card border-3 " style="border-bottom-color: #0d6efd">
-      <div class="card-body rounded row">
-        <span class="col">
-              <h3 class="text-secondary">Ingredients low on stock</h3>
-            </span>
-            
-    
-  </span>
+      <div class="card-body rounded ">
+        <div class="d-flex justify-content-between">
+          <h3 class="text-secondary">Reorder</h3>
+          <!-- Button trigger modal -->
+          <span class="createPurchasedIngredient text-end fs-6 pt-1">
+           <!-- Button trigger modal -->
+           <button type="button" class="btn btn-info">
+            <i class="far fa-shopping-cart"></i>
+            Order
+          </button>
+        </span>
       </div>
-    </div>
+   
+
+
+
+</div>
+</div>
 
 
 <div class="col-md-12 mt-3">
   <div class="card">
-    <div class="card-body overflow-auto rounded" style="height: 65vh">
+    <div class="card-body overflow-auto rounded" style="height: 60vh">
 
 
       <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-bordered">
+        <table class="table overflow-auto table-hover table-hover table-bordered">
           <thead>
-            <tr class="bg-secondary bg-linear-gradien, text-light">
-              <th class="text-center">Supplier Name</th>
-              <th class="text-center">Contact Info</th>
-              <th class="text-center">Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-start">Supplier A</td>
-              <td class="text-center">09272222222</td>
-              <td class="text-start">Quezon City</td>
-            </tr>
+                                    <tr class="bg-secondary bg-linear-gradien, text-light" >
+                                        <th class="text-center">Ingredient</th>
+                                        <th class="text-center">Quantity per Stock</th>
+                                        <th class="text-center">Economic Order Quantity</th>
+                                        <th class="text-center">Unit Of Measurement</th>
+                                        <th class="text-center">Reorder Point</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Supplier</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-start">Cream Cheese</td>
+                                        <td class="text-end">5</td>
+                                        <td class="text-end">25</td>
+                                        <td class="text-center">KG</td>
+                                        <td class="text-end">5</td>
+                                        <td class="text-end">₱500</td>
+                                        <td class="text-start">Supplier A</td>
+                                    </tr>
 
-            <tr>
-              <td class="text-start">Supplier B</td>
-              <td class="text-center">09272222222</td>
-              <td class="text-start">Quezon City</td>
-            </tr>
-
-            <tr>
-              <td class="text-start">Supplier C</td>
-              <td class="text-center">09272222222</td>
-              <td class="text-start">Quezon City</td>
-            </tr>
-
-            <tr>
-              <td class="text-start">Supplier D</td>
-              <td class="text-center">09272222222</td>
-              <td class="text-start">Quezon City</td>
-            </tr>
-
-         
-
+                                    <tr>
+                                        <td class="text-start">Coke</td>
+                                        <td class="text-end">3</td>
+                                        <td class="text-end">15</td>
+                                        <td class="text-center">L</td>
+                                        <td class="text-end">10</td>
+                                        <td class="text-end">₱350</td>
+                                        <td class="text-start">Supplier B</td>
+                                    </tr>
           </tbody>
         </table>
+
       </div>
 
     </div>
 
   </div>
+  
 </div>
+
+
+<script>
+  $(document).ready( () => {
+
+    var cart = [];
+    var purchasedQuantity = [];
+    var listIndex = [];
+    var index = 0;
+    if (cart.length === 0)
+      $('#done').prop('disabled', false);
+
+    $('#purchase').click( () => {
+      const purchasedIngredient = $('#purchasedIngredient').val();
+      const qty = $('#qty').val();
+      
+
+      if(purchasedIngredient == 'Choose...' || qty == ''){
+        alert('Please input all both the name and quantity!');
+
+      }
+      else {
+        $.get("/listPurchased", {
+          purchasedIngredient: purchasedIngredient
+        },
+        purchasedIngredients => {
+
+           // $('#purchasedIngredient').val("Choose");
+
+
+           let purchased =  `<tr id="row`+index+`">
+           <td>`+purchasedIngredients.ingredient.ingredientName+`</td>
+           <td class="text-center">`+purchasedIngredients.purchasedIngredientName+`</td>
+           <td class="text-center">`+purchasedIngredients.quantityPerStock+`</td>
+           <td class="text-center">`+purchasedIngredients.uom.abbrev+`</td>
+           <td class="text-center">`+qty+`</td>
+           <td class="text-center"><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
+                index +
+                `">X</button></td>
+           </tr>`;
+           $("#purchasedTable").append(purchased);
+           $('#purchasedIngredient').prop('selectedIndex',0);
+           $('#qty').val("");
+          //store it in array 
+          cart.push(purchasedIngredients);
+          purchasedQuantity.push(qty);
+          listIndex.push(index);
+          index++;
+        });
+
+        $(document).on("click", ".remove", function () {
+          const button_id = $(this).attr("id");
+          $(`#row` + button_id + ``).remove();
+          let i = button_id;
+          let num = listIndex.findIndex(item => item == i);
+          
+          cart.splice(num, 1);
+          purchasedQuantity.splice(num, 1);
+          listIndex.splice(num,1);
+
+      });
+
+      }
+    });
+
+    $('#done').click( () => {
+    if (cart.length === 0) {
+      $('#done').prop('disabled', false);
+      alert('Add ingredients first!');
+    } else {
+     $.get("/makePurchasedOrder", {
+      cart: cart,
+      purchasedQuantity: purchasedQuantity
+    }, result => {
+      cart = [];
+      purchasedQuantity = [];
+      $("#purchasedTable").remove();
+      alert('Purchased Ingredients are added!');
+    });
+
+   }
+
+
+
+ });
+
+
+  });
+
+
+
+</script>
+
+
 
 
 </body>
