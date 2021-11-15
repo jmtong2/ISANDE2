@@ -32,16 +32,10 @@
                         <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="inventoryMovement.html">Movement</a>
+                        <a class="nav-link" href="inventoryManualCount.html">Discrepancy</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="receivingOrders.html">Receiving Orders</a>
+                        <a class="nav-link" href="inventoryDiscrepancyReport.html">Discrepancy Report</a>
                     </li>
 
                 </ul>
@@ -220,16 +214,15 @@
 
             <h2>Inventory</h2>
             <div class="table-responsive rounded">
-                <table class="table overflow-auto table-bordered" >
+                <table class="table overflow-auto" >
                     <thead>
                         <tr class="bg-secondary bg-linear-gradien, text-light" >
                             <th class="text-center">Ingredient</th> 
                             <th class="text-center">On Hand</th>
                             <th class="text-center">Unit of Measurement</th>
                             <th class="text-center">Reorder Point</th>
-                            <th class="text-center">Economic Order Quantity</th>
-                            <th class="text-center">Priority</th>
-                            
+                            <th class="text-center">Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -238,9 +231,8 @@
                             <td class="text-center">200</td>
                             <td class="text-center">g</td>
                             <td class="text-center">X</td>
-                            <td class="text-center">250</td>
                             <td style="text-align:center;">
-                              <button type="button" class="btn btn-warning">High</button>
+                              <button type="button" class="btn btn-warning">Low Stock</button>
                           </td>
                       </tr>
 
@@ -249,9 +241,8 @@
                         <td class="text-center">2</td>
                         <td class="text-center">kg</td>
                         <td class="text-center">X</td>
-                        <td class="text-center">1</td>
                         <td style="text-align:center;">
-                          <button type="button" class="btn btn-success">Low</button>
+                          <button type="button" class="btn btn-success">In Stock</button>
                       </td>
                   </tr>
 
@@ -260,9 +251,8 @@
                     <td class="text-center">2000</td>
                     <td class="text-center">g</td>
                     <td class="text-center">X</td>
-                    <td class="text-center">200</td>
                     <td style="text-align:center;">
-                      <button type="button" class="btn btn-success">Low</button>
+                      <button type="button" class="btn btn-success">In Stock</button>
                   </td>
               </tr>
 
