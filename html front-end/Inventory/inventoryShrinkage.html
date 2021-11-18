@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+  />
+  <title>Inventory Shrinkage</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+    crossorigin="anonymous"
+  />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script type="text/javascript" src="date.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<!-- NavBar/Sidebar  -->
+<nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+      <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+          <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="inventoryMovement.html">Movement</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="receivingOrders.html">Receiving Orders</a>
+              </li>
+
+          </ul>
+          <form action="" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
+              <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
+              <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
+              <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+          </form>
+      </div>
+  </div>
+</nav>
+
+<div class="bg-light p-3" style="height: 100vh;">
+  <div class="card border-3 " style="border-bottom-color: #0d6efd">
+      <div class="card-body rounded row">
+          <h3 class="col text-secondary">Shrinkage</h3>
+      </div>
+  </div>
+
+    <!-- Header of table -->
+<body>
+  <div class="row"></div>
+
+        <div class="col-md-12 mt-3">
+          <div class="card">
+            <div class="card-body overflow-auto rounded" style="height: 75vh">
+                <div class="table-responsive rounded">
+                    <table class="table overflow-auto table-bordered">
+                        <thead>
+                            <tr class="bg-secondary bg-gradient">
+                                <th class="text-center text-light">Ingredient</th>
+                                <th class="text-center text-light">Quantity</th>
+                                <th class="text-center text-light">Unit of Measurement</th>
+                                <th class="text-center text-light">Reason</th>
+                                <th class="text-center text-light">Date</th>
+                
+                            </tr>
+                        </thead>
+        
+        <!-- Contents of table -->
+        <tbody>
+            <form action="inventory.html">
+              <tr>
+                <td class="text-center">COFFEE BEANS</td>
+                <td class="text-center">1</td>
+                <td class="text-center">BOXES</td>
+                <td>
+                  <select id="single" class="form-control form-control-chosen" data-placeholder="SELECT REASON">
+                      <option value="" disabled selected>SELECT REASON</option>
+                      <option>THEFT</option>
+                      <option>SPOILAGE</option>
+                      <option>UNKNOWN</option>
+                    </select>
+              </td>
+                <td class="text-center">XX/XX/XXXX</td>
+                
+              </tr>
+              <tr>
+                <td class="text-center">CREAM CHEESE</td>
+                <td class="text-center">2</td>
+                <td class="text-center">KG</td>
+                <td>
+                    
+                <select id="single" class="form-control form-control-chosen" data-placeholder="SELECT REASON">
+                    <option value="" disabled selected>SELECT REASON</option>
+                    <option>THEFT</option>
+                    <option>SPOILAGE</option>
+                    <option>UNKNOWN</option>
+                  </select>
+                </td>
+                <td class="text-center">XX/XX/XXXX</td>
+              </tr>
+        
+            </div>
+          </div>
+        </div>  
+        </div>
+        </tbody>
+    </table>
+    <div class="float-end"><button type="confirm" class="btn btn-primary">Report Shrinkage</button></div>
+            </form>
+<script src="main.js"></script>
+</body>
+
+</html>
