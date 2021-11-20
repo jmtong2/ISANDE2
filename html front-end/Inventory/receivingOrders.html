@@ -1,125 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
-  <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-  />
-  <title>Discrepancy Reason</title>
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-    crossorigin="anonymous"
-  />
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  <script type="text/javascript" src="date.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+  
+
 </head>
 
-<!-- NavBar/Sidebar  -->
-<nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
+<body>
+
+  <title>Receive Purchase Order</title>
+  
+  <!-- Start of navbar -->
+
+  <!-- NavBar/Sidebar  -->
+  <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
       <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-          <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="inventoryMovement.html">Movement</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="receivingOrders.html">Receiving Orders</a>
-              </li>
+        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="inventoryMovement.html">Movement</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="receivingOrders.html">Receiving Orders</a>
+          </li>
 
-          </ul>
-          <form action="" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
-              <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
-              <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
-              <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
-          </form>
+        </ul>
+        <form action="" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
+          <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
+          <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
+          <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+        </form>
       </div>
-  </div>
-</nav>
+    </div>
+  </nav>
 
-<div class="bg-light p-3" style="height: 100vh;">
-  <div class="card border-3 " style="border-bottom-color: #0d6efd">
-      <div class="card-body rounded row">
-          <h3 class="col text-secondary">Discrepancy Reason</h3>
-      </div>
-  </div>
+  <!-- End of navbar -->
 
-    <!-- Header of table -->
-<body>
-  <div class="row"></div>
-
-        <div class="col-md-12 mt-3">
-          <div class="card">
-            <div class="card-body overflow-auto rounded" style="height: 75vh">
-                <div class="table-responsive rounded">
-                    <table class="table overflow-auto table-bordered">
-                        <thead>
-                            <tr class="bg-secondary bg-gradient">
-                              <tr class="bg-secondary bg-gradient">
-                                <th class="text-center text-light">Order Number</th>
-                                <th class="text-center text-light">Expected Date of Delivery</th>
-                                <th class="text-center text-light">Received Date of Delivery</th>
-                                <th class="text-center text-light">Status</th>
-                                
-                            </tr>
-                        </thead>
-        
-        <!-- Contents of table -->
-        <tbody>
-            <form action="inventoryDiscrepancyReport.html">
-              <tr>
-                <td class="text-center">1</td>
-                
-                <td class="text-center">XX/XX/XXXX</td>
-                <td class="text-center">XX/XX/XXXX</td>
-                <td class="text-center">PENDING</td>
-              <tr>
-                <td class="text-center">2</td>
-                  
-                  <td class="text-center">XX/XX/XXXX</td>
-                  <td class="text-center">XX/XX/XXXX</td>
-                  <td class="text-center">PENDING</td>
-                  
-              </tr>
-              <tr>
-                <td class="text-center">3</td>
-                  
-                  <td class="text-center">XX/XX/XXXX</td>
-                  <td class="text-center">XX/XX/XXXX</td>
-                  <td class="text-center">COMPLETE</td>
-                  
-               
-              </tr>
-              
-            </div>
-          </div>
-        </div>  
+  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+    <div class="card mb-2">
+      <div class="card-body rounded">
+        <div class="d-flex justify-content-between">
+          <h4 class="text-secondary">Purchase Order</h4>
         </div>
-        </tbody>
-    </table>
-    <!-- <div class="float-end"><button type="confirm" class="btn btn-primary">Confirm</button></div> -->
-            </form>
-<script src="main.js"></script>
+      </div>
+    </div>
+
+    <section class="supplierInfo">
+      <div class="row">
+        <div class="col my-1">
+          <!-- <label for="supplierName" class="form-label">Supplier Name</label> -->
+          <input class="form-control" id="disabledInput" type="text" placeholder="Supplier Name" disabled>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-md-auto my-1">
+          <!-- <label for="contactNumber" class="form-label">Contact Number</label> -->
+          <input class="form-control" id="disabledInput" type="number" placeholder="09277022688" disabled>
+        </div>
+
+        <!-- <div class="col"></div> -->
+      </div>
+      
+      <!-- <label for="address" class="form-label">Address</label> -->
+      <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
+    </section>
+
+
+
+    <div class="col-md-12 my-3">
+      <div class="card my-2">
+        <div class="card-body overflow-auto rounded" style="height: 45vh">
+
+
+          <div class="table-responsive rounded">
+            <table class="table overflow-auto table-hover table-hover table-bordered">
+              <thead>
+                <tr class="text-light" style="background-color: #243b31">
+                  <th class="text-center">Ingredient</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Unit</th>
+                  <th class="text-center">Unit Price</th>
+                  <th class="text-center">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="purchasedTable">
+                <tr>
+                  <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="Cheese">
+                    <datalist id="datalistOptions">
+                      <option value="Cheese">
+                      <option value="Flour">
+                      <option value="Sugar">
+                      <option value="Coffee Beans">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="50"></td>
+                              <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="g">
+                    <datalist id="datalistOptions">
+                      <option value="g">
+                      <option value="mg">
+                      <option value="kg">
+                      <option value="lb">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱100"></td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱150"></td>
+                            </tr>
+
+                            <tr>
+                  <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="Cheese">
+                    <datalist id="datalistOptions">
+                      <option value="Cheese">
+                      <option value="Flour">
+                      <option value="Sugar">
+                      <option value="Coffee Beans">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="50"></td>
+                              <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="g">
+                    <datalist id="datalistOptions">
+                      <option value="g">
+                      <option value="mg">
+                      <option value="kg">
+                      <option value="lb">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱100"></td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱150"></td>
+                            </tr>
+
+                            <tr>
+                  <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="Cheese">
+                    <datalist id="datalistOptions">
+                      <option value="Cheese">
+                      <option value="Flour">
+                      <option value="Sugar">
+                      <option value="Coffee Beans">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="50"></td>
+                              <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="g">
+                    <datalist id="datalistOptions">
+                      <option value="g">
+                      <option value="mg">
+                      <option value="kg">
+                      <option value="lb">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱100"></td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱150"></td>
+                            </tr>
+
+                            <tr>
+                  <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="Cheese">
+                    <datalist id="datalistOptions">
+                      <option value="Cheese">
+                      <option value="Flour">
+                      <option value="Sugar">
+                      <option value="Coffee Beans">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="50"></td>
+                              <td class="text-start">
+                    <input class="form-control-sm form-control-sm" list="datalistOptions" id="exampleDataList" placeholder="g">
+                    <datalist id="datalistOptions">
+                      <option value="g">
+                      <option value="mg">
+                      <option value="kg">
+                      <option value="lb">
+                    </datalist>
+                  </td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱100"></td>
+                              <td class="text-end"><input class="form-control form-control-sm" type="number" placeholder="₱150"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                      <div class="d-grid gap-2 d-md-block">
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <h4 class="float-end m-2">Total: ₱600.00</h4>
+
+                  <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="fas fa-long-arrow-left"></i> Back</button>
+                  <button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-plus-circle"></i> Receive</button>
+
+<!-- <button class="btn btn-primary" type="button">Button</button>
+  <button class="btn btn-primary" type="button">Button</button> -->
+</div>
+
+
+<script>
+  $(document).ready( () => {
+
+    var cart = [];
+    var purchasedQuantity = [];
+    var listIndex = [];
+    var index = 0;
+    if (cart.length === 0)
+      $('#done').prop('disabled', false);
+
+    $('#purchase').click( () => {
+      const purchasedIngredient = $('#purchasedIngredient').val();
+      const qty = $('#qty').val();
+
+
+      if(purchasedIngredient == 'Choose...' || qty == ''){
+        alert('Please input all both the name and quantity!');
+
+      }
+      else {
+        $.get("/listPurchased", {
+          purchasedIngredient: purchasedIngredient
+        },
+        purchasedIngredients => {
+
+           // $('#purchasedIngredient').val("Choose");
+
+
+           let purchased =  `<tr id="row`+index+`">
+           <td>`+purchasedIngredients.ingredient.ingredientName+`</td>
+           <td class="text-center">`+purchasedIngredients.purchasedIngredientName+`</td>
+           <td class="text-center">`+purchasedIngredients.quantityPerStock+`</td>
+           <td class="text-center">`+purchasedIngredients.uom.abbrev+`</td>
+           <td class="text-center">`+qty+`</td>
+           <td class="text-center"><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
+           index +
+           `">X</button></td>
+           </tr>`;
+           $("#purchasedTable").append(purchased);
+           $('#purchasedIngredient').prop('selectedIndex',0);
+           $('#qty').val("");
+          //store it in array 
+          cart.push(purchasedIngredients);
+          purchasedQuantity.push(qty);
+          listIndex.push(index);
+          index++;
+        });
+
+        $(document).on("click", ".remove", function () {
+          const button_id = $(this).attr("id");
+          $(`#row` + button_id + ``).remove();
+          let i = button_id;
+          let num = listIndex.findIndex(item => item == i);
+
+          cart.splice(num, 1);
+          purchasedQuantity.splice(num, 1);
+          listIndex.splice(num,1);
+
+        });
+
+      }
+    });
+
+    $('#done').click( () => {
+      if (cart.length === 0) {
+        $('#done').prop('disabled', false);
+        alert('Add ingredients first!');
+      } else {
+       $.get("/makePurchasedOrder", {
+        cart: cart,
+        purchasedQuantity: purchasedQuantity
+      }, result => {
+        cart = [];
+        purchasedQuantity = [];
+        $("#purchasedTable").remove();
+        alert('Purchased Ingredients are added!');
+      });
+
+     }
+
+
+
+   });
+
+
+  });
+
+
+
+</script>
+
+
+
+
 </body>
 
 </html>

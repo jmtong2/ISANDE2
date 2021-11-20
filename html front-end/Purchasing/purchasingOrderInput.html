@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-  <title>Purchase Ingredients</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -18,7 +17,7 @@
 
 <body>
 
-  <title>Purchasing</title>
+  <title>Purchase Order</title>
   
   <!-- Start of navbar -->
 
@@ -37,7 +36,7 @@
             <a class="nav-link" href="purchaseOrdersHome.html">Reorder</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="purchasingPurchased.html">Inventory Details</a>
+            <a class="nav-link" href="purchasingPurchased.html">Inventory</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="purchasingPurchased.html">Purchase Orders</a>
@@ -53,11 +52,11 @@
 
   <!-- End of navbar -->
 
-  <div class="bg-light p-3" style="height: 85vh;">
+  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
     <div class="card mb-2">
       <div class="card-body rounded">
         <div class="d-flex justify-content-between">
-          <h4 class="text-secondary">Purchase Orders</h4>
+          <h4 class="text-secondary">Purchase Order</h4>
         </div>
       </div>
     </div>
@@ -78,10 +77,10 @@
                         <!-- {{/each}} -->
                       </select>
         </div>
-        
-        <div class="col my-1">
+        <div class="col-4"></div>
+        <div class="col-md-auto my-1">
           <!-- <label for="contactNumber" class="form-label">Contact Number</label> -->
-          <input class="form-control" id="disabledInput" type="text" placeholder="Contact Number" disabled>
+          <input class="form-control" id="disabledInput" type="number" placeholder="Contact Number" disabled>
         </div>
       </div>
       
@@ -99,7 +98,7 @@
           <div class="table-responsive rounded">
             <table class="table overflow-auto table-hover table-hover table-bordered">
               <thead>
-                <tr class="bg-secondary bg-linear-gradien, text-light">
+                <tr class="text-light" style="background-color: #243b31">
                   <th class="text-center">Ingredient</th>
                   <th class="text-center">Quantity</th>
                   <th class="text-center">Unit</th>
@@ -152,10 +151,10 @@
 
       </div>
 
-              <h5 class="float-end my-2">Total: ₱600.00</h5>
+              <h4 class="float-end m-2">Total: ₱600.00</h4>
 
-              <button type="button" class="btn  btn-secondary" ><i class="far fa-print"></i> Download</button>
-<button type="button" class="btn btn-primary " ><i class="far fa-check"></i> Save</button>
+              <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="far fa-print"></i> Download</button>
+<button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-check"></i> Save</button>
 
 <!-- <button class="btn btn-primary" type="button">Button</button>
   <button class="btn btn-primary" type="button">Button</button> -->
