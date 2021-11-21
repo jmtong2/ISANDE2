@@ -1,0 +1,29 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+<title>Manager</title>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/f//">Order Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/f//">Menu</a>
+                </li>
+
+
+            </ul>
+            <form action="/f/contain/search" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
+                <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
+                <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
+                <!-- <a href="/f//" class="btn btn-outline-secondary"><strong>Settings</strong></a> -->
+                <a href="/f//" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+            </form>
+        </div>
+    </div>
+</nav>

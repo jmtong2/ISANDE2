@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css"
+    />
+    <title>Orders</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+          <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+              <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="">Orders</a>
+                  </li>
+              </ul>
+              <form action="/f/contain/search" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
+                  <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
+                  <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
+                  <!-- <a href="/f//" class="btn btn-outline-primary"><strong>Add</strong></a> -->
+                  <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+              </form>
+          </div>
+          <hr>
+      </div>
+      <hr>
+  </nav>
+    <!-- sidebar -->
+    <div class="row p-3 bg-light vw-100">
+      <!-- Left Column Orders -->
+      <div class="col-sm-8">
+        <div class="card pb-3 mb-3 border-3 " style="border-bottom-color: #0d6efd">
+          <div class="card-body rounded " style="height: 9vh">
+            <h3 class="text-secondary">Order</h3>
+          </div>
+        </div>
+
+        <div class="row row-cols-md-3 g-2">
+          <div class="col">
+            <div
+              class="card rounded"
+              onclick="orderAdd('Spaghetti', 100); this.onclick=null;"
+            >
+              <div class="card-body">
+                <h5 class="card-title text-center">Spaghetti</h5>
+                <p class="card-text fw-bold text-center">₱100</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              class="card rounded"
+              onclick="orderAdd('Lumpia', 120); this.onclick=null;"
+            >
+              <div class="card-body">
+                <h5 class="card-title text-center">Lumpia</h5>
+                <p class="card-text fw-bold text-center">₱120</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              class="card rounded"
+              onclick="orderAdd('Fried Chicken', 130); this.onclick=null;"
+            >
+              <div class="card-body">
+                <h5 class="card-title text-center">Fried Chicken</h5>
+                <p class="card-text fw-bold text-center">₱130</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div
+              class="card rounded"
+              onclick="orderAdd('Palabok', 140); this.onclick=null;"
+            >
+              <div class="card-body">
+                <h5 class="card-title text-center">Palabok</h5>
+                <p class="card-text fw-bold text-center">₱140</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column Cart -->
+      <div class="col-sm-4">
+        <div class="card overflow-auto" style="height: 60vh">
+          <div class="card-body rounded">
+            <h3>Cart</h3>
+            <hr />
+            <ul id="order-list row" class="list-unstyled">
+              
+              <li class="row">
+                <div class="col-5">
+                  <div class="fs-6">Palabok</div>
+
+                </div>
+                <div class="col-5">
+                  <div class="fs-5 text-primary">₱100</div>
+                </div>
+                <div class="fs-4 col">
+                  <i class="fa-regular fa-trash-xmark"></i>
+                </div>
+                <hr />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body rounded" style="height: 9vh">
+            <div class="total-amount fs-5 row">
+              <span class="col fw-bold">Total Amount:</span>
+              <span class="col text-end fw-bolder">₱XXX.XX</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body rounded" style="height: 9vh">
+            <div class="payment fs-5 row">
+              <span class="col fw-bold">Payment:</span>
+              <span class="col"
+                ><input type="number" min="0" class="form-control-sm mb-4"
+              /></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body rounded">
+            <button class="w-100 btn btn-lg bg-primary text-light">
+              Receive Purchase
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+
+      let orderAdd = (menuItemName, menuItemPrice) => {
+
+        let orderList = document.getElementById('order-list');
+          // Create li tag
+          let orderItem = document.createElement('li');
+          orderItem.className = 'row';
+          let namePriceDiv = document.createElement('div');
+          namePriceDiv.className = 'col-5';
+
+          let nameDiv = document.createElement('div');
+          nameDiv.className = 'fs-6';
+          let nameText = document.createTextNode(menuItemName);
+          nameDiv.appendChild(nameText);
+
+          let priceDiv = document.createElement('div');
+          priceDiv.className = 'fs-5 text-primary';
+          priceText = document.createTextNode('₱'+ menuItemPrice);
+          priceDiv.appendChild(priceText);
+
+          namePriceDiv.appendChild(nameDiv);
+          namePriceDiv.appendChild(priceDiv);
+          orderItem.appendChild(namePriceDiv);
+
+          let inputDiv = document.createElement('div');
+          inputDiv.className = 'col-5';
+          let input = document.createElement('input');
+          input.setAttribute('type', 'number');
+          input.className = 'col-4';
+          orderItem.appendChild(input);
+
+          let removeItem = document.createElement('div');
+          inputDiv.className = 'fs-4 col';
+          let
+
+
+          // Create span for price color
+          let orderItemPriceSpan = document.createElement('span');
+          // Adjust price color to red
+          orderItemPriceSpan.className = 'text-danger';
+          // Create text node with menuItemName and menuItemPrice
+          let orderItemName = document.createTextNode(menuItemName);
+          let orderItemPrice = document.createTextNode('₱'+ menuItemPrice);
+          orderItemPriceSpan.appendChild(orderItemPrice);
+          // Attach text to li
+          orderItem.appendChild(orderItemName);
+          orderItem.appendChild(orderItemPriceSpan);
+          // Atach LI to parent id=order-list
+          orderItem.className = 'border-bottom border-5 border-light py-3';
+          // Create user input for quantity
+          let quantity = document.createElement('input');
+          quantity.setAttribute('type', 'number');
+          quantity.className = 'quantity-input';
+          orderList.appendChild(quantity);
+          orderList.appendChild(orderItem);
+
+
+
+        };
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

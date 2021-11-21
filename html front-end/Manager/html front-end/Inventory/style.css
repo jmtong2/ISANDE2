@@ -1,0 +1,23 @@
+.clickable-row:hover {
+    background-color:#e7e7e7;
+    border-left: 2px solid #e7e7e7;
+    border-right: 2px solid #e7e7e7;
+    cursor:pointer;
+    }
+
+.table th{
+        text-align: center;   
+     }
+
+.table td{
+    text-align: center; 
+}
+
+.manualcount-input {
+    background-color: #e7e7e7;
+    width:70px;
+    height: 25px;
+}
+
+
+
