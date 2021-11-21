@@ -20,34 +20,34 @@
 
   <title>Purchasing</title>
   
-  <!-- NavBar -->
-<nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-      <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-          <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inventoryMovement.html">Movement</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
-                </li>
-          </ul>
-          <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
-      </div>
-  </div>
-</nav>
+ <!-- Navbar -->
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="navbarlogo.png" style="width: 100px; height: 50px; object-fit: contain" alt="LOGO"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="inventory.html">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryMovement.html">Movement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="inventoryShrinkage.html">Shrinkage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryPurchaseOrders.html">Purchase Orders</a>
+                    </li>
+                </ul>
+                 <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
+            </div>
+        </div>
+    </nav>
 
-<!-- End of Navbar -->
+<!-- End of navbar -->
 
   <div class="p-3" style="height: 87vh; background-color: #E6E6DE">
     <div class="card">
@@ -61,9 +61,9 @@
   <div class="row">
     <label for="exampleInputEmail1" style="width: 100px" class="form-label mt-2">Ingredient</label>
     <select
-    id="purchasedIngredient"
+    id="ingredient"
     class="form-select "
-    name="purchasedIngredient"
+    name="ingredient"
     required
     style="width: 200px"
     >
@@ -76,7 +76,26 @@
   <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-2">Quantity</label>
   <input type="number" class=" form-control" style="width: 80px" min="0" name="qty" id="qty">
 
-   <button type="button" class="text-light btn col-1 ms-3 col-2" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i> Shrinkage</button>
+  <label for="exampleInputEmail1" style="width: 100px" class="form-label mt-2">Reason</label>
+    <select
+    id="reason"
+    class="form-select "
+    name="reason"
+    required
+    style="width: 200px"
+    >
+    <option selected>Choose...</option>
+    {{#each purchasedIngredients}}
+    <option  value="{{{purchasedIngredientName}}}">{{purchasedIngredientName}}</option>
+    {{/each}}
+  </select>
+
+  <div class="my-3 col-6 d-flex">
+   <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-2">Remarks</label>
+  <textarea class="form-control ms-3" id="exampleFormControlTextarea1" rows="1"></textarea>
+</div>
+
+   <button type="button" class="text-light btn col-2 my-3" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i> Shrinkage</button>
 
 </div>
 </form>
@@ -87,22 +106,42 @@
 
 <div class="col-md-12 mt-3">
   <div class="card">
-    <div class="card-body overflow-auto rounded" style="height: 50vh">
+    <div class="card-body overflow-auto rounded" style="height: 40vh">
       <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-hover">
+        <table class="table overflow-auto table-hover table-bordered table-hover">
           <thead>
             <tr class="text-light" style="background-color: #243b31">
               <th class="text-center">Name</th>
               <th class="text-center">Quantity</th>
               <th class="text-center">Quantity per Stock</th>
               <th class="text-center">Reason</th>
-              <th class="text-center"></th>
-
-              <th></th>
+              <th class="text-center">Remarks</th>
             </tr>
           </thead>
           <tbody id="purchasedTable">
+            <tr>
+                <td class="text-center">Milk</td>
+                <td class="text-end">5</td>
+                <td class="text-center">10 g</td>
+                <td class="text-center">Spoilage</td>
+                <td class="text-center col-4">It was left open for quite some time.</td>
+              </tr>
 
+              <tr>
+                <td class="text-center">Milk</td>
+                <td class="text-end">5</td>
+                <td class="text-center">10 g</td>
+                <td class="text-center">Spoilage</td>
+                <td class="text-center col-4">It was left open for quite some time.</td>
+              </tr>
+
+              <tr>
+                <td class="text-center">Milk</td>
+                <td class="text-end">5</td>
+                <td class="text-center">10 g</td>
+                <td class="text-center">Spoilage</td>
+                <td class="text-center col-4">It was left open for quite some time.</td>
+              </tr>
           </tbody>
         </table>
 

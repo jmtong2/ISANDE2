@@ -19,36 +19,34 @@
 
   <title>Receive Purchase Order</title>
   
-  <!-- Start of navbar -->
+<!-- Navbar -->
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="navbarlogo.png" style="width: 100px; height: 50px; object-fit: contain" alt="LOGO"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="inventory.html">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryMovement.html">Movement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="inventoryPurchaseOrders.html">Purchase Orders</a>
+                    </li>
+                </ul>
+                 <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
+            </div>
+        </div>
+    </nav>
 
-  <!-- NavBar/Sidebar  -->
-  <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="inventoryMovement.html">Movement</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="purchaseOrders.html">Purchase Orders</a>
-          </li>
-        </ul>
-        <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- End of navbar -->
+<!-- End of navbar -->
 
   <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
     <div class="card mb-2">
@@ -62,19 +60,19 @@
     <section class="supplierInfo">
       <div class="row">
         <div class="col my-1">
-          <!-- <label for="supplierName" class="form-label">Supplier Name</label> -->
+          <label for="supplierName" class="form-label">Supplier Name</label>
           <input class="form-control" id="disabledInput" type="text" placeholder="Supplier Name" disabled>
         </div>
-        <div class="col-4"></div>
+        
         <div class="col-md-auto my-1">
-          <!-- <label for="contactNumber" class="form-label">Contact Number</label> -->
+          <label for="contactNumber" class="form-label">Contact Number</label>
           <input class="form-control" id="disabledInput" type="number" placeholder="09277022688" disabled>
         </div>
 
-        <!-- <div class="col"></div> -->
+        <div class="col-4"></div>
       </div>
       
-      <!-- <label for="address" class="form-label">Address</label> -->
+      <label for="address" class="form-label">Address</label>
       <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
     </section>
 
@@ -82,7 +80,7 @@
 
     <div class="col-md-12 my-3">
       <div class="card my-2">
-        <div class="card-body overflow-auto rounded" style="height: 45vh">
+        <div class="card-body overflow-auto rounded" style="height: 35vh">
 
 
           <div class="table-responsive rounded">
@@ -208,7 +206,9 @@
                   <h4 class="float-end m-2">Total: ₱600.00</h4>
 
                   <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="fas fa-long-arrow-left"></i> Back</button>
-                  <button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-plus-circle"></i> Receive</button>
+                  <a href="">
+                    
+                  </a><button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-plus-circle"></i> Receive</button>
 
 <!-- <button class="btn btn-primary" type="button">Button</button>
   <button class="btn btn-primary" type="button">Button</button> -->
