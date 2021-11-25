@@ -29,9 +29,9 @@
                       <a class="nav-link active" aria-current="page" href="">Orders</a>
                   </li>
               </ul>
-              <form action="/f/contain/search" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
+              <!-- <form action="/f/contain/search" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
                   <input class="form-control me-2" name="search" type="search" placeholder="Search Item" aria-label="Search">
-                  <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
+                  <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button> -->
                   <!-- style="color: #7f7c76" -->
                   <!-- <a href="/f//" class="btn btn-outline-primary"><strong>Add</strong></a> -->
                   <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
@@ -52,34 +52,103 @@
               <h3 class="text-secondary mb-3">Orders</h3>
             </div>
 
-            <!-- The drop downs and textbox from shrinkage -->
-            <form class="col">
-              <div class="row">
-                <label for="exampleInputEmail1" style="width: 100px" class="form-label mt-2">Menu Item</label>
-                <select
-                id="MenuItem"
-                class="form-select"
-                name="MenuItem"
-                required
-                style="width: 200px"
-                >
-                <option selected>Menu Item</option>
-                {{#each menuItemName}}
-                <option  value="{{{menuItemName}}}">{{menuItemName}}</option>
-                {{/each}}
-              </select>
+        <!-- dropdowns same from shrinkage -->
+        <form class="col">
+          <div class="row">
+            <label for="exampleInputEmail1" style="width: 102px" class="form- mt-3">Menu Item</label>
+            <select
+            id="ingredient"
+            class="form-select mt-2"
+            name="ingredient"
+            required
+            style="width: 250px"
+            rows="1">
+            <option selected>Choose....</option>
+            {{#each menuItemName}}
+            <option  value="{{{menuItemName}}}">{{menuItemName}}</option>
+            {{/each}}
+          </select>
 
-              <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-2">Quantity</label>
-              <input type="number" class=" form-control" style="width: 80px" min="0" name="qty" id="qty">
+          <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-3">Quantity</label>
+          <input type="number" class="form-control mt-2" style="width: 80px" min="0" name="qty" id="qty">
 
-               <button type="button" class="text-light btn col-1 my-4" id="addMenuItem"  name="addMenuItem" value="addMenuItem" style="background-color: #7CA6A6"><i class="far fa-plus-square"></i></button>
-            </div>
-            </form>
+           <button type="button" class="text-light btn col-1 mt-2" id="shrinkage"  name="shrinkage" value="shrinkage" style="margin-left: 30px; background-color: #7CA6A6"><i class="far fa-plus-square"></i></button>
 
-            </div>
+          </div>
+        </form>
+
+          </div>
+        </div>
+
+      <!-- /dropdowns same from shrinkage -->
+
+      <!-- itemslist -->
+        <div class="col-md-12 mt-3">
+          <div class="card">
+            <div class="card-body overflow-auto rounded" style="height: 40vh">
+
+              <div class="table-responsive rounded">
+                <table class="table overflow-auto table-hover table-bordered">
+                  <thead>
+                    <tr class="text-light w-50" style="background-color: #243b31">
+                      <th class="text-center">Menu Item</th>
+                      <th class="text-center" style="width:35%">Menu Item Category</th>
+                      <th class="text-center" style="width:13%">Quantity Ordered</th>
+                      <th class="text-center" style="width:10%">Date</th>
+                      <th class="text-center"></th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="orderedTable">
+                    <tr>
+                        <td class="text-start">Spaghetti</td>
+                        <td class="text-center">Pasta</td>
+                        <td class="text-end">1</td>
+                        <td class="text-center">99/99/9999</td>
+                        <td class="text-center col-1">
+                           <button type="button" class="text-light btn" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i></button>
+                        </td>
+                      </tr>
+
+                      <tr>
+                          <td class="text-start">Lumpia</td>
+                          <td class="text-center">Meat</td>
+                          <td class="text-end">1</td>
+                          <td class="text-center">99/99/9999</td>
+                          <td class="text-center col-1">
+                             <button type="button" class="text-light btn" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i></button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-start">Fried Chicken</td>
+                            <td class="text-center">Poultry</td>
+                            <td class="text-end">1</td>
+                            <td class="text-center">99/99/9999</td>
+                            <td class="text-center col-1">
+                               <button type="button" class="text-light btn" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i></button>
+                            </td>
+                          </tr>
+
+                          <tr>
+                              <td class="text-start">Palabok</td>
+                              <td class="text-center">Pasta</td>
+                              <td class="text-end">1</td>
+                              <td class="text-center">99/99/9999</td>
+                              <td class="text-center col-1">
+                                 <button type="button" class="text-light btn" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #7CA6A6"><i class="far fa-minus-square"></i></button>
+                              </td>
+                            </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+
             </div>
 
           </div>
+          <input type="button"  class="mt-3 btn btn-success float-md-end" name="placedorder" id="placedorder" value="Place Order" style="background-color: #7CA6A6">
         </div>
 
         <!-- <div class="row row-cols-md-3 g-2">
