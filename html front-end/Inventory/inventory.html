@@ -22,7 +22,7 @@
     <title>Inventory</title>
     
 <!-- Navbar -->
-    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE">
         <div class="container-fluid">
             <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,167 +53,21 @@
 
 <!-- End of navbar -->
 
-    <div class="p-3" style="height: 87vh; background-color: #E6E6DE">
-        <div class="card">
-            <div class="card-body rounded row">
-                <h3 class="col text-secondary">Inventory</h3>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn col-2 me-3"  style="background-color: #7CA6A6"data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Add Ingredient
-                </button>
+    
+   <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+    <div class="card px-3 shadow" style="background-color: #CC985A">
+      <div class="card-body rounded row" >
+          <h3 class=" col text-light">Inventory</h3>
+        
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                ...
-                                <section>
-                                    <div class="card position-absolute top-10 start-50 translate-middle" style="width: 100vh">
-                                        <div style="background-color:#F8F5F1;">
-                                            <form class="m-4 pb-5">
-                                                <header class="pb-3">
-                                                    <h3>Add Ingredient</h3>
-                                                </header>
-
-                                                <section>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text col-4 bg-success text-light" id="basic-addon3">Ingredient Name</span
-                                                        >
-                                                        <input 
-                                                        type="text"
-                                                        class="form-control"
-                                                        id="purchased-ingredient-name"
-                                                        aria-describedby="basic-addon3"
-                                                        />
-                                                    </div>
-
-
-                                                    <div class="input-group mb-3">
-                                                      <span
-                                                      class="input-group-text col-4 bg-success text-light"
-                                                      id="basic-addon3"
-                                                      >Unit Of Measurement</span
-                                                      >
-                                                      <select
-                                                      class="form-select"
-                                                      id="inputGroupSelect01"
-                                                      >
-                                                      <option selected>Choose...</option>
-                                                      <option value="ml">ml</option>
-                                                      <option value="l">l</option>
-                                                      <option value="cup">cup</option>
-                                                  </select>
-                                                  <button type="button" class="btn btn-info text-light rounded ms-3 float-end" data-bs-dismiss="modal">Add UOM</button>  
-                                              </div>
-
-                                              <div class="input-group mb-3">
-                                                  <span
-                                                  class="input-group-text col-4 bg-success text-light"
-                                                  id="basic-addon3"
-                                                  >Reorder Point</span
-                                                  >
-                                                  <input
-                                                  type="number"
-                                                  min="0"
-                                                  class="form-control"
-                                                  id="purchased-quantity-per-stock"
-                                                  aria-describedby="basic-addon3"
-                                                  />
-                                              </div>
-
-                                              <div class="float-end">
-                                                  <a href="inventory.html">
-                                                    <button
-                                                    type="submit"
-                                                    class="btn btn-secondary me-3"
-                                                    >
-                                                    Cancel
-                                                </button>
-                                            </a>
-                                            <button type="submit" class="d-inline float-end btn btn-m text-light"   style="background-color: #7CA6A6">
-                                                Save
-                                            </button>
-                                        </div>
-                                    </section>
-                                </form>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Modal -->
-                    <div
-                    class="modal fade " 
-                    id="uomModal"
-                    tabindex="-1"
-                    aria-labelledby="uomModalLabel"
-                    aria-hidden="true"
-                    >
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="uomModalLabel">
-                            Add Unit of Measurement
-                        </h5>
-                        <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="input-group mb-3">
-                        <span
-                        class="input-group-text col-2 bg-info"
-                        id="basic-addon3"
-                        >UOM</span
-                        >
-                        <input
-                        type="text"
-                        class="form-control"
-                        id="purchased-system-ingredient"
-                        aria-describedby="basic-addon3"
-                        />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal">
-                  Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-            </button>
-        </div>
-    </div>
-</div>
-</div>
-
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <button type="button" class="btn btn-primary">Save changes</button>
-</div>
-</div>
-</div>
-</div>
+               
 
 </div>
 </div>
-
-<div class="row"></div>
 
 <div class="col-md-12 mt-3">
     <div class="card">
-        <div class="card-body overflow-auto rounded" style="height: 65vh">
+        <div class="card-body overflow-auto rounded shadow" style="height: 67vh; background-color: #7CA6A6">
 
             <div class="table-responsive rounded">
                 <table class="table overflow-auto table-bordered" >

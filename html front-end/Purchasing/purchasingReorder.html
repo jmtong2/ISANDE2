@@ -22,44 +22,45 @@
   
     <!-- Start of navbar -->
 
-  <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE;" >
     <div class="container-fluid">
       <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a class="nav-link active" href="purchasingReorder.html">Reorder</a>
+            <a class="nav-link active " href="purchasingReorder.html">Reorder</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link  "  href="purchasingInventory.html">Inventory</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="purchasingOrders.html">Purchase Orders</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="purchasingInventory.html">Inventory</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="purchasingOrders.html">Purchase Orders</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="purchasingSuppliers.html">Suppliers</a>
+            <a class="nav-link " href="purchasingSuppliers.html">Suppliers</a>
           </li>
         </ul>
-        <a href="/f//" class="btn btn-outline-secondary float-end"><strong>Logout</strong></a>
+        <a href="/f//" class="btn btn-outline-secondary me-1 float-end"><strong>Logout</strong></a>
       </div>
     </div>
+
   </nav>
 
   <!-- End of navbar -->
 
   <div class=" p-3" style="height: 87vh; background-color: #E6E6DE ">
     <div class="card">
-      <div class="card-body rounded ">
+      <div class="card-body rounded shadow" style="background-color: #CC985A">
         <div class="d-flex justify-content-between">
-          <h3 class="text-secondary">Reorder</h3>
+          <h3 class="text-light">Reorder</h3>
           <!-- Button trigger modal -->
           <span class="createPurchasedIngredient text-end fs-6 pt-1">
            <!-- Button trigger modal -->
            <a href="purchasingOrderInput.html">
-             <button type="button" class="btn" style="background-color: #7CA6A6">
+             <button type="button" class="btn text-light" style="background-color: #DD620E ">
               <i class="far fa-shopping-cart"></i>
               Order
                        </button>
@@ -76,11 +77,11 @@
 
 <div class="col-md-12 mt-3">
   <div class="card">
-    <div class="card-body overflow-auto rounded" style="height: 65vh">
+    <div class="card-body overflow-auto rounded shadow" style="height: 65vh; background-color: #7CA6A6">
 
 
-      <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-hover table-bordered">
+      <div class="table-responsive rounded" >
+        <table class="table overflow-auto table-hover table-hover table-bordered" >
           <thead>
                                     <tr class="text-light" style="background-color: #243b31">
                                         <th class="text-center">Ingredient</th>
