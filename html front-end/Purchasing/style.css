@@ -1,0 +1,39 @@
+.clickable-row:hover {
+    background-color:#e7e7e7;
+    border-left: 2px solid #e7e7e7;
+    border-right: 2px solid #e7e7e7;
+    cursor:pointer;
+    }
+
+.table th{
+        text-align: center;   
+     }
+
+.table td{
+    text-align: center; 
+}
+
+.manualcount-input {
+    background-color: #e7e7e7;
+    width:70px;
+    height: 25px;
+}
+
+.button {
+    background-color: #7CA6A6;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+  }
+
+  .w3-container {
+    background-color: #7CA6A6;
+  }
+
