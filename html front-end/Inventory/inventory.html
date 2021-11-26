@@ -24,12 +24,15 @@
 <!-- Navbar -->
     <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand"><img src="navbarlogo.png" style="width: 100px; height: 50px; object-fit: contain" alt="LOGO"></a>
+            <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="inventoryDashboard.html">Home</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="inventory.html">Inventory</a>
                     </li>
@@ -80,7 +83,7 @@
 
                                                 <section>
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text col-4 bg-info" id="basic-addon3">Ingredient Name</span
+                                                        <span class="input-group-text col-4 bg-success text-light" id="basic-addon3">Ingredient Name</span
                                                         >
                                                         <input 
                                                         type="text"
@@ -93,7 +96,7 @@
 
                                                     <div class="input-group mb-3">
                                                       <span
-                                                      class="input-group-text col-4 bg-info"
+                                                      class="input-group-text col-4 bg-success text-light"
                                                       id="basic-addon3"
                                                       >Unit Of Measurement</span
                                                       >
@@ -106,12 +109,12 @@
                                                       <option value="l">l</option>
                                                       <option value="cup">cup</option>
                                                   </select>
-                                                  
+                                                  <button type="button" class="btn btn-info text-light rounded ms-3 float-end" data-bs-dismiss="modal">Add UOM</button>  
                                               </div>
 
                                               <div class="input-group mb-3">
                                                   <span
-                                                  class="input-group-text col-4 bg-info"
+                                                  class="input-group-text col-4 bg-success text-light"
                                                   id="basic-addon3"
                                                   >Reorder Point</span
                                                   >
@@ -133,7 +136,7 @@
                                                     Cancel
                                                 </button>
                                             </a>
-                                            <button type="submit" class="d-inline float-end btn btn-m bg-info">
+                                            <button type="submit" class="d-inline float-end btn btn-m text-light"   style="background-color: #7CA6A6">
                                                 Save
                                             </button>
                                         </div>
@@ -244,7 +247,7 @@
                             <td class="text-end">100</td>
                             <td class="text-end">250</td>
                             <td style="text-align:center;">
-                              <button type="button" class="btn btn-warning">High</button>
+                              <button type="button" class="btn btn-primary">Medium</button>
                           </td>
                   </tr>
 
@@ -255,7 +258,7 @@
                             <td class="text-end">100</td>
                             <td class="text-end">250</td>
                             <td style="text-align:center;">
-                              <button type="button" class="btn btn-warning">High</button>
+                              <button type="button" class="btn btn-info">Low</button>
                           </td>
               </tr>
 

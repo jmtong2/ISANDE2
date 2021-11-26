@@ -16,71 +16,112 @@
 
 <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
+        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
+                    <a class="nav-link active" href="managerMenu.html">Menu</a>
+                   
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="managerMenu.html">Menu</a>
+                     <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
                 </li>
 
 
             </ul>
-            <form action="/f/contain/search" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
-                <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
-                <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
-                <!-- <a href="/f//" class="btn btn-outline-secondary"><strong>Settings</strong></a> -->
-                <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
-            </form>
+            <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
         </div>
     </div>
 </nav>
 
 <body>
 
-    <div class="bg-light mx-0 py-3  vh-100">
+    <div class="p-2" style="height: 87vh; background-color: #E6E6DE">
         <div class="p-3">
             <section>
-                <div class="card pb-1 mb-3 border-3 " style="border-bottom-color: #0d6efd">
-                    <div class="card-body rounded text-right row">
-                        <span class="col">
-                     <h3 class="text-secondary">Menu</h3>
-                   </span>
-                        <span class="createPurchasedIngredient text-end col fs-6 pt-1">
-                     <a href="managerAddMenuItem.html">
-                       <button class=" btn btn-m bg-info">
-                         <i class="fa-solid fa-circle-plus"></i>
-                        Add Menu Item
-                       </button>
-                     </a>
-                   </span>
+                <div class="card pb- mb-3 ">
+                    <div class="card-body rounded" style="background-color: #7CA6A6">
+                     <h3 class="text-light text-center">Menu Item Categories</h3>
+
+                      
                     </div>
                 </div>
             </section>
 
 
             <section class="menu">
-                <div class="row row-cols-md-4 g-4">
+                <div class="row row-cols-md-4 g-1">
                     <div class="col">
-                        <div class="card rounded" onclick="orderAdd('Hamburger'); this.onclick=null;">
+                        <div class="card rounded text-light"style="background-color: #243b31" onclick="orderAdd('Hamburger'); this.onclick=null;">
 
                             <div class="card-body">
-                                <h5 class="card-title text-center">Hamburger</h5>
-                                <p class="card-text text-center">₱180</p>
+                                <h5 class="card-title text-center">All</h5>
+
                             </div>
                         </div>
                     </div>
 
                     <div class="col">
+                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Garlic Chicken'); this.onclick=null;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Coffee</h5>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Tea</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Blended</h5>
+
+                            </div>
+                        </div>
+                    </div>
+
+                 
+
+
+                </div>
+        </div>
+        </section>
+
+        <section>
+                     <h3 class="text-secondary text-center">Menu Items</h3>
+                    <hr>
+            </section>
+
+
+            <section class="menu">
+                <div class="row row-cols-md-3 g-4 px-5">
+                    <div class="col">
+                        <a href="managerMenuItemDetailed.html" style="text-decoration: none">
+                            <div class="card text-dark rounded" onclick="orderAdd('Hamburger'); this.onclick=null;">
+                            
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">Matcha Latte</h5>
+                            
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
                         <div class="card rounded" onclick="orderAdd('Garlic Chicken'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Garlic Chicken</h5>
-                                <p class="card-text text-center">₱260</p>
+                                <h5 class="card-title text-center">Chai Tea Latte</h5>
+
                             </div>
                         </div>
                     </div>
@@ -88,8 +129,8 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Mushroom Soup</h5>
-                                <p class="card-text text-center">₱90</p>
+                                <h5 class="card-title text-center">Caramel Frappe</h5>
+
                             </div>
                         </div>
                     </div>
@@ -97,8 +138,8 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Shrimp Pesto'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Shrimp Pesto</h5>
-                                <p class="card-text text-center">₱230</p>
+                                <h5 class="card-title text-center">Capuccino</h5>
+
                             </div>
                         </div>
                     </div>
@@ -106,8 +147,8 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Roast Salmon'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Roast Salmon</h5>
-                                <p class="card-text text-center">₱450</p>
+                                <h5 class="card-title text-center">Espresso</h5>
+           
                             </div>
                         </div>
                     </div>
@@ -115,16 +156,21 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Tuna Sandwich'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Tuna Sandwich</h5>
-                                <p class="card-text text-center">₱200</p>
+                                <h5 class="card-title text-center">Matcha Cream</h5>
+                         
                             </div>
                         </div>
                     </div>
 
 
                 </div>
+                <a href="managerAddMenuItem.html"><button type="button" class="text-light btn  mt-4 mx-5 float-end btn-success" id="addMenuItem"  name="" value="" ><i class="far fal fa-plus-square"></i> Add Menu Item</button></a>
         </div>
+
+
         </section>
+
+
 
 
 
