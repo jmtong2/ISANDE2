@@ -63,11 +63,11 @@
             required
             style="width: 250px"
             rows="1">
-            <option selected>Choose....</option>
-            {{#each menuItemName}}
-            <option  value="{{{menuItemName}}}">{{menuItemName}}</option>
-            {{/each}}
-          </select>
+              <option selected>Choose....</option>
+              {{#each menuItemName}}
+              <option  value="{{{menuItemName}}}">{{menuItemName}}</option>
+              {{/each}}
+            </select>
 
           <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-3">Quantity</label>
           <input type="number" class="form-control mt-2" style="width: 80px" min="0" name="qty" id="qty">
