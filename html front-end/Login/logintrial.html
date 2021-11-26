@@ -21,13 +21,21 @@
 		    <input type='checkbox'class='check-box'><span>Remember Password</span>
 		    <button type='submit'class='submit-btn'>Log in</button>
 		 </form>
+
 		 <form id='register' class='input-group-register'>
 		     <input type='text'class='input-field'placeholder='First Name' required>
 		     <input type='text'class='input-field'placeholder='Last Name ' required>
-		     <input type='email'class='input-field'placeholder='Email Id' required>
-		     <input type='password'class='input-field'placeholder='Enter Password' required>
-		     <input type='password'class='input-field'placeholder='Confirm Password'  required>
-		     <input type='checkbox'class='check-box'><span>I agree to the terms and conditions</span>
+         <input type='email'class='input-field'placeholder='Email' required>
+		     <input type='password'class='input-field'placeholder='Password'  required>
+         <select class="select" type='typeofuser'placeholder='Types of User' required>
+           <option selected>Type of User</option>
+           <option  value="userfom">Front Office Manager</option>
+           <option  value="userim">Inventory Manager</option>
+           <option  value="userpm">Purchasing Manager</option>
+           <option  value="userfoc}">Front Office Cashier</option>
+         </select>
+
+		     <input type='checkbox'class='check-box' style="margin-top: 75px;"><span>I agree to the terms and conditions</span>
                     <button type='submit'class='submit-btn'>Register</button>
 	         </form>
             </div>

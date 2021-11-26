@@ -78,6 +78,24 @@ width:280px;
 transition:.5s;
 }
 
+ .select{
+ top: 100px;
+ position:absolute;
+ width:280px;
+ transition:.5s;
+ width: 100%;
+ padding: 1px 0;
+ margin-top: 108px;
+ border-left:0;
+ border-top:0;
+ border-right:0;
+ border-bottom: 1px solid #999;
+ color: #75758B;
+ font-family: 'Montserrat';
+ outline:none;
+ background: transparent;
+ }
+
 .input-field
 {
 width: 100%;
