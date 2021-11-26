@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Inventory Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -24,7 +23,8 @@
 </head>
 
     <title>Inventory</title>
-
+   
+<!-- Navbar -->
     <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
@@ -33,7 +33,7 @@
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
-                   <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="inventoryDashboard.html">Home</a>
                     </li>
                     <li class="nav-item">
@@ -48,12 +48,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="inventoryPurchaseOrders.html">Purchase Orders</a>
                     </li>
-
                 </ul>
-                <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+                 <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
             </div>
         </div>
     </nav>
+
+<!-- End of navbar -->
 
 <!-- Header -->
 
@@ -66,7 +67,7 @@
                 <h2 class="col text-secondary">Hi! Welcome Inventory Manager, Janine Santos!</h2>
                 <div class="w3-padding-32">
                     <img src="https://tse1.mm.bing.net/th?id=OIP.FT22CDuUKwNxduQ5CxfMGAHaHa&pid=Api&P=0&w=153&h=153.jpg" alt="Lamp" width="250" height="250"><br><br><br>
-                    <a href="inventory.html"><button class="button">Check the Inventory</button></a>
+                    <a href="inventory.html"><button class="btn btn-success">Check the Inventory</button></a>
                   </div>
 
         <div class="col-md-12 mt-3">
@@ -75,7 +76,7 @@
                             <h3 class="col text-secondary">INVENTORY SUMMARY</h3><br>
                              <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
-      <div class= "w3-container w3-teal w3-padding-16">
+      <div class= "w3-container w3-lime w3-padding-16">
         <div class="w3-left"><i class="fa fa-exclamation w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>XX</h3>
@@ -101,7 +102,7 @@
     </div>
 
     <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-padding-16">
+      <div class="w3-container w3-green w3-padding-16">
         <div class="w3-left"><i class="fa fa-edit w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>XX</h3>
@@ -111,7 +112,7 @@
       </div>
     </div>
     <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-text-white w3-padding-16">
+      <div class="w3-container w3-cyan w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-compress w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>XX</h3>
@@ -126,3 +127,4 @@
 </div>
 </center>
   </body>
+  
