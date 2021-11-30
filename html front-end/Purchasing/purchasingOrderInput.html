@@ -19,7 +19,7 @@
 
   <title>Purchase Order</title>
   
- <!-- Start of navbar -->
+  <!-- Start of navbar -->
 
   <nav class="navbar border-bottom navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE">
     <div class="container-fluid">
@@ -49,7 +49,7 @@
 
   <!-- End of navbar -->
 
-  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+  <div class=" p-3" style="background-color: #E6E6DE">
     <div class="card mb-2">
       <div class="card-body rounded shadow" style="background-color: #CC985A">
         <div class="d-flex justify-content-between">
@@ -62,126 +62,162 @@
       <div class="row">
         <div class="col my-1">
           <label for="supplierName" class="form-label">Supplier Name</label>
-           <select
-                        class="form-select"
-                        id="inputGroupSelect01"
-                        name="supplierName"
-                        required
-                        >
-                        <option selected>Choose supplier</option>
-                        <!-- {{#each ingredients}} -->
-                        <option value="{{{ingredientName}}}">{{ingredientName}}</option>
-                        <!-- {{/each}} -->
-                      </select>
-        </div>
-        <div class="col-md-auto my-1">
-          <label for="contactNumber" class="form-label">Contact Number</label>
-          <input class="form-control" id="disabledInput" type="number" placeholder="09277777777" disabled>
-        </div>
-                <div class="col-4"></div>
+          <select
+          class="form-select"
+          id="inputGroupSelect01"
+          name="supplierName"
+          required
+          >
+          <option selected>Choose supplier</option>
+          <!-- {{#each ingredients}} -->
+          <option value="{{{ingredientName}}}">{{ingredientName}}</option>
+          <!-- {{/each}} -->
+        </select>
       </div>
-      
-      <label for="address" class="form-label">Address</label>
-      <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
-    </section>
+      <div class="col-md-auto my-1">
+        <label for="contactNumber" class="form-label">Contact Number</label>
+        <input class="form-control" id="disabledInput" type="number" placeholder="09277777777" disabled>
+      </div>
+      <div class="col-4"></div>
+    </div>
+
+    <label for="address" class="form-label">Address</label>
+    <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
+  </section>
 
 
 
-    <div class="col-md-12 my-3">
-      <div class="card my-2">
-        <div class="card-body overflow-auto rounded shadow" style="height: 35vh; background-color: #7CA6A6">
+  <div class="col-md-12 my-3">
+    <div class="card my-2">
+      <div class="card-body overflow-auto  border rounded shadow-lg bg-light" style="height: 40vh">
 
 
-          <div class="table-responsive rounded">
-            <table class="table overflow-auto table-hover table-hover table-bordered">
-              <thead>
-                <tr class="text-light" style="background-color: #243b31">
-                  <th class="text-center">Ingredient</th>
-                  <th class="text-center">Quantity</th>
-                  <th class="text-center">Unit</th>
-                  <th class="text-center">Unit Price</th>
-                  <th class="text-center">Amount</th>
-                </tr>
-              </thead>
-              <tbody id="purchasedTable">
-                <tr>
-                  <td class="text-start">Cheese</td>
-                  <td class="text-end">50</td>
-                  <td class="text-center">g</td>
-                  <td class="text-end">₱100</td>
-                  <td class="text-end">₱150</td>
-                </tr>
+        <div class="table-responsive rounded">
+          <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
+            <thead>
+              <tr class="text-light align-top" style="background-color: #7CA6A6">
+                <th class="text-center">Ingredient</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Unit</th>
+                <th class="text-center">Unit Price</th>
+                <th class="text-center">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="purchasedTable">
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
 
-                <tr>
-                  <td class="text-start">Cheese</td>
-                  <td class="text-end">50</td>
-                  <td class="text-center">g</td>
-                  <td class="text-end">₱100</td>
-                  <td class="text-end">₱150</td>
-                </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
 
-                <tr>
-                  <td class="text-start">Cheese</td>
-                  <td class="text-end">50</td>
-                  <td class="text-center">g</td>
-                  <td class="text-end">₱100</td>
-                  <td class="text-end">₱150</td>
-                </tr>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
 
-                <tr>
-                  <td class="text-start">Cheese</td>
-                  <td class="text-end">50</td>
-                  <td class="text-center">g</td>
-                  <td class="text-end">₱100</td>
-                  <td class="text-end">₱150</td>
-                </tr>
-              </tbody>
-            </table>
+              <tr>
+                <td class="text-start">Cheese</td>
+                <td class="text-end">50</td>
+                <td class="text-center">g</td>
+                <td class="text-end">₱100</td>
+                <td class="text-end">₱150</td>
+              </tr>
+            </tbody>
+          </table>
 
-          </div>
+        </div>
 
-          <div class="d-grid gap-2 d-md-block">
-  
-</div>
+        <div class="d-grid gap-2 d-md-block">
 
         </div>
 
       </div>
 
-              <h4 class="float-end m-2">Total: ₱600.00</h4>
+    </div>
 
-              <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="far fa-print"></i> Download</button>
-<button type="button" class="btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save</button>
+    <div class="mt-2">
+      <h4 class="float-end m-2">Total: ₱600.00</h4>
+      <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="far fa-print"></i> Download</button>
+      <button type="button" class="btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save</button>
+    </div>
 
 <!-- <button class="btn btn-primary" type="button">Button</button>
   <button class="btn btn-primary" type="button">Button</button> -->
-    </div>
+</div>
 
 
-    <script>
-      $(document).ready( () => {
+<script>
+  $(document).ready( () => {
 
-        var cart = [];
-        var purchasedQuantity = [];
-        var listIndex = [];
-        var index = 0;
-        if (cart.length === 0)
-          $('#done').prop('disabled', false);
+    var cart = [];
+    var purchasedQuantity = [];
+    var listIndex = [];
+    var index = 0;
+    if (cart.length === 0)
+      $('#done').prop('disabled', false);
 
-        $('#purchase').click( () => {
-          const purchasedIngredient = $('#purchasedIngredient').val();
-          const qty = $('#qty').val();
+    $('#purchase').click( () => {
+      const purchasedIngredient = $('#purchasedIngredient').val();
+      const qty = $('#qty').val();
 
 
-          if(purchasedIngredient == 'Choose...' || qty == ''){
-            alert('Please input all both the name and quantity!');
+      if(purchasedIngredient == 'Choose...' || qty == ''){
+        alert('Please input all both the name and quantity!');
 
-          }
-          else {
-            $.get("/listPurchased", {
-              purchasedIngredient: purchasedIngredient
-            },
-            purchasedIngredients => {
+      }
+      else {
+        $.get("/listPurchased", {
+          purchasedIngredient: purchasedIngredient
+        },
+        purchasedIngredients => {
 
            // $('#purchasedIngredient').val("Choose");
 
@@ -206,52 +242,52 @@
           index++;
         });
 
-            $(document).on("click", ".remove", function () {
-              const button_id = $(this).attr("id");
-              $(`#row` + button_id + ``).remove();
-              let i = button_id;
-              let num = listIndex.findIndex(item => item == i);
+        $(document).on("click", ".remove", function () {
+          const button_id = $(this).attr("id");
+          $(`#row` + button_id + ``).remove();
+          let i = button_id;
+          let num = listIndex.findIndex(item => item == i);
 
-              cart.splice(num, 1);
-              purchasedQuantity.splice(num, 1);
-              listIndex.splice(num,1);
+          cart.splice(num, 1);
+          purchasedQuantity.splice(num, 1);
+          listIndex.splice(num,1);
 
-            });
-
-          }
         });
 
-        $('#done').click( () => {
-          if (cart.length === 0) {
-            $('#done').prop('disabled', false);
-            alert('Add ingredients first!');
-          } else {
-           $.get("/makePurchasedOrder", {
-            cart: cart,
-            purchasedQuantity: purchasedQuantity
-          }, result => {
-            cart = [];
-            purchasedQuantity = [];
-            $("#purchasedTable").remove();
-            alert('Purchased Ingredients are added!');
-          });
+      }
+    });
 
-         }
-
-
-
-       });
-
-
+    $('#done').click( () => {
+      if (cart.length === 0) {
+        $('#done').prop('disabled', false);
+        alert('Add ingredients first!');
+      } else {
+       $.get("/makePurchasedOrder", {
+        cart: cart,
+        purchasedQuantity: purchasedQuantity
+      }, result => {
+        cart = [];
+        purchasedQuantity = [];
+        $("#purchasedTable").remove();
+        alert('Purchased Ingredients are added!');
       });
 
-
-
-    </script>
-
+     }
 
 
 
-  </body>
+   });
 
-  </html>
+
+  });
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

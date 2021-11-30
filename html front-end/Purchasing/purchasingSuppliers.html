@@ -5,15 +5,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
   <title>Suppliers</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  
 </head>
 
 <body>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  
 
   <title>Suppliers</title>
   <!-- Start of navbar -->
@@ -46,20 +45,18 @@
 
   <!-- End of navbar -->
 
-   <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+   <div class=" p-3" style="background-color: #E6E6DE ">
     <div class="card">
-      <div class="card-body rounded row shadow" style="background-color: #CC985A">
-          <h3 class=" col text-light">Suppliers</h3>
+      <div class="card-body rounded shadow" style="background-color: #CC985A">
+        <div class="d-flex justify-content-between">
+          <h3 class="text-light">Suppliers</h3>
           <!-- Button trigger modal -->
-          <span class=" col createPurchasedIngredient text-end fs-6 pt-1">
+          <span class="createPurchasedIngredient text-end fs-6 pt-1">
            <!-- Button trigger modal -->
-           <button type="button" class="btn text-light" style="background-color: #DD620E" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="fa-solid fa-circle-plus"></i>
-            Add Supplier
-          </button>
-        </span>
-     
-
+             <button type="button" class="btn text-light" style="background-color: #DD620E " data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="fa-solid fa-circle-plus"></i>
+              Add Supplier
+              </button>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
@@ -90,6 +87,7 @@
                           class="form-control"
                           id="purchased-ingredient-name"
                           aria-describedby="basic-addon3"
+                          required
                           />
                         </div>
 
@@ -117,7 +115,7 @@
                           id="basic-addon3"
                           >Address</span
                           >
-                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" required></textarea>
                         </div>
 
 
@@ -147,21 +145,23 @@
         </div>
       </div>
     </div>
-    
-  </span>
-</div>
+
+    <!-- End of modal -->
+          </span>
+        </div>
+    </div>
 </div>
 
 
 <div class="col-md-12 mt-3">
   <div class="card">
-    <div class="card-body overflow-auto rounded shadow" style="height: 67vh; background-color: #7CA6A6">
+   <div class="card-body overflow-auto  border rounded shadow-lg bg-light" style="height: 65vh">
 
 
-      <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-bordered">
+      <div class="table-responsive rounded" >
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
           <thead>
-            <tr class="text-light" style="background-color: #243b31">
+                                    <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Supplier Name</th>
               <th class="text-center">Contact Info</th>
               <th class="text-center">Address</th>

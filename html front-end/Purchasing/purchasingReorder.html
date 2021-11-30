@@ -51,7 +51,7 @@
 
   <!-- End of navbar -->
 
-  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE ">
+  <div class=" p-3" style="background-color: #E6E6DE ">
     <div class="card">
       <div class="card-body rounded shadow" style="background-color: #CC985A">
         <div class="d-flex justify-content-between">
@@ -63,27 +63,114 @@
              <button type="button" class="btn text-light" style="background-color: #DD620E ">
               <i class="far fa-shopping-cart"></i>
               Order
-                       </button>
+              </button>
            </a>
-        </span>
+
+          <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <div class="modal-body">
+                ...
+                <section>
+                  <div
+                  class="card position-absolute top-10 start-50 translate-middle"
+                  style="width: 100vh"
+                  >
+                  <div style="background-color:#F8F5F1;">
+                    <form class="m-4 pb-5">
+                      <header class="pb-5">
+                        <h3 class="float-start">Add Supplier</h3>
+                      </header>
+
+                      <section>
+                        <div class="input-group mb-3">
+                          <span
+                          class="input-group-text col-3 bg-success text-light"
+                          id="basic-addon3"
+                          >Name</span
+                          >
+                          <input 
+                          type="text"
+                          class="form-control"
+                          id="purchased-ingredient-name"
+                          aria-describedby="basic-addon3"
+                          />
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span
+
+                          class="input-group-text col-3 bg-success text-light"
+                          id="basic-addon3"
+                          >Cellphone #</span
+                          >
+                          <input 
+                          type="tel"
+                          class="form-control"
+                          id="purchased-ingredient-name"
+                          aria-describedby="basic-addon3"
+                          placeholder="09XXXXXXXXX"
+                          pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
+                          required
+                          />
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <span
+                          class="input-group-text col-3 bg-success text-light"
+                          id="basic-addon3"
+                          >Address</span
+                          >
+                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                        </div>
+
+
+
+                        <div class="float-end">
+                          <a href="purchasingPurchased.html">
+                            <button
+                            type="submit"
+                            class="btn btn-secondary mx-3 text-light"
+                            >
+                            Cancel
+                          </button>
+                        </a>
+                        <button type="submit" class="d-inline float-end btn btn-m text-light" style="background-color: #7CA6A6">
+                          Save
+                        </button>
+                      </div>
+                    </section>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+
+
+          </div>
+        </div>
       </div>
-   
+    </div>
 
+    <!-- End of modal -->
 
-
-</div>
-</div>
+          </span>
+        </div>
+      </div>
+    </div>
 
 
 <div class="col-md-12 mt-3">
   <div class="card">
-    <div class="card-body overflow-auto rounded shadow" style="height: 65vh; background-color: #7CA6A6">
+    <div class="card-body overflow-auto  border rounded shadow-lg bg-light" style="height: 65vh">
 
 
       <div class="table-responsive rounded" >
-        <table class="table overflow-auto table-hover table-hover table-bordered" >
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
           <thead>
-                                    <tr class="text-light" style="background-color: #243b31">
+                                    <tr class="text-light align-top" style="background-color: #7CA6A6">
                                         <th class="text-center">Ingredient</th>
                                         <th class="text-center">Quantity per Stock</th>
                                         <th class="text-center">Economic Order Quantity</th>

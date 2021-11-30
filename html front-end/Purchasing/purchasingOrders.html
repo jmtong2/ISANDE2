@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
@@ -20,7 +20,7 @@
 
   <title>Purchasing</title>
   
-    <!-- Start of navbar -->
+  <!-- Start of navbar -->
 
   <nav class="navbar border-bottom navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE" >
     <div class="container-fluid">
@@ -50,99 +50,146 @@
 
   <!-- End of navbar -->
 
-  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+  <div class=" p-3" style="background-color: #E6E6DE">
     <div class="card">
       <div class="card-body rounded shadow" style="background-color: #CC985A">
+        <h3 class="text-light mb-3">Purchase Orders</h3>
         <div class="d-flex justify-content-between">
-          <h3 class="text-light">Purchase Orders</h3>
+          <form class="col">
+            <div class="row">
+              <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="startDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="endDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
+
+        </div>
       </div>
-
-      
-
-
-
-</div>
-</div>
-
-
-<div class="col-md-12 mt-3">
-  <div class="card">
-    <div class="card-body overflow-auto rounded shadow" style="height: 65vh; background-color: #7CA6A6">
-
-
-      <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-bordered">
-          <thead>
-            <tr class=" text-light w-50" style="background-color: #243b31">
-              <th class="text-center" style="width:10%">Number</th>
-              <th class="text-center align-middle">Total</th>
-              <th class="text-center">Date</th>
-              <th class="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody id="purchasedTable">
-            <tr>
-              <td class="text-end">1</td>
-              <td class="text-end">₱500</td>
-              <td class="text-center">07/01/2021</td>
-              <td class="text-center">Pending</td>
-            </tr>
-
-            <tr>
-              <td class="text-end">2</td>
-              <td class="text-end">₱500</td>
-              <td class="text-center">07/01/2021</td>
-              <td class="text-center">Pending</td>
-            </tr>
-
-            <tr>
-              <td class="text-end">3</td>
-              <td class="text-end">₱500</td>
-              <td class="text-center">07/01/2021</td>
-              <td class="text-center">Pending</td>
-            </tr>
-
-            <tr>
-              <td class="text-end">4</td>
-              <td class="text-end">₱500</td>
-              <td class="text-center">07/01/2021</td>
-              <td class="text-center">Pending</td>
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-
     </div>
 
-  </div>
-</div>
+
+    <div class="d-flex m-2 flex-row justify-content-between">
+      <div class="p-2 ">As of November 21, 2021</div>
+      <div class="p-2 ">Rows: 4</div>
+    </div>
+
+    <div class="col-md-12 " >
+      <div class="card ">
+         <div class="card-body overflow-auto  border rounded shadow-lg bg-light" style="height: 65vh">
 
 
-<script>
-  $(document).ready( () => {
+          <div class="table-responsive rounded">
+            <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
+              <div id="reportTitle" class="text-center mb-3" >
+                <h4>Purchase Orders Summary Report</h4>
+                <h5>November 1-31, 2021</h5>
+              </div>
+              <thead>
+                <tr class="text-light align-top" style="background-color: #7CA6A6">
+                  <th class="text-center" style="width:10%">Number</th>
+                  <th class="text-center align-middle">Total</th>
+                  <th class="text-center">Date</th>
+                  <th class="text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="purchasedTable">
+                <tr>
+                  <td class="text-end">1</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
+                <tr>
+                  <td class="text-end">1</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
+                <tr>
+                  <td class="text-end">1</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
 
-    var cart = [];
-    var purchasedQuantity = [];
-    var listIndex = [];
-    var index = 0;
-    if (cart.length === 0)
-      $('#done').prop('disabled', false);
+                <tr>
+                  <td class="text-end">2</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
 
-    $('#purchase').click( () => {
-      const purchasedIngredient = $('#purchasedIngredient').val();
-      const qty = $('#qty').val();
-      
+                <tr>
+                  <td class="text-end">3</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
 
-      if(purchasedIngredient == 'Choose...' || qty == ''){
-        alert('Please input all both the name and quantity!');
+                <tr>
+                  <td class="text-end">4</td>
+                  <td class="text-end">₱500</td>
+                  <td class="text-center">07/01/2021</td>
+                  <td class="text-center">Pending</td>
+                </tr>
+              </tbody>
+            </table>
 
-      }
-      else {
-        $.get("/listPurchased", {
-          purchasedIngredient: purchasedIngredient
-        },
-        purchasedIngredients => {
+          </div>
+          <h6 class="text-center">**END OF REPORT**</h6>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <script>
+      $(document).ready( () => {
+
+        var cart = [];
+        var purchasedQuantity = [];
+        var listIndex = [];
+        var index = 0;
+        if (cart.length === 0)
+          $('#done').prop('disabled', false);
+
+        $('#purchase').click( () => {
+          const purchasedIngredient = $('#purchasedIngredient').val();
+          const qty = $('#qty').val();
+
+
+          if(purchasedIngredient == 'Choose...' || qty == ''){
+            alert('Please input all both the name and quantity!');
+
+          }
+          else {
+            $.get("/listPurchased", {
+              purchasedIngredient: purchasedIngredient
+            },
+            purchasedIngredients => {
 
            // $('#purchasedIngredient').val("Choose");
 
@@ -154,8 +201,8 @@
            <td class="text-center">`+purchasedIngredients.uom.abbrev+`</td>
            <td class="text-center">`+qty+`</td>
            <td class="text-center"><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
-                index +
-                `">X</button></td>
+           index +
+           `">X</button></td>
            </tr>`;
            $("#purchasedTable").append(purchased);
            $('#purchasedIngredient').prop('selectedIndex',0);
@@ -167,52 +214,52 @@
           index++;
         });
 
-        $(document).on("click", ".remove", function () {
-          const button_id = $(this).attr("id");
-          $(`#row` + button_id + ``).remove();
-          let i = button_id;
-          let num = listIndex.findIndex(item => item == i);
-          
-          cart.splice(num, 1);
-          purchasedQuantity.splice(num, 1);
-          listIndex.splice(num,1);
+            $(document).on("click", ".remove", function () {
+              const button_id = $(this).attr("id");
+              $(`#row` + button_id + ``).remove();
+              let i = button_id;
+              let num = listIndex.findIndex(item => item == i);
+
+              cart.splice(num, 1);
+              purchasedQuantity.splice(num, 1);
+              listIndex.splice(num,1);
+
+            });
+
+          }
+        });
+
+        $('#done').click( () => {
+          if (cart.length === 0) {
+            $('#done').prop('disabled', false);
+            alert('Add ingredients first!');
+          } else {
+           $.get("/makePurchasedOrder", {
+            cart: cart,
+            purchasedQuantity: purchasedQuantity
+          }, result => {
+            cart = [];
+            purchasedQuantity = [];
+            $("#purchasedTable").remove();
+            alert('Purchased Ingredients are added!');
+          });
+
+         }
+
+
+
+       });
+
 
       });
 
-      }
-    });
-
-    $('#done').click( () => {
-    if (cart.length === 0) {
-      $('#done').prop('disabled', false);
-      alert('Add ingredients first!');
-    } else {
-     $.get("/makePurchasedOrder", {
-      cart: cart,
-      purchasedQuantity: purchasedQuantity
-    }, result => {
-      cart = [];
-      purchasedQuantity = [];
-      $("#purchasedTable").remove();
-      alert('Purchased Ingredients are added!');
-    });
-
-   }
 
 
-
- });
-
-
-  });
-
-
-
-</script>
+    </script>
 
 
 
 
-</body>
+  </body>
 
-</html>
+  </html>
