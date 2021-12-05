@@ -16,8 +16,7 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 
-<nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE;" >    <div class="container-fluid">
         <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,18 +41,43 @@
     <div class="p-3" style="height: 96vh; background-color: #E6E6DE" >
         <div class="p-3">
             <section>
-                <div class="card pb-1 mb-3 border-3 " style="border-bottom-color: #7f7c76">
+                <div class="card-body rounded shadow" style="background-color: #CC985A">
                     <div class="card-body rounded text-right row">
                         <span class="col">
-                            <h3 class="text-secondary">Orders History</h3>
+                            <h3>Orders History</h3>
                         </span>
-                        <input class="m-2 d-inline float-end col-2" type="text" name="daterange" value="08/01/2021 - 08/08/2021" />
+                        <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="startDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="endDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
                     </div>
                 </div>
+
+                <div class="d-flex m-2 flex-row justify-content-between">
+                    <div class="p-2 mt-1">As of December 6, 2021</div>
+                    <div class="p-2 "><button class="btn btn-secondary"  style="background-color: #7CA6A6 " onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
+                  </div>
             </section>
-
-
-
 
             <!-- <div class="bg-light p-3" style="height: 100vh;">
         <div class=" mt-3">
@@ -70,7 +94,13 @@
                         <div class="table-responsive">
                             <table class="table overflow-auto">
                                 <thead>
-                                    <tr style="background-color: #243b31">
+
+                                    <div id="reportTitle" class="text-center my-3" >
+                                        <h4>Purchase Orders Summary Report</h4>
+                                        <h5>December 1-6, 2021</h5>
+                                      </div>
+
+                                   <tr class="text-light align-top" style="background-color: #7CA6A6">
                                         <th class="text-center"  style = "color: #ffffff">Menu Item</th>
                                         <th class="text-center"  style = "color: #ffffff">Menu Item Category</th>
                                         <th class="text-center" style = "color: #ffffff">Quantity</th>
@@ -109,7 +139,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        <h6 class="text-center">**END OF REPORT**</h6>
                     </div>
 
                 </div>
