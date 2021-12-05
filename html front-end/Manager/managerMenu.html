@@ -11,117 +11,79 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
     <!--Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
 </head>
 
 <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
+        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="managerMenu.html">Menu</a>
-                   
+                    <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
+                    <a class="nav-link active" href="managerMenu.html">Menu</a>
                 </li>
 
 
             </ul>
-            <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+                <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+            </form>
         </div>
     </div>
 </nav>
 
 <body>
 
-    <div class="p-2" style="height: 87vh; background-color: #E6E6DE">
+    <div class="p-3" style="height: 96vh; background-color: #E6E6DE" >
         <div class="p-3">
             <section>
-                <div class="card pb- mb-3 ">
-                    <div class="card-body rounded" style="background-color: #7CA6A6">
-                     <h3 class="text-light text-center">Menu Item Categories</h3>
-
-                      
+                <div class="card pb-1 mb-3 border-3 " >
+                    <div class="card-body rounded text-right row">
+                        <span class="col">
+                     <h3 class="text-secondary">Menu Items</h3>
+                   </span>
+                        <span class="createPurchasedIngredient text-end col fs-6 pt-1">
+                     <a href="managerAddMenuItem.html">
+                       <button class="button">
+                         <i class="fa-solid fa-circle-plus"></i>
+                        Add Menu Item
+                       </button>
+                     </a>
+                   </span>
                     </div>
                 </div>
             </section>
 
 
+            <div class="btn-group">
+                <button class="button">All</button>
+                <button class="button">Coffee-Based</button>
+                <button class="button">Tea-Based</button>
+                <button class="button">Blended Drinks</button>
+              </div>
+
+            <br><br>
+            
             <section class="menu">
-                <div class="row row-cols-md-4 g-1">
+                <div class="row row-cols-md-4 g-4">
                     <div class="col">
-                        <div class="card rounded text-light"style="background-color: #243b31" onclick="orderAdd('Hamburger'); this.onclick=null;">
-
+                        <div class="card rounded" onclick="orderAdd('Hamburger'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">All</h5>
-
+                                <h5 class="card-title text-center">MATCHA LATTE</h5>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Garlic Chicken'); this.onclick=null;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Coffee</h5>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Tea</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card rounded text-light bg-secondary" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">Blended</h5>
-
-                            </div>
-                        </div>
-                    </div>
-
-                 
-
-
-                </div>
-        </div>
-        </section>
-
-        <section>
-                     <h3 class="text-secondary text-center">Menu Items</h3>
-                    <hr>
-            </section>
-
-
-            <section class="menu">
-                <div class="row row-cols-md-3 g-4 px-5">
-                    <div class="col">
-                        <a href="managerMenuItemDetailed.html" style="text-decoration: none">
-                            <div class="card text-dark rounded" onclick="orderAdd('Hamburger'); this.onclick=null;">
-                            
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Matcha Latte</h5>
-                            
-                                </div>
-                            </div>
-                        </a>
                     </div>
 
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Garlic Chicken'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Chai Tea Latte</h5>
-
+                                <h5 class="card-title text-center">CHAI TEA LATTE</h5>
                             </div>
                         </div>
                     </div>
@@ -129,8 +91,8 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Mushroom Soup'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Caramel Frappe</h5>
-
+                                <h5 class="card-title text-center">STRAWBERRY 
+                                    BLACK TEA</h5>
                             </div>
                         </div>
                     </div>
@@ -138,8 +100,7 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Shrimp Pesto'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Capuccino</h5>
-
+                                <h5 class="card-title text-center">CARAMEL FRAPPE</h5>
                             </div>
                         </div>
                     </div>
@@ -147,8 +108,7 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Roast Salmon'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Espresso</h5>
-           
+                                <h5 class="card-title text-center">CAPUCCINO</h5>
                             </div>
                         </div>
                     </div>
@@ -156,21 +116,32 @@
                     <div class="col">
                         <div class="card rounded" onclick="orderAdd('Tuna Sandwich'); this.onclick=null;">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Matcha Cream</h5>
-                         
+                                <h5 class="card-title text-center">MATCHA CREAM</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card rounded" onclick="orderAdd('Tuna Sandwich'); this.onclick=null;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">ESPRESSO</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card rounded" onclick="orderAdd('Tuna Sandwich'); this.onclick=null;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">CHOCOLATE 
+                                    FRAPPE</h5>
                             </div>
                         </div>
                     </div>
 
 
                 </div>
-                <a href="managerAddMenuItem.html"><button type="button" class="text-light btn  mt-4 mx-5 float-end btn-success" id="addMenuItem"  name="" value="" ><i class="far fal fa-plus-square"></i> Add Menu Item</button></a>
         </div>
-
-
         </section>
-
-
 
 
 

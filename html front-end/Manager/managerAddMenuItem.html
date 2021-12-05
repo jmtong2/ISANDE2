@@ -5,58 +5,61 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Menu</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <link rel="stylesheet"mhref="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css"
+    />
 </head>
 
-    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE;" >
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
+        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="managerMenu.html">Menu</a>
-                   
+                    <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link" aria-current="page" href="managerOrdersHistory.html">Order History</a>
+                    <a class="nav-link active" href="managerMenu.html">Menu</a>
                 </li>
 
 
             </ul>
-           <a href="../Login/login.html" class="btn btn-outline-secondary me-1"><strong>Logout</strong></a>
+                <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+            </form>
         </div>
     </div>
 </nav>
 
 <body>
-    <div class="p-3" style="height: 87vh; background-color: #E6E6DE">
-        <div class="card">
-            <div class="card-body rounded">
-                <h3 class="text-secondary">Menu</h3>
+    <div class="p-3" style="height: 96vh; background-color: #E6E6DE" >
+        <div class="card border-3">
+            <div class="card-body rounded shadow" style="background-color: #CC985A">
+                <h3>Menu > Menu Item 1</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 mt-3">
+            <div class="col-md-6 mt-3">
                 <div class="card">
-                    <div class="card-body rounded" style="height: 60vh;">
-                        
-                        <div class="row">
-                            <h4 class="col-3">Name</h4>
-                            <input type="text" class="col-8 " name="name"/>
-                        </div>
-                        
-                        <hr class="my-4" />
+                    <div class="card-body rounded" style="height: 75vh;">
+                        <button class="btn btn-info rounded-pill float-end" type="button" style="background-color: #7CA6A6; color:#ffffff">
+                                <i class="fa fa-edit"></i> Edit
+                            </button>
+                        <h2>Menu Item 1</h2>
+                        <h5 class="id-number mt-5 mb-3">ID: 3409102</h5>
+                        <hr style="margin-top: -3px; color: black" />
                         <div class="row">
                             <div class="col">
                                 <h5 class="">Price:</h5>
                             </div>
                             <div class="text-end col">
-                                <input type="number" class="price text-end" name="Price" min="0" disabled placeholder="₱150.00"/>
+                                <input type="number" class="price" name="Price" min="0" />
                             </div>
                         </div>
                         <hr />
@@ -66,13 +69,13 @@
                                 </span>
                             <span class="col text-end dropdown">
                                     <button
-                                        class="btn btn-dark dropdown-toggle"
+                                        class="btn btn-light dropdown-toggle"
                                         type="button"
                                         id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                     >
-                                        Available
+                                        Dropdown button
                                     </button>
                                     <ul
                                         class="dropdown-menu"
@@ -90,131 +93,71 @@
                                         </li>
                                     </ul>
                                 </span>
-
-                                <div class="row mt-3">
-                                    <span class="col-5">
-                                    <h3 class="status">Category:</h3>
-                                </span>
-                            <span class="col text-end dropdown">
-                                    <button
-                                        class="btn btn-warning dropdown-toggle" style="margin-left: 70px"
-                                        type="button"
-                                        id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        Category
-                                    </button>
-                                    <ul
-                                        class="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton1"
-                                    >
-                                        <li>
-                                            <a class="dropdown-item" href="#"
-                                                >Coffee</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#"
-                                                >Tea</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#"
-                                                >Blended</a
-                                            >
-                                        </li>
-                                    </ul>
-                                </span>
-                                </div>
-
+                               
                             <div class="delete-menu-item" style="margin-top: 150px">
-                                
+                                <button class="button">
+                                        <i class="fa fa-trash-o"></i> Delete Menu
+                                        Item
+                                    </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="align-self-end btn btn-danger border rounded-pill float-end mt-2" type="button">
-                                        <i class="far fa-trash"></i> Delete Menu
-                                        Item
-                                    </button>
             </div>
 
-            <div class="col-md-8 mt-3">
+            <div class="col-md-6 mt-3">
                 <div class="card">
-                    <div class="card-body overflow-auto rounded" style="height: 60vh">
-                        <div>
-                                <h2>Recipe</h2>
-                                <form class="col">
-                                    <div class="d-flex mb-3">
-                                        <select
-                                            id="ingredient"
-                                            class="form-select"
-                                            name="ingredient"
-                                            required
-                                            style="width: 150px"
-                                        >
-                                            <option selected>Ingredient</option>
-                                            {{#each ingredient}}
-                                            <option
-                                                value="{{{ingredientName}}}"
-                                            >
-                                                {{ingredientName}}
-                                            </option>
-                                            {{/each}}
-                                        </select>
-
-                                        <input
-                                            type="number"
-                                            class="mx-3 form-control"
-                                            style="width: 80px"
-                                            min="0"
-                                            name="qty"
-                                            id="qty"
-                                            placeholder="Qty"
-                                        />
-
-                                        <select
-                                            id="unit"
-                                            class="form-select"
-                                            name="unit"
-                                            required
-                                            style="width: 90px"
-                                        >
-                                            <option selected>Unit</option>
-                                            {{#each uom}}
-                                            <option value="{{{abbrev}}}">
-                                                {{abbrev}}
-                                            </option>
-                                            {{/each}}
-                                        </select>
-
-                                        <button
-                                            class="btn mb-2 ms-3 btn-success rounded-pill float-end"
-                                            type="button"
-                                            id="addIngredient"
-                                        >
-                                            <i
-                                                class="fa-regular fa-square-plus"
-                                            ></i>
-                                            Add Ingredient
-                                        </button>
-                                        
-                                    </div>
-                                </form>
-                            </div>
-
+                    <div class="card-body overflow-auto rounded" style="height: 70vh">
+                        <h2>Recipe</h2>
                         <div class="table-responsive rounded">
                             <table class="table overflow-auto">
                                 <thead>
-                                    <tr class="text-light" style="background-color: #243b31">
-                                        <th class="text-center">Ingredient Name</th>
-                                        <th class="text-center">Quantity</th>
-                                        <th class="text-center">UOM</th>
+                                    <tr class="text-light align-top" style="background-color: #7CA6A6">
+                                        <th class="text-center" style = "color: #ffffff">Ingredient Name</th>
+                                        <th class="text-center" style = "color: #ffffff">Quantity</th>
+                                        <th class="text-center" style = "color: #ffffff">UOM</th>
+                                        <th class="text-center" style = "color: #ffffff"></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <td>Grated Cheese</td>
+                                    <td class="text-center">3</td>
+                                    <td class="text-center">oz</td>
+                                    <td class="text-center">
+                                        <i class="fa fa-trash-o" style="text-align: center"></i>
+                                    </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Pasta<br /></td>
+                                        <td class="text-center">50</td>
+                                        <td class="text-center">g</td>
+                                        <td class="text-center">
+                                            <i class="fa fa-trash-o" style="text-align: center"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" />
+                                            <br />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" min="0" class="col-4" />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" min="0" class="col-4" />
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary" type="button" style="
+                                                        background: #ffffff;
+                                                        color: rgb(0, 0, 0);
+                                                        border-style: none;
+                                                    ">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -223,9 +166,10 @@
 
                 </div>
                 <a href="managerOrdersHistory.html">
-                    <button class=" col-md-2 btn mt-2  rounded-pill float-end" style="background-color: #7CA6A6" type="button">
-                            <i class="far fa-check"></i> Save
-                        </button>
+                    <button class="button">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                        
                 </a>
 
             </div>

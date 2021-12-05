@@ -13,41 +13,41 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 
 <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
+        <a class="navbar-brand"><img src="navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
         <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
             <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link " href="managerMenu.html">Menu</a>
-                   
+                    <a class="nav-link active" aria-current="page" href="managerOrdersHistory.html">Order History</a>
                 </li>
                 <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="managerOrdersHistory.html">Order History</a>
+                    <a class="nav-link" href="managerMenu.html">Menu</a>
                 </li>
 
 
             </ul>
-            <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
+                <a href="../Login/login.html" class="btn btn-outline-secondary"><strong>Logout</strong></a>
         </div>
     </div>
 </nav>
 
 <body>
-   <div class="p-3" style="height: 87vh; background-color: #E6E6DE">
-        <div class="">
+    <div class="p-3" style="height: 96vh; background-color: #E6E6DE" >
+        <div class="p-3">
             <section>
-                <div class="card">
+                <div class="card pb-1 mb-3 border-3 " style="border-bottom-color: #7f7c76">
                     <div class="card-body rounded text-right row">
                         <span class="col">
-                            <h3 class="text-secondary">Order </h3>
+                            <h3 class="text-secondary">Orders History</h3>
                         </span>
-                        
+                        <input class="m-2 d-inline float-end col-2" type="text" name="daterange" value="08/01/2021 - 08/08/2021" />
                     </div>
                 </div>
             </section>
@@ -66,40 +66,46 @@
             <div class="row"></div>
             <div class="col-md-12 mt-3">
                 <div class="card">
-                    <div class="card-body overflow-auto rounded" style="height: 63vh">
+                    <div class="card-body overflow-auto rounded" style="height: 75vh">
                         <div class="table-responsive">
-                            <table class="table overflow-auto table-bordered">
+                            <table class="table overflow-auto">
                                 <thead>
-                                     <tr class="text-light" style="background-color: #243b31">
-                                        <th class="text-center">Menu Item</th>
-                                        <th class="text-center">Menu Item Category</th>
-                                        <th class="text-center">Quanitity Ordered</th>
-                                        <th class="text-center">Date</th>
+                                    <tr style="background-color: #243b31">
+                                        <th class="text-center"  style = "color: #ffffff">Menu Item</th>
+                                        <th class="text-center"  style = "color: #ffffff">Menu Item Category</th>
+                                        <th class="text-center" style = "color: #ffffff">Quantity</th>
+                                        <th class="text-center" style = "color: #ffffff">Date</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-start">Caramel Frappe</td>
-                                        <td class="text-center">Blended</td>
-                                        <td class="text-end">₱100.00</td>
+                                        <td class="text-center">Espresso</td>
+                                        <td class="text-center">Coffee Bases</td>
+                                        <td class="text-center">X</td>
                                         <td class="text-center">08/07/2021</td>
                                     </tr>
 
                                     <tr>
-                                        <td class="text-start">Espresso</td>
-                                        <td class="text-center">Coffee</td>
-                                        <td class="text-end">₱150.00</td>
-                                        <td class="text-center">09/27/2021</td>
+                                        <td class="text-center">Matcha Latte</td>
+                                        <td class="text-center">Tea Based</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">08/07/2021</td>
                                     </tr>
 
                                     <tr>
-                                        <td class="text-start">Matcha</td>
-                                        <td class="text-center">Tea</td>
-                                        <td class="text-end">₱100.00</td>
-                                        <td class="text-center">03/30/2021</td>
+                                        <td class="text-center">Caramel Frappe</td>
+                                        <td class="text-center">Blended</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">08/07/2021</td>
                                     </tr>
 
-                        
+                                    <tr>
+                                        <td class="text-center">Item 1</td>
+                                        <td class="text-center">Blended</td>
+                                        <td class="text-center">X</td>
+                                        <td class="text-center">08/07/2021</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
