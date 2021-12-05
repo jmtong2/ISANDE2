@@ -6,11 +6,11 @@
     }
 
 .table th{
-        text-align: center;   
+        text-align: center;
      }
 
 .table td{
-    text-align: center; 
+    text-align: center;
 }
 
 .manualcount-input {
@@ -32,5 +32,3 @@
     cursor: pointer;
     border-radius: 25px;
   }
-
-

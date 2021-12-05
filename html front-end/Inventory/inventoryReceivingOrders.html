@@ -11,14 +11,14 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
-  
+
 
 </head>
 
 <body>
 
   <title>Receive Purchase Order</title>
-  
+
 <!-- Navbar -->
     <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="inventoryMovement.html">Movement</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="inventoryShrinkage.html">Shrinkage</a>
+                        <a class="nav-link" href="inventoryShrinkageReport.html">Shrinkage</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="inventoryPurchaseOrders.html">Purchase Orders</a>
@@ -66,7 +66,7 @@
           <label for="supplierName" class="form-label">Supplier Name</label>
           <input class="form-control" id="disabledInput" type="text" placeholder="Supplier Name" disabled>
         </div>
-        
+
         <div class="col-md-auto my-1">
           <label for="contactNumber" class="form-label">Contact Number</label>
           <input class="form-control" id="disabledInput" type="number" placeholder="09277022688" disabled>
@@ -74,7 +74,7 @@
 
         <div class="col-4"></div>
       </div>
-      
+
       <label for="address" class="form-label">Address</label>
       <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
     </section>
@@ -210,7 +210,7 @@
 
                   <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="fas fa-long-arrow-left"></i> Back</button>
                   <a href="">
-                    
+
                   </a><button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-plus-circle"></i> Receive</button>
 
 <!-- <button class="btn btn-primary" type="button">Button</button>
@@ -259,7 +259,7 @@
            $("#purchasedTable").append(purchased);
            $('#purchasedIngredient').prop('selectedIndex',0);
            $('#qty').val("");
-          //store it in array 
+          //store it in array
           cart.push(purchasedIngredients);
           purchasedQuantity.push(qty);
           listIndex.push(index);

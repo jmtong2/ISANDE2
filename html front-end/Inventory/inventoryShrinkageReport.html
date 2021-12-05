@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Purchased Ingredients</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+    <style>
+    @media print {
+    body * {
+      visibility: hidden !important;
+    }
+    .print-container, .print-container * {
+      visibility: visible !important;
+    }
+    .print-container {
+      position: absolute !important;
+      /*Adjust depending on the size to align it to the center*/
+      left: 6vh !important;
+      top: 0 !important;
+    }
+  }
+  </style>
+
+</head>
+
+<body style="background-color:#E6E6DE">
+
+  <title>Shrinkage Report</title>
+
+ <!-- Navbar -->
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE">
+        <div class="container-fluid">
+            <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="inventoryDashboard.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="inventory.html">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryMovement.html">Movement</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="inventoryShrinkageReport.html">Shrinkage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="inventoryPurchaseOrders.html">Purchase Orders</a>
+                    </li>
+                </ul>
+                 <a href="../Login/login.html" class="btn btn-outline-secondary me-2"><strong>Logout</strong></a>
+            </div>
+        </div>
+    </nav>
+<!-- End of navbar -->
+
+    <div class="p-3" style="background-color: #E6E6DE">
+      <div class="card">
+        <div class="card-body rounded shadow" style="background-color: #CC985A">
+            <h3 class="text-light mb-2">Shrinkage</h3>
+
+            <div class="d-flex justify-content-between">
+              <form class="col">
+
+                <div class="row">
+                  <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+                  <div class="col-sm-2">
+                    <div class="input-group date" id="startDate">
+                      <input type="text" class="form-control">
+                      <span class="input-group-append">
+                        <span class="input-group-text bg-white d-block">
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+                  <div class="col-sm-2">
+                    <div class="input-group date" id="endDate">
+                      <input type="text" class="form-control">
+                      <span class="input-group-append">
+                        <span class="input-group-text bg-white d-block">
+                          <i class="fa fa-calendar"></i>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+               <div class="col text-end">
+                <a href="inventoryShrinkage.html" type="button" class="text-light btn btn-success"><i class="fa-solid fa-circle-plus"></i> Input Shrinkage</a>
+              </div>
+       </div>
+     </form>
+
+   </div>
+ </div>
+</div>
+
+<!-- BODY -->
+ <div class="d-flex m-2 flex-row justify-content-between">
+  <div class="p-2 mt-1">As of November 21, 2021</div>
+  <div class="p-2 "><button class="btn btn-secondary" onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
+  </div>
+
+ <div class="col-md-12">
+
+  <div class="card print-container">
+    <div class="card-body overflow-auto  border rounded shadow-lg bg-light">
+      <div class="table-responsive rounded ">
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped ">
+          <div id="reportTitle" class="text-center my-3 " >
+            <h4>Shrinkage Summary Report</h4>
+            <h5>November 1-31, 2021</h5>
+            <h6 class="p-2 mt-1 text-end">Rows: 2</h6>
+          </div>
+          <thead>
+            <tr class="text-light align-top" style="background-color: #243b31">
+              <th class="text-center">Name</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-center">Quantity Per Stock</th>
+              <th class="text-center">Reason</th>
+              <th class="text-center">Remarks</th>
+            </tr>
+          </thead>
+          <tbody id="purchasedTable">
+            <tr>
+                <td class="text-center">Milk</td>
+                <td class="text-end">5</td>
+                <td class="text-center">10 g</td>
+                <td class="text-center">Spoilage</td>
+                <td class="text-center col-4">It was left open for quite some time.</td>
+              </tr>
+
+              <tr>
+                <td class="text-center">Milk</td>
+                <td class="text-end">5</td>
+                <td class="text-center">10 g</td>
+                <td class="text-center">Spoilage</td>
+                <td class="text-center col-4">It was left open for quite some time.</td>
+              </tr>
+
+          </tbody>
+        </table>
+
+
+      </div>
+       <h6 class="text-center">**END OF REPORT**</h6>
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+  $("#print-container").printElement();
+  $(document).ready( () => {
+    $(function() {
+      $('#startDate').datepicker();
+    });
+    $(function() {
+      $('#endDate').datepicker();
+    });
+  });
+</script>
+
+
+</body>
+
+</html>
