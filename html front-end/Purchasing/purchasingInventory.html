@@ -14,7 +14,23 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
 
-  
+  <style>
+  @media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .print-container, .print-container * {
+    visibility: visible !important;
+  }
+  .print-container {
+    position: absolute !important;
+    /*Adjust depending on the size to align it to the center*/
+    left: 6vh !important;
+    top: 0 !important;
+  }
+}
+
+  </style>
 
 </head>
 
@@ -157,7 +173,7 @@
                         <option value="{{{abbrev}}}">{{abbrev}}</option>
                         {{/each}}
                       </select>
-                      <button type="button" class="btn btn-info rounded ms-3 float-end text-light" data-bs-dismiss="modal">Add UOM</button>  
+                      
                       
                     </div>
 
@@ -246,21 +262,20 @@
 
  <div class="d-flex m-2 flex-row justify-content-between">
   <div class="p-2 mt-1">As of November 21, 2021</div>
-  <div class="p-2 mt-1 ms-auto">Rows: 8</div>
-  <div class="p-2 "><button class="btn btn-secondary"><i class="fas fa-file-download"></i> Download</button></div>
+  <div class="p-2 "><button class="btn btn-secondary" onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
 
 </div>
 
- <div class="col-md-12 " >
-  <div class="card ">
-    <div class="card-body overflow-auto  border rounded shadow-lg bg-light" style="height: 65vh">
+ <div class="col-md-12">
 
-
-      <div class="table-responsive rounded">
-        <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
-          <div id="reportTitle" class="text-center mb-3" >
+  <div class="card print-container">
+    <div class="card-body overflow-auto  border rounded shadow-lg bg-light">
+      <div class="table-responsive rounded ">
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped ">
+          <div id="reportTitle" class="text-center my-3 " >
             <h4>Inventory Summary Report</h4>
             <h5>November 1-31, 2021</h5>
+            <h6 class="p-2 mt-1 text-end">Rows: 8</h6>
           </div>
           <thead>
             <tr class="text-light align-top" style="background-color: #7CA6A6">
@@ -279,6 +294,8 @@
               <td class="text-end">₱500</td>
               <td class="text-start">Supplier A</td>
             </tr>
+
+
             <tr>
               <td>Cheese</td>
               <td class="text-center">g</td>
@@ -345,7 +362,11 @@
 </div>
 
 
+
 <script>
+
+  $("#print-container").printElement();
+
   $(document).ready( () => {
 
     $(function() {
