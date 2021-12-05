@@ -15,11 +15,29 @@
 
 </head>
 
-<body>
+<body style="background-color: #E6E6DE">
+
+  <style>
+  @media print {
+    body *, .dlBtn, .saveBtn {
+      visibility: hidden !important;
+    }
+    .print-container, .print-container * {
+      visibility: visible !important;
+    }
+    .print-container {
+      position: absolute !important;
+      /*Adjust depending on the size to align it to the center*/
+      left: 15vh !important;
+      top: 0 !important;
+    }
+  }
+
+</style>
 
   <title>Purchase Order Details</title>
   
-    <!-- Start of navbar -->
+  <!-- Start of navbar -->
 
   <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
@@ -49,11 +67,11 @@
 
   <!-- End of navbar -->
 
-  <div class=" p-3" style="height: 87vh; background-color: #E6E6DE">
+  <div class=" p-3 print-container">
     <div class="card mb-2">
-      <div class="card-body rounded">
+      <div class="card-body rounded shadow" style="background-color: #CC985A">
         <div class="d-flex justify-content-between">
-          <h4 class="text-secondary">Purchase Order</h4>
+          <h4 class="text-light">Purchase Order</h4>
         </div>
       </div>
     </div>
@@ -62,7 +80,7 @@
       <div class="row">
         <div class="col my-1">
           <label for="supplierName" class="form-label">Supplier Name</label>
-           <input class="form-control" id="disabledInput" type="text" placeholder="Supplier Name" disabled>
+          <input class="form-control" id="disabledInput" type="text" placeholder="Supplier Name" disabled>
         </div>
 
         <div class="col-md-auto my-1">
@@ -70,7 +88,7 @@
           <input class="form-control" id="disabledInput" type="number" placeholder="09277022688" disabled>
         </div>
 
-            <div class="col-4"></div>
+        <div class="col-4"></div>
       </div>
       
       <label for="address" class="form-label">Address</label>
@@ -81,13 +99,13 @@
 
     <div class="col-md-12 my-3">
       <div class="card my-2">
-        <div class="card-body overflow-auto rounded" style="height: 35vh">
+        <div class="card-body overflow-auto rounded" >
 
 
           <div class="table-responsive rounded">
             <table class="table overflow-auto table-hover table-hover table-bordered">
               <thead>
-                <tr class="text-light" style="background-color: #243b31">
+                <tr class="text-light" style="background-color: #7CA6A6">
                   <th class="text-center">Ingredient</th>
                   <th class="text-center">Quantity</th>
                   <th class="text-center">Unit</th>
@@ -132,48 +150,47 @@
 
           </div>
 
-          <div class="d-grid gap-2 d-md-block">
-  
-</div>
 
         </div>
 
       </div>
 
-              <h4 class="float-end m-2">Total: ₱600.00</h4>
-
-              <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="far fa-print"></i> Download</button>
-<button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-check"></i> Save</button>
-
-<!-- <button class="btn btn-primary" type="button">Button</button>
-  <button class="btn btn-primary" type="button">Button</button> -->
-    </div>
-
-
-    <script>
-      $(document).ready( () => {
-
-        var cart = [];
-        var purchasedQuantity = [];
-        var listIndex = [];
-        var index = 0;
-        if (cart.length === 0)
-          $('#done').prop('disabled', false);
-
-        $('#purchase').click( () => {
-          const purchasedIngredient = $('#purchasedIngredient').val();
-          const qty = $('#qty').val();
+  <div class="mt-3">
+    <h4 class="float-end m-2">Total: ₱600.00</h4>
+  </div>
+</div>
+</div>
+<div class="p-3  ">
+  <button type="button" class="dlBtn btn me-3" style="background-color: #7f7c76" onclick="window.print();"><i class="far fa-print"></i> Download</button>
+  <button type="button" class="saveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save</button>
+</div>
 
 
-          if(purchasedIngredient == 'Choose...' || qty == ''){
-            alert('Please input all both the name and quantity!');
 
-          }
-          else {
-            $.get("/listPurchased", {
-              purchasedIngredient: purchasedIngredient
-            },
-            purchasedIngredients => {
+<script>
+  $(document).ready( () => {
+
+    var cart = [];
+    var purchasedQuantity = [];
+    var listIndex = [];
+    var index = 0;
+    if (cart.length === 0)
+      $('#done').prop('disabled', false);
+
+    $('#purchase').click( () => {
+      const purchasedIngredient = $('#purchasedIngredient').val();
+      const qty = $('#qty').val();
+
+
+      if(purchasedIngredient == 'Choose...' || qty == ''){
+        alert('Please input all both the name and quantity!');
+
+      }
+      else {
+        $.get("/listPurchased", {
+          purchasedIngredient: purchasedIngredient
+        },
+        purchasedIngredients => {
 
            // $('#purchasedIngredient').val("Choose");
 
@@ -198,52 +215,52 @@
           index++;
         });
 
-            $(document).on("click", ".remove", function () {
-              const button_id = $(this).attr("id");
-              $(`#row` + button_id + ``).remove();
-              let i = button_id;
-              let num = listIndex.findIndex(item => item == i);
+        $(document).on("click", ".remove", function () {
+          const button_id = $(this).attr("id");
+          $(`#row` + button_id + ``).remove();
+          let i = button_id;
+          let num = listIndex.findIndex(item => item == i);
 
-              cart.splice(num, 1);
-              purchasedQuantity.splice(num, 1);
-              listIndex.splice(num,1);
+          cart.splice(num, 1);
+          purchasedQuantity.splice(num, 1);
+          listIndex.splice(num,1);
 
-            });
-
-          }
         });
 
-        $('#done').click( () => {
-          if (cart.length === 0) {
-            $('#done').prop('disabled', false);
-            alert('Add ingredients first!');
-          } else {
-           $.get("/makePurchasedOrder", {
-            cart: cart,
-            purchasedQuantity: purchasedQuantity
-          }, result => {
-            cart = [];
-            purchasedQuantity = [];
-            $("#purchasedTable").remove();
-            alert('Purchased Ingredients are added!');
-          });
+      }
+    });
 
-         }
-
-
-
-       });
-
-
+    $('#done').click( () => {
+      if (cart.length === 0) {
+        $('#done').prop('disabled', false);
+        alert('Add ingredients first!');
+      } else {
+       $.get("/makePurchasedOrder", {
+        cart: cart,
+        purchasedQuantity: purchasedQuantity
+      }, result => {
+        cart = [];
+        purchasedQuantity = [];
+        $("#purchasedTable").remove();
+        alert('Purchased Ingredients are added!');
       });
 
-
-
-    </script>
-
+     }
 
 
 
-  </body>
+   });
 
-  </html>
+
+  });
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>
