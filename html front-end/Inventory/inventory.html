@@ -19,6 +19,24 @@
 </head>
 
 <body style="background-color: #E6E6DE ">
+
+  <style>
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      .print-container, .print-container * {
+        visibility: visible !important;
+      }
+      .print-container {
+        position: absolute !important;
+        /*Adjust depending on the size to align it to the center*/
+        left: 3vh !important;
+        top: -40vh !important;
+      }
+    }
+
+  </style>
     <title>Inventory</title>
 
 <!-- Navbar -->
@@ -65,13 +83,19 @@
 </div>
 </div>
 
+<div class="d-flex m-2 flex-row justify-content-between">
+  <div class="p-2 mt-1">As of November 21, 2021</div>
+  <div class="p-2 "><button class="btn btn-secondary" onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
+
+</div>
 <div class="col-md-12 mt-3">
     <div class="card">
         <div class="card-body overflow-auto border rounded shadow-lg bg-light ">
 
-            <div class="table-responsive rounded">
+            <div class="table-responsive rounded print-container">
                 <table class="table overflow-auto table-hover table-hover table-bordered table-striped" >
 
+          </div>
                     <thead>
                          <tr class="text-light align-top" style="background-color: #7CA6A6">
                             <th class="text-center">Ingredient</th>
@@ -133,15 +157,15 @@
       <div class="modal-content">
         <div class="modal-body">
          <section>
-          <div class="card position-absolute top-10 start-50 translate-middle" style="width: 130vh">
+          <div class="card position-absolute top-10 start-50 translate-middle" style="width: 100vh">
             <div style="background-color:#F8F5F1;">
               <form action="/purchasing/addPurchasedIngredient" method="POST" class=" p-2">
                 <header class="p-4">
-                  <h3>Edit Ingredient</h3>
+                  <h3>Set EOQ and Reorder Point</h3>
                 </header>
 
                 <section>
-                  <div class="input-group px-4 mb-3">
+                  <!-- <div class="input-group px-4 mb-3">
                     <span class="input-group-text col-3 bg-success text-light" id="basic-addon3">Name</span
                     >
                     <div class="row">
@@ -162,44 +186,17 @@
                     </div>
                   </div>
 
-                <div class="input-group px-4 mb-3">
-                  <span
-                  class="input-group-text col-3 bg-success text-light"
-                  id="basic-addon3"
-                  >Unit of Measurement</span
-                  >
-                  <input 
-                    type="text"
-                    class="form-control ingredientUOM"
-                    aria-describedby="basic-addon3"
-                    name="name"
-                    disabled
-                    />
-                  <select
-                  class="form-select "
-                  id="inputGroupSelect01"
-                  name="uom"
-                  required
-                  >
-                  <option selected>Choose...</option>
-                  {{#each uom}}
-                  <option value="{{{abbrev}}}">{{abbrev}}</option>
-                  {{/each}}
-                </select>
-
-
-
-              </div>
+                
 
               <div class="input-group px-4 mb-3">
                 <span
                 class="input-group-text col-3 bg-success text-light"
                 id="basic-addon3"
-                >Quantity Per Stock</span
+                >On Hand</span
                 >
                 <input 
                     type="text"
-                    class="form-control ingredientQtyPerStock"
+                    class="form-control ingredientOnHand"
                     aria-describedby="basic-addon3"
                     name="name"
                     disabled
@@ -207,10 +204,10 @@
                 <input
                 type="number"
                 min="0"
-                class="form-control col-3 ingredientQtyPerStock"
-                id="quantityPerStock"
+                class="form-control col-3 ingredientOnHand"
+                id="onHand"
                 aria-describedby="basic-addon3"
-                name="quantityPerStock"
+                name="onHand"
                 required
                 />
               </div>
@@ -219,11 +216,39 @@
                 <span
                 class="input-group-text col-3 bg-success text-light"
                 id="basic-addon3"
-                >Unit Price</span
+                >Unit of Measurement</span
+                >
+                <input 
+                  type="text"
+                  class="form-control ingredientUOM"
+                  aria-describedby="basic-addon3"
+                  name="name"
+                  disabled
+                  />
+                <select
+                class="form-select "
+                id="inputGroupSelect01"
+                name="uom"
+                required
+                >
+                <option selected>Choose...</option>
+                {{#each uom}}
+                <option value="{{{abbrev}}}">{{abbrev}}</option>
+                {{/each}}
+              </select> -->
+
+
+
+            <!-- </div> -->
+              <div class="input-group px-4 mb-3">
+                <span
+                class="input-group-text col-3 bg-success text-light"
+                id="basic-addon3"
+                >Reorder Point</span
                 >
                 <input 
                     type="text"
-                    class="form-control ingredientUnitPrice"
+                    class="form-control ingredientReorderPoint"
                     aria-describedby="basic-addon3"
                     name="name"
                     disabled
@@ -231,44 +256,40 @@
                 <input
                 type="number"
                 min="0"
-                class="form-control ingredientUnitPrice"
-                id="unitPrice"
+                class="form-control ingredientReorderPoint"
+                id="reorderPoint"
                 aria-describedby="basic-addon3"
-                name="unitPrice"
+                name="reorderPoint"
                 required
                 />
               </div>
 
-              <div class="input-group px-4 mb-3">
-                <span
-                class=" text-light input-group-text col-3 bg-success"
-                id="basic-addon3"
-                >Supplier</span
-                >
-                <div class="row">
-                  <input 
-                      type="text"
-                      class="form-control ingredientSupplier"
-                      id="purchased-ingredient-name"
-                      aria-describedby="basic-addon3"
-                      name="name"
-                      disabled
-                      />
-                  <select
-                  class="form-select ingredientSupplier"
-                  id="inputGroupSelect01"
-                  name="uom"
-                  required
-                  >
-                  <option selected>Choose...</option>
-                  {{#each uom}}
-                  <option value="{{{abbrev}}}">{{abbrev}}</option>
-                  {{/each}}
-                                            </select>
-                </div>
-              <button type="button" class=" text-light btn btn-info rounded ms-5 float-end text-light"><a class="text-light" style="text-decoration: none" href="purchasingSuppliers.html">Add Supplier</a></button>
+            </div>
+            <div class="input-group px-4 mb-3">
+              <span
+              class="input-group-text col-3 bg-success text-light"
+              id="basic-addon3"
+              >Economic Order Quantity</span
+              >
+              <input 
+                  type="text"
+                  class="form-control ingredientEOQ"
+                  aria-describedby="basic-addon3"
+                  name="name"
+                  disabled
+                  />
+              <input
+              type="number"
+              min="0"
+              class="form-control ingredientEOQ"
+              id="EOQ"
+              aria-describedby="basic-addon3"
+              name="EOQ"
+              required
+              />
             </div>
 
+        
             <div class="float-end m-3">
              <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
              <button type="submit" class="d-inline float-end btn btn-m text-light" style="background-color: #7CA6A6">
@@ -293,11 +314,11 @@
   
       $('table tbody tr  td').on('click',function(){
         $("#editModal").modal("show");
-        $(".ingredientName").val($(this).closest('tr').children()[0].textContent);
-        $(".ingredientUOM").val($(this).closest('tr').children()[1].textContent);
-        $(".ingredientQtyPerStock").val($(this).closest('tr').children()[2].textContent);
-        $(".ingredientUnitPrice").val($(this).closest('tr').children()[3].textContent);
-        $(".ingredientSupplier").val($(this).closest('tr').children()[4].textContent);
+        // $(".ingredientName").val($(this).closest('tr').children()[0].textContent);
+        // $(".ingredientOnHand").val($(this).closest('tr').children()[1].textContent);
+        // $(".ingredientUOM").val($(this).closest('tr').children()[2].textContent);
+        $(".ingredientReorderPoint").val($(this).closest('tr').children()[3].textContent);
+        $(".ingredientEOQ").val($(this).closest('tr').children()[4].textContent);
       });
       
     });
