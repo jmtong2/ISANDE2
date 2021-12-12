@@ -11,7 +11,7 @@ mongoose.set('useUnifiedTopology', true);
 //   useNewUrlParser: true
 // };
 
-const dbURI = 'mongodb+srv://draco:nAG5fKmyDbDqsUS5@itisdev-in-stock.mjmm5.mongodb.net/inventory?retryWrites=true&w=majority'; // ADD ATLAS MONGODB DATABASE
+const dbURI = 'mongodb+srv://Group2:Appdate@appdate.adtwc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; // ADD ATLAS MONGODB DATABASE
       //"mongodb+srv://admin:admin@jkl.8e9pu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 const database = {

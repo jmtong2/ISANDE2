@@ -1,13 +1,13 @@
-
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var supplierSchema = new mongoose.Schema({
-    supplierName: {
+    name: {
         type: String,
         required: true
     },
     contactNumber: {
-        type: number,
+        type: Number,
         required: true
     },
     address: {

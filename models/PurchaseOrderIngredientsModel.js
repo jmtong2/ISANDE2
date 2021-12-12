@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var purchasedOrderIngredientsSchema = new Schema({
+var purchaseOrderIngredientsSchema = new Schema({
    
     /*
     Ito na yung primary key na inaautogenerate ng mongoose so hindi na kailangan ideclare
@@ -30,4 +30,4 @@ var purchasedOrderIngredientsSchema = new Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('PurchaseOrderIngredients', purchasedOrderIngredientsSchema);
+module.exports = mongoose.model('PurchaseOrderIngredients', purchaseOrderIngredientsSchema);

@@ -1,14 +1,44 @@
 const PurchasedIngredients = require("../models/PurchasedIngredientModel.js");
-const Ingredients = require("../models/IngredientModel.js");
-const PurchasedOrder = require("../models/PurchasedOrderModel.js");
-const PurchasedOrderIngredients = require("../models/PurchasedOrderIngredientsModel.js");
+const Ingredient = require("../models/IngredientModel.js");
+const PurchaseOrder = require("../models/PurchaseOrderModel.js");
+const PurchaseOrderIngredients = require("../models/PurchaseOrderIngredientsModel.js");
+const Supplier = require("../models/SupplierModel.js");
 // MUST IMPORT REFERENCE MODEL WHEN IT IS GOING TO BE USED
 const Unit = require("../models/UnitModel.js");
 const User = require("../models/UserModel.js");
 const Conversion = require("../models/ConversionModel.js");
 const purchasingController = {
+
+   getReorderIngredients: async (req, res) => {
+    try {
+      const ingredients =  await Ingredient.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
+      .populate("uom", "abbrev")
+      .sort({ totalQuantity: 1 })
+      .exec();
+
+      res.render("purchasingReorder", { ingredients: ingredients });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  getReorder: async (req, res) => {
+    try {
+      const suppliers = await Supplier.find().exec();
+
+    /*  const ingredients =  await Ingredient.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
+      .populate("uom", "abbrev")
+      .sort({ totalQuantity: 1 })
+      .exec();
+*/
+      res.render("purchasingReorderInput", {supplier: suppliers });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   // GET FUNCTIONS
-  getAllPurchasedIngredients: (req, res) => {
+  getInventory: async (req, res) => {
     /* 
       find in mongoose that is used in sir Arren's db.js 
        ^ https://www.youtube.com/watch?v=bxsemcrY4gQ&list=PL4cUxeGkcC9jsz4LDYc6kv3ymONOKxwBU&index=9
@@ -20,25 +50,114 @@ const purchasingController = {
 
     //you can populate two times if needed
     // for the ingredients, you only need to populate the uom as seen in getToPurchasedIngredients below
+    try {
 
-    PurchasedIngredients.find()
-      .populate("ingredient", "ingredientName")
+      const inventory = await Ingredient.find()
+      .populate("supplier", "name")
       .populate("uom", "abbrev")
-      .sort({ createdAt: -1 })
-      .exec()
-      .then((result) => {
-        /* purchasedIngredients is just a name, can be anything
-        ^ this is used in the hbs file, usually placed inside the #each
-        result is the Ingredient schema where the uom is loaded and available for use in the hbs
-        */
-        res.render("purchasedIngredients", { purchasedIngredients: result });
-      })
-      .catch((err) => {
-        res.status(404).json({
-          message: "Error",
-        });
-      });
+      .sort({ name: 1 }) 
+      .exec();
+
+
+
+      const uom = await Unit.find()
+      .exec();
+
+      const supplier = await Supplier.find()
+      .exec();
+
+      res.render("purchasingInventory", { inventory: inventory, uom: uom, supplier: supplier });
+    } catch (err) {
+      console.log(err);
+    }
   },
+
+  addIngredient: async (req, res) => {
+
+    try {
+      const inputName = req.body.name;
+      const inputUOM = req.body.uom;
+      const inputQuantityPerStock = req.body.quantityPerStock;
+      const inputPrice = req.body.price;
+      const inputSupplier = req.body.supplier;
+
+      const supplier = await Supplier.findOne({ name: inputSupplier }).exec();
+      const uom = await Unit.findOne({ abbrev: inputUOM }).exec();
+
+      const ingredient = new Ingredient({
+        ingredientName: inputName,
+        quantityPerStock: inputQuantityPerStock,
+        uom: uom._id,
+        price: inputPrice,
+        supplier: supplier._id
+      });
+
+      await ingredient.save();
+      res.redirect("/purchasing/inventory");
+
+    } catch (err) {
+      console.log(err);
+    }
+    },
+
+  getAllPurchaseOrders: async (req, res) => {
+    try {
+      const purchaseOrders = await PurchaseOrder.find()
+      .populate("supplier", "name")
+      .sort({ createdAt: -1 })
+      .exec();
+
+      res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
+    } catch (err) {
+      console.log(err);
+    }
+
+  },
+
+
+ getAllSuppliers: async (req, res) => {
+    try {
+      const suppliers = await Supplier.find()
+      .sort({ createdAt: -1 })
+      .exec();
+
+      res.render("purchasingSuppliers", { supplier: suppliers });
+    } catch (err) {
+      console.log(err);
+    }
+
+  },
+
+  addSupplier: async (req, res) => {
+
+    try {
+      const inputName = req.body.name;
+      const inputContact = req.body.contact;
+      const inputAddress = req.body.address;
+
+      const supplier = new Supplier({
+        name: inputName,
+        contactNumber: inputContact,
+        address: inputAddress,
+      });
+
+      await supplier.save();
+      res.redirect("/purchasing/suppliers");
+
+    } catch (err) {
+      console.log(err);
+    }
+    },
+
+
+
+
+
+
+
+  /* OLDS ---------------------------------------------------------*/
+
+
 
   // for purchased
   getPurchasedIngredientsToList: async (req, res) => {
@@ -48,7 +167,7 @@ const purchasingController = {
         .populate("uom", "abbrev")
         .sort({ createdAt: -1 })
         .exec();
-      const ingredients = await Ingredients.find().exec();
+      const ingredients = await Ingredient.find().exec();
       const uom = await Unit.find().exec();
 
       res.render("purchased", {
@@ -84,7 +203,7 @@ const purchasingController = {
         .populate("ingredient", "ingredientName")
         .populate("uom", "abbrev");
 
-      const ingredient = await Ingredients.findOne({
+      const ingredient = await Ingredient.findOne({
         ingredientName: purchased.ingredient.ingredientName,
       }).populate("uom", "abbrev");
 
@@ -126,7 +245,7 @@ const purchasingController = {
         addedValue = converted + ingredient.totalQuantity;
       }
 
-      const convertedValue = await Ingredients.findOneAndUpdate(
+      const convertedValue = await Ingredient.findOneAndUpdate(
         {
           ingredientName: purchased.ingredient.ingredientName,
         },
@@ -189,36 +308,11 @@ const purchasingController = {
     }
   },
 
-  getToPurchasedIngredients: (req, res) => {
-    // checks if totalquantity in ingredients/ system count is less than or equal to reorderpoint
-    Ingredients.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
-      .populate("uom", "abbrev")
-      .sort({ totalQuantity: 1 })
-      .exec()
-      .then((result) => {
-        res.render("purchasingToPurchase", { ingredients: result });
-      })
-      .catch((err) => {
-        res.status(404).json({
-          message: "Error",
-        });
-      });
-  },
+ 
 
-  getAllPurchasedOrders: (req, res) => {
-    PurchasedOrder.find()
-      .populate("user")
-      .sort({ createdAt: -1 })
-      .exec()
-      .then((result) => {
-        res.render("purchasedOrdersHome", { purchasedOrder: result });
-      })
-      .catch((err) => {
-        res.status(404).json({
-          message: "Error",
-        });
-      });
-  },
+  
+
+   
 
   getPurchasedOrderDetails: async (req, res) => {
     /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
@@ -255,7 +349,7 @@ const purchasingController = {
 
     try {
       const uom = await Unit.findOne({ abbrev: inputUOM }).exec();
-      const ingredient = await Ingredients.findOne({
+      const ingredient = await Ingredient.findOne({
         ingredientName: inputIngredient,
       }).exec();
 

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Reorder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+</head>
+
+
+
+<body style="background-color: #E6E6DE ">
+
+    {{> navbarPurchasing}} 
+
+
+   <div class=" p-3" >
+    <div class="card">
+      <div class="card-body rounded shadow" style="background-color: #CC985A">
+        <div class="d-flex justify-content-between">
+          <h3 class="text-light">Reorder</h3>
+          <span class="createPurchasedIngredient text-end fs-6 pt-1">
+           <a href="/purchasing/reorderInventory">
+             <button type="button" class="btn text-light" style="background-color: #DD620E ">
+              <i class="far fa-shopping-cart"></i>
+              Order
+              </button>
+           </a>
+
+      <!-- reorder modal para isa isa lang? -->
+          </span>
+        </div>
+      </div>
+    </div>
+
+
+<div class="col-md-12 mt-3">
+  <div class="card">
+    <div class="card-body overflow-auto  border rounded shadow-lg bg-light" >
+
+
+      <div class="table-responsive rounded" >
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
+          <thead>
+                                    <tr class="text-light align-top" style="background-color: #7CA6A6">
+                                        <th class="text-center">Ingredient</th>
+                                        <th class="text-center">Quantity On Hand</th>
+                                        <th class="text-center">Economic Order Quantity</th>
+                                        <th class="text-center">Unit Of Measurement</th>
+                                        <th class="text-center">Reorder Point</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">Supplier</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {{#each ingredients}}
+                                  <tr>
+                                        <td class="text-start">{{ingredientName}}</td>
+                                        <td class="text-end">{{quantityOnHand}}</td>
+                                        <td class="text-end">{{economicOrderQuantity}}</td>
+                                        <td class="text-center">{{uom.abbrev}}</td>
+                                        <td class="text-end">{{reorerPoint}}</td>
+                                        <td class="text-end">{{price}}</td>
+                                        <td class="text-start">{{supplier.name}}</td>
+                                    </tr>
+                                    {{/each}}
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+  
+</div>
+
+
+</body>
+</html>
