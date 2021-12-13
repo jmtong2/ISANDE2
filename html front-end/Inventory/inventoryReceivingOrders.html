@@ -15,12 +15,12 @@
 
 </head>
 
-<body>
+<body style="background-color: #E6E6DE ">
 
   <title>Receive Purchase Order</title>
 
 <!-- Navbar -->
-    <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar border-bottom navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE">
         <div class="container-fluid">
             <a class="navbar-brand"><img src="navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,11 +52,11 @@
 <!-- End of navbar -->
 
   <div class=" p-3" style=" background-color: #E6E6DE">
-    <div class="card mb-2">
-      <div class="card-body rounded">
-        <div class="d-flex justify-content-between">
-          <h4 class="text-secondary">Purchase Order</h4>
-        </div>
+    <div class="card px-3 shadow" style="background-color: #CC985A">
+      <div class="card-body rounded row">
+        
+          <h4 class="col text-light">Purchase Order</h4>
+       
       </div>
     </div>
 
@@ -81,15 +81,15 @@
 
 
 
-    <div class="col-md-12 my-3">
-      <div class="card my-2">
-        <div class="card-body overflow-auto rounded" style="height: 35vh">
+    <div class="col-md-12 mt-3">
+      <div class="card ">
+        <div class="card-body overflow-auto border rounded shadow-lg bg-light ">
 
 
           <div class="table-responsive rounded">
-            <table class="table overflow-auto table-hover table-hover table-bordered">
+            <table class="table overflow-auto table-hover table-hover table-bordered table-striped">
               <thead>
-                <tr class="text-light" style="background-color: #243b31">
+                <tr class="text-light align-top" style="background-color: #7CA6A6">
                   <th class="text-center">Ingredient</th>
                   <th class="text-center">Quantity</th>
                   <th class="text-center">Unit</th>
@@ -207,16 +207,16 @@
                   </div>
 
                   <h4 class="float-end m-2">Total: ₱600.00</h4>
-
+                  
                   <button type="button" class="btn me-3" style="background-color: #7f7c76"><i class="fas fa-long-arrow-left"></i> Back</button>
                   <a href="">
 
-                  </a><button type="button" class="btn" style="background-color: #7CA6A6" ><i class="far fa-plus-circle"></i> Receive</button>
+                  </a><button type="button" class="btn text-light" style="background-color: #DD620E" ><i class="far fa-plus-circle"></i> Receive</button>
 
 <!-- <button class="btn btn-primary" type="button">Button</button>
   <button class="btn btn-primary" type="button">Button</button> -->
 </div>
-
+</div>
 
 <script>
   $(document).ready( () => {

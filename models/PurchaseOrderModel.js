@@ -6,11 +6,11 @@ var purchaseOrderSchema = new Schema({
     // _id: Schema.Types.ObjectId, 
 
     // Foreign Key
-    user: {
+/*    user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    },
+    },*/
     date: {
         type: Date,
         required: true,
@@ -21,7 +21,15 @@ var purchaseOrderSchema = new Schema({
         ref: 'Supplier',
         required: true
     },
+    status: {
+        type: String,
+        required: true
+    },
+    total: {
+        type: Number,
+        required: true
+    }
 
 }, { timestamps: true });
 
-module.exports = mongoose.model('PurchaseOrder', purchasedOrderSchema);
+module.exports = mongoose.model('PurchaseOrder', purchaseOrderSchema);

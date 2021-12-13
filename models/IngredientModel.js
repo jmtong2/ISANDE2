@@ -10,10 +10,13 @@ var ingredientSchema = new Schema({
         type: String,
         required: true
     },
-    totalQuantity: {
+    quantityOnHand: {
         type: Number,
-        required: true,
         default: 0
+    },
+    quantityPerStock: {
+        type: Number,
+        required: true
     },
     uom: {
         type: Schema.Types.ObjectId, 
@@ -21,9 +24,26 @@ var ingredientSchema = new Schema({
         required: true
     },
     reorderPoint: {
+        type: Number
+    },
+     economicOrderQuantity: {
+        type: Number
+    },
+    price: {
         type: Number,
+        required:true
+    }, 
+    status: {
+        type: String,
+        enum: ['Active', 'Inactive']
+        /*default: "Inactive"*/
+    },
+    supplier: {
+        type: Schema.Types.ObjectId,
+        ref: 'Supplier',
         required: true
     }
+
     
 }, {timestamps: true});
 

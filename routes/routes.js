@@ -40,16 +40,25 @@ router.get('/cashier/cashierOrders', cashierController.getAllMenuItems);
 router.get('/sell', cashierController.sell);
 
 // Purchasing routes
-router.get('/purchasing/purchasedIngredients', purchasingController.getAllPurchasedIngredients);
-router.get('/purchasing/purchased', purchasingController.getPurchasedIngredientsToList);
+router.get('/purchasing/inventory', purchasingController.getInventory);
+router.post('/purchasing/addIngredient', purchasingController.addIngredient);
+router.get('/purchasing/reorder', purchasingController.getReorderIngredients);
+router.get('/purchasing/purchaseOrders', purchasingController.getAllPurchaseOrders);
+router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
+router.post('/purchasing/addSupplier', purchasingController.addSupplier);
+router.get('/purchasing/reorderInventory', purchasingController.getReorder);
+
+
 router.get('/listPurchased', purchasingController.listIngredient);
 router.get('/getAddUOMPurchasing', uomController.getAddUOMPurchasing);
 router.get('/makePurchasedOrder', purchasingController.makePurchasedOrder);
-router.get('/purchasing/toPurchase', purchasingController.getToPurchasedIngredients);
-router.get('/purchasing/purchasedOrders', purchasingController.getAllPurchasedOrders);
+
 router.get('/purchasing/purchasedOrdersDetails/:id', purchasingController.getPurchasedOrderDetails);
 router.post('/purchasing/addPurchasedIngredient', purchasingController.addPurchasedIngredient);
 router.get('/purchasing/purchasedIngredients', purchasingController.getAllPurchasedIngredients);
+/*router.get('/purchasing/inventory', purchasingController.getPurchasingInventory);
+router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);*/
+/*router.get('/purchasing/reorder', purchasingController.getReorderIngredients);*/
 
 
 // Manager routes
@@ -64,7 +73,7 @@ router.get("/manager/orderDetails/:id", managerController.getOrderDetails);
 
 // Inventory routes
 router.get("/inventory/ingredients", inventoryController.getAllIngredients);
-router.post('/inventory/addIngredient', inventoryController.addIngredient);
+/*router.post('/inventory/addIngredient', inventoryController.addIngredient);*/
 router.get('/getAddUOMInventory', uomController.getAddUOMInventory);
 router.get("/inventory/manualCount", inventoryController.getAllPurchasedIngredients);
 router.post("/inventory/postManualCount", inventoryController.postManualCount);
