@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="style.css"/>
+
+      <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE;" >    <div class="container-fluid">
@@ -46,25 +51,26 @@
                         <span class="col">
                             <h3>Orders History</h3>
                         </span>
-                        <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="startDate">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
-                    </span>
-                  </span>
-                </div>
-              </div>
 
-              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="endDate">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
+                                    <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+            <div class="col-sm-2">
+              <div class="input-group date" id="startDate">
+                <input type="text" class="form-control">
+                <span class="input-group-append">
+                  <span class="input-group-text bg-white d-block">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+            <div class="col-sm-2">
+              <div class="input-group date" id="endDate">
+                <input type="text" class="form-control">
+                <span class="input-group-append">
+                  <span class="input-group-text bg-white d-block">
+                    <i class="fa fa-calendar"></i>
                     </span>
                   </span>
                 </div>
@@ -90,7 +96,7 @@
             <div class="row"></div>
             <div class="col-md-12 mt-3">
                 <div class="card">
-                    <div class="card-body overflow-auto rounded" style="height: 75vh">
+                    <div class="card-body overflow-auto rounded">
                         <div class="table-responsive">
                             <table class="table overflow-auto">
                                 <thead>
@@ -146,6 +152,22 @@
             </div>
         </div>
 
+        <script src="main.js"></script>
+        <script>
+
+          $(document).ready( () => {
+        
+            $(function() {
+              $('#startDate').datepicker();
+            });
+        
+            $(function() {
+              $('#endDate').datepicker();
+            });
+            
+          });
+        
+        </script>
 
 </body>
 
