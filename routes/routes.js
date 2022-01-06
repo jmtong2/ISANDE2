@@ -74,7 +74,7 @@ router.get("/manager/orderDetails/:id", managerController.getOrderDetails);
 // Inventory routes
 router.get("/inventory/ingredients", inventoryController.getAllIngredients);
 router.get("/inventory/movement", inventoryController.getMovement);
-router.get("/inventory/shrinkage", inventoryController.getShrinkageReport);
+router.get("/inventory/shrinkageReport", inventoryController.getShrinkageReport);
 router.get("/inventory/shrinkage", inventoryController.getInputShrinkage);
 /*router.post('/inventory/addIngredient', inventoryController.addIngredient);*/
 router.get('/getAddUOMInventory', uomController.getAddUOMInventory);
