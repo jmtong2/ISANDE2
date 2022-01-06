@@ -1,29 +1,29 @@
- <nav class="navbar border-bottom navbar-expand-lg navbar-light bg-light">
-     <div class="container-fluid">
-        <a class="navbar-brand"><img src="/images/navbarlogo.png" style="width: 150px; height: 50px; object-fit: contain" alt="LOGO"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+ <nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color:  #E6E6DE;" >
+    <div class="container-fluid"> 
+      <a class="navbar-brand"><img src="/images/navbarlogo.png" style="width: 60px; height: 50px; object-fit: contain" alt="LOGO"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
-        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/inventory/ingredients">Inventory</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/inventory/manualCount">Discrepancy</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/inventory/discrepancyReport">Discrepancy Report</a>
-            </li> 
+      </button>
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav collpase navbar-collapse me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" href="/inventory/dashboard">Home</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link  "  href="/inventory/ingredients">Inventory</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/inventory/movement">Movement</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/inventory/shrinkageReport">Shrinkage</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link " href="/inventory/purchaseOrders">Purchase Orders</a>
+          </li>
         </ul>
-        {{!-- <form action="" class="collapse navbar-collapse" method="get" class="d-flex" style="gap: 4px">
-            <input class="form-control me-2" name="search" type="search" placeholder="Search Product" aria-label="Search">
-            <button class="btn btn-outline-info" type="submit"><strong>Search</strong></button>
-        </form> --}}
-            <div class="p-2"><strong>{{session.firstName}} {{session.lastName}}</strong></div>
-            <div class="p-2">{{session.role}}</div>
-            <a href="/getLogOut" class="btn btn-outline-secondary"><strong>Logout</strong></a>
-        
-        </div>
+        <a href="/f//" class="btn btn-outline-secondary me-1 float-end"><strong>Logout</strong></a>
+      </div>
     </div>
-</nav>
+
+  </nav>

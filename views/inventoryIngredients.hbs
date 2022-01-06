@@ -27,8 +27,8 @@
       .print-container {
         position: absolute !important;
         /*Adjust depending on the size to align it to the center*/
-        left: 3vh !important;
-        top: -60vh !important;
+        left: 0vh !important;
+        top: -55vh !important;
       }
     }
 
@@ -40,7 +40,7 @@
 <body>
 
   
- {{> navbarPurchasing}} 
+ {{> navbarInventory}} 
 
   <div class=" p-3" >
     <div class="card">
@@ -73,17 +73,7 @@
                 </div>
               </div>
 
-
-              <div class="col text-end">
-                <button type="button" class="text-light btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <i class="fa-solid fa-circle-plus"></i>
-                  Create Ingredient
-                </button>
-                
-              </div>
-
-
-              <!-- Modal -->
+              <!-- Modal for UOM and EOQ-->
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -235,20 +225,30 @@
           <thead>
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Ingredient</th>
-              <th class="text-center" style="width: 150px">Unit of Measurement</th>
-              <th class="text-center" style="width: 150px">Quantity Per Stock</th>
-              <th class="text-center" style="width: 200px">Unit Price (₱)</th>
-              <th class="text-center">Supplier</th>
+              <th class="text-center"style="width: 200px">Quantity On Hand</th>
+              <th class="text-center"style="width: 200px">Unit of Measurement</th>
+              <th class="text-center"style="width: 200px">Reorder Point</th>
+              <th class="text-center"style="width: 200px">Economic Order Quantity</th>
+              <th class="text-center">Status</th>
             </tr>
           </thead>
           <tbody>
+            
              {{#each inventory}}
             <tr>
               <td class="text-center">{{ingredientName}}</td>
-              <td class="text-end">{{uom.abbrev}}</td>
-              <td class="text-end">{{quantityPerStock}}</td>
-              <td class="text-end">{{price}}</td>
-              <td class="text-start">{{supplier.name}}</td>
+              <td class="text-end">{{quantityOnHand}}</td>
+              <td class="text-center">{{uom.abbrev}}</td>
+              <td class="text-end">{{reorderPoint}}</td>
+              <td class="text-end">{{economicOrderQuantity}}</td>
+
+              <td style="text-align:center;">
+                            {{#isGreaterThan reorderPoint quantityOnHand}}
+                                <button type="button" class="btn btn-warning">Low Stock</button>
+                            {{else}}
+                                <button type="button" class="btn btn-success">Sufficient Stock</button>
+                            {{/isGreaterThan}}
+                            </td>
             </tr>
             {{/each}}
           </tbody>

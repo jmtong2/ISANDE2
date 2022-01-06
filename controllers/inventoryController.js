@@ -1,43 +1,30 @@
 const Ingredients = require("../models/IngredientModel.js");
 const Unit = require("../models/UnitModel.js");
-const PurchasedIngredients = require("../models/PurchasedIngredientModel.js");
-const Discrepancy = require("../models/DiscrepancyModel.js");
+const PurchasedOrders = require("../models/PurchasedOrderModel.js");
+const Shrinkage = require("../models/ShrinkageModel.js");
 
 function ManualCountInstance (purchasedIngredient, manualCount, lossQuantity) {
     this.purchasedIngredient = purchasedIngredient;
     this.manualCount = manualCount;
     this.lossQuantity = lossQuantity;
-};
+}
 
 const inventoryController = {
 
-    getAllIngredients: (req, res) => {
-        Unit.find()
-            .exec()
-            .then(result => {
-                const unit = result;
-
-                Ingredients.find()
+    getAllIngredients: async (req, res) => {
+    try {
+        const inventory = await Ingredients.find()
                     .sort({ totalQuantity: 1 })
                     .populate('uom', 'abbrev')
-                    .exec()
-                    .then(result => {
-                        res.render('inventory', {
-                            ingredients: result,
-                            uom: unit
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+                    .exec();
 
+        res.render('inventoryIngredients', {inventory: inventory});   
+        } catch (e) {
+        res.send('Error page');  
+        }
     },
 
-    addIngredient: (req, res) => {
+    /*addIngredient: (req, res) => {
         Unit.findOne({ abbrev: req.body.uom })
             .exec()
             .then(result => {
@@ -63,19 +50,46 @@ const inventoryController = {
             .catch(err => {
                 console.log(err);
             });
+    },*/
+
+    getMovement: async (req, res) => {
+        try {
+
+            res.render('inventoryMovement');   
+        } catch (e) {
+            res.send('Error page');  
+        }
+
     },
 
-    getAllPurchasedIngredients: (req, res) => {
-        PurchasedIngredients.find()
-            .populate('uom', 'abbrev')
-            .exec()
-            .then(result => {
-                res.render('inventoryManualCount', { purchasedIngredients: result });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    getShrinkageReport: async (req, res) => {
+        try {
+            const shrinkage = await Shrinkage.find()
+            .exec();
+            res.send('inventoryShrinkageReport', {shrinkage: shrinkage});
+        } catch (e) {
+            res.send('Error page');  
+        }
+    },
 
+    getInputShrinkage: async (req, res) => {
+        try {
+            const shrinkage = await Shrinkage.find()
+            .exec();
+            res.send('inventoryShrinkage', {shrinkage: shrinkage});
+        } catch (e) {
+            res.send('Error page');  
+        }
+    },
+
+    getPurchasedOrders: async (req, res) => {
+        try {
+            const purchasedOrders = await PurchasedOrders.find()
+            .exec();
+            res.send('inventoryPurchasedOrders', {purchasedOrder: purchasedOrders});
+        } catch (e) {
+            res.send('Error page');  
+        }
     },
 
     postManualCount: async (req, res) => {
@@ -102,7 +116,7 @@ const inventoryController = {
             //     .exec();
 
             const ingredients = await Ingredients.find({}).exec();
-            console.log('ingredients...')
+            console.log('ingredients...');
             console.log(ingredients);
         
             for(let i = 0; i < manualCountInput.length; i++) {
