@@ -24,10 +24,12 @@ var ingredientSchema = new Schema({
         required: true
     },
     reorderPoint: {
-        type: Number
+        type: Number, 
+        required:true
     },
      economicOrderQuantity: {
-        type: Number
+        type: Number,
+        required:true
     },
     price: {
         type: Number,

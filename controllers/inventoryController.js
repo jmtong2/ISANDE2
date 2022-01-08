@@ -1,6 +1,6 @@
 const Ingredients = require("../models/IngredientModel.js");
 const Unit = require("../models/UnitModel.js");
-const PurchasedOrders = require("../models/PurchasedOrderModel.js");
+const PurchasedOrders = require("../models/PurchaseOrderModel.js");
 const Shrinkage = require("../models/ShrinkageModel.js");
 
 function ManualCountInstance (purchasedIngredient, manualCount, lossQuantity) {
@@ -19,6 +19,18 @@ const inventoryController = {
                     .exec();
 
         res.render('inventoryIngredients', {inventory: inventory});   
+        } catch (e) {
+        res.send('Error page');  
+        }
+    },
+
+    setReorderEOQ: async (req, res) => {
+    try {
+        const inventory = await Ingredients.findOneAndUpdate({ingredientName: req.body.ingredientName}, 
+            {"$set": {reorderPoint: req.body.reorderPoint, economicOrderQuantity: req.body.economicOrderQuantity}})
+                    .exec();
+
+        res.send(inventory);
         } catch (e) {
         res.send('Error page');  
         }

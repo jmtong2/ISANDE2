@@ -89,7 +89,9 @@ const purchasingController = {
         quantityPerStock: inputQuantityPerStock,
         uom: uom._id,
         price: inputPrice,
-        supplier: supplier._id
+        supplier: supplier._id,
+        reorderPoint: 0,
+        economicOrderQuantity: 0
       });
 
       await ingredient.save();

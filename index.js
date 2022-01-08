@@ -82,6 +82,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+
+
 // define the paths contained to './routes/routes.js
 app.use('/', routes);
 
