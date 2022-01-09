@@ -44,10 +44,12 @@ router.get('/purchasing/inventory', purchasingController.getInventory);
 router.post('/purchasing/addIngredient', purchasingController.addIngredient);
 router.get('/purchasing/reorder', purchasingController.getReorderIngredients);
 router.get('/purchasing/purchaseOrders', purchasingController.getAllPurchaseOrders);
+router.get('/getOrderIngredients', purchasingController.getOrderIngredients);
 router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
 router.post('/purchasing/addSupplier', purchasingController.addSupplier);
 router.get('/purchasing/reorderInventory', purchasingController.getReorder);
 
+router.get('/addMeasures', purchasingController.addMeasures);
 
 router.get('/listPurchased', purchasingController.listIngredient);
 router.get('/getAddUOMPurchasing', uomController.getAddUOMPurchasing);

@@ -1,24 +1,61 @@
 const PurchasedIngredients = require("../models/PurchasedIngredientModel.js");
 const Ingredient = require("../models/IngredientModel.js");
+const Supplier = require("../models/SupplierModel.js");
 const PurchaseOrder = require("../models/PurchaseOrderModel.js");
 const PurchaseOrderIngredients = require("../models/PurchaseOrderIngredientsModel.js");
-const Supplier = require("../models/SupplierModel.js");
+
 // MUST IMPORT REFERENCE MODEL WHEN IT IS GOING TO BE USED
 const Unit = require("../models/UnitModel.js");
 const User = require("../models/UserModel.js");
 const Conversion = require("../models/ConversionModel.js");
 const purchasingController = {
 
+   async createUnit(abbrev, fullName) {
+    const unit = new Unit({
+        abbrev: abbrev,
+        fullName: fullName
+    });
+
+    const result = await unit.save();
+    console.log(result);
+   },
+
+   addMeasures: async (req,res) => {
+    purchasingController.createUnit('mg', 'milligram');
+    purchasingController.createUnit('g', 'gram');
+    purchasingController.createUnit('kg', 'kilogram');
+    purchasingController.createUnit('lb', 'pound');
+    purchasingController.createUnit('oz', 'ounce');
+
+// Volume units
+    purchasingController.createUnit('ml', 'milliliter');
+    purchasingController.createUnit('l', 'liter');
+    purchasingController.createUnit('gal', 'gallon');
+    purchasingController.createUnit('qt', 'quart');
+    purchasingController.createUnit('p', 'pint');
+    purchasingController.createUnit('c', 'cup');
+
+    purchasingController.createUnit('tbsp', 'tablespoon');
+    purchasingController.createUnit('tsps', 'teaspoon');
+
+       const units = await Unit
+        .find()
+        .exec();
+        res.send(units);
+   },
+
    getReorderIngredients: async (req, res) => {
     try {
-      const ingredients =  await Ingredient.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
+      /*const ingredient =  await Ingredient.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
       .populate("uom", "abbrev")
       .sort({ totalQuantity: 1 })
+      .exec();*/
+      const supplier =  await Supplier.find()
       .exec();
 
-      res.render("purchasingReorder", { ingredients: ingredients });
+      res.render("purchasingReorder", { supplier: supplier });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -33,7 +70,32 @@ const purchasingController = {
 */
       res.render("purchasingReorderInput", {supplier: suppliers });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
+    }
+  },
+
+  getOrderIngredients: async (req, res) => {
+    try {
+      const supplier = await Supplier.findOne({name: req.query.supplierName})
+      .exec();
+
+    const ingredients = await Ingredient.find({
+        $and: [
+          {
+            $expr: { $lte: ["$quantityOnHand", "$reorderPoint"] }
+          },
+          {
+            supplier: supplier._id
+          },
+        ],
+      })
+      .populate("uom", "abbrev")
+      .exec();
+  
+      res.send(ingredients);
+      
+    } catch (err) {
+      res.send('Error page'); 
     }
   },
 
@@ -63,12 +125,13 @@ const purchasingController = {
       const uom = await Unit.find()
       .exec();
 
+
       const supplier = await Supplier.find()
       .exec();
 
       res.render("purchasingInventory", { inventory: inventory, uom: uom, supplier: supplier });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -98,7 +161,7 @@ const purchasingController = {
       res.redirect("/purchasing/inventory");
 
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
     },
 
@@ -111,7 +174,7 @@ const purchasingController = {
 
       res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
 
   },
@@ -120,12 +183,12 @@ const purchasingController = {
  getAllSuppliers: async (req, res) => {
     try {
       const suppliers = await Supplier.find()
-      .sort({ createdAt: -1 })
+      .sort({ name: 1 })
       .exec();
 
       res.render("purchasingSuppliers", { supplier: suppliers });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
 
   },
@@ -147,7 +210,7 @@ const purchasingController = {
       res.redirect("/purchasing/suppliers");
 
     } catch (err) {
-      console.log(err);
+     res.send('Error page'); 
     }
     },
 
@@ -178,7 +241,7 @@ const purchasingController = {
         uom: uom,
       });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -193,7 +256,7 @@ const purchasingController = {
         .exec();
       res.send(purchasedIngredients);
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -262,7 +325,7 @@ const purchasingController = {
       return convertedValue;
       //findOneAndUpdate the ingredient
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -299,14 +362,14 @@ const purchasingController = {
             purchasedQuantity[i]
           );
         } catch (err) {
-          console.log(err);
+          res.send('Error page'); 
         }
       }
       res.send(true);
 
       // multiple add to system ingredients
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -337,7 +400,7 @@ const purchasingController = {
 
       res.render("purchasedOrderDetails", { purchasedOrderDetails: pOI });
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   },
 
@@ -366,7 +429,7 @@ const purchasingController = {
       await purchasedIngredient.save();
       res.redirect("/purchasing/purchased");
     } catch (err) {
-      console.log(err);
+      res.send('Error page'); 
     }
 
   },
@@ -380,7 +443,7 @@ const purchasingController = {
       .exec();
       res.render('purchasedIngredients', {purchasedIngredient: purchasedIngredient});
     } catch(err) {
-      console.log(err);
+      res.send('Error page'); 
     }
   }
 };
