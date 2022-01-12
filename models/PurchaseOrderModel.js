@@ -11,20 +11,18 @@ var purchaseOrderSchema = new Schema({
         ref: 'User',
         required: true
     },*/
-    date: {
+    dateMade: {
         type: Date,
         required: true,
-        default: Date.now
     },
-    expectedDateOfDelivery: {
+    /*expectedDateOfDelivery: {
         type: Date,
         required: true,
         default: Date.now
-    },
-    receiveddDateOfDelivery: {
+    },*/
+    receivedDateOfDelivery: {
         type: Date,
-        required: true,
-        default: Date.now
+        
     },
     supplier: {
         type: Schema.Types.ObjectId,

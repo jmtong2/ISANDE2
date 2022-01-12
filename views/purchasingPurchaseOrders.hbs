@@ -93,7 +93,7 @@
               </div>
               <thead>
                 <tr class="text-light align-top" style="background-color: #7CA6A6">
-                  <th class="text-center">Date</th>
+                  <th style="width: 300px" class="text-center">Date</th>
                   <th class="text-center">Total</th>
                    <th class="text-center">Status</th>
                   <th class="text-start">Supplier</th>
@@ -106,10 +106,10 @@
                   <td class="text-center">
                     <a href="/purchasing/purchasedOrdersDetails/{{_id}}" class="text-dark"
                                             style="text-decoration: none">
-                                            {{date}}
+                                            {{dateMade}}
                     </a>
                   </td>
-                  <td class="text-end">{{total}}</td>
+                  <td class="text-end">₱{{total}}</td>
                   <td class="text-center">{{status}}</td>
                    <td class="text-start">{{supplier.name}}</td>
                 </tr>

@@ -20,7 +20,7 @@ var purchaseOrderIngredientsSchema = new Schema({
         ref: 'Ingredient',
         required: true
     },
-     quantityPerStock: {
+     amount: {
         type: Number,
         required: true
     },

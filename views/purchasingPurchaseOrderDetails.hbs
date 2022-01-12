@@ -52,27 +52,17 @@
     <div class="row">
       <div class="col my-1">
         <label for="supplierName" class="form-label">Supplier Name</label>
-        <select
-        class="form-select"
-        id="selectSupplier"
-        name="supplierName"
-        required
-        >
-        <option selected>Choose supplier</option>
-        {{#each supplier}}
-        <option value="{{{name}}}">{{name}}</option>
-        {{/each}}
-      </select>
+        <input class="form-control" placeholder="{{{pO.supplier.name}}}" disabled>
     </div>
     <div class="col-md-auto my-1">
       <label for="contactNumber" class="form-label">Contact Number</label>
-      <input class="form-control" id="disabledInput" type="number" placeholder="" disabled>
+      <input class="form-control" id="disabledInput" type="number" placeholder="{{{pO.supplier.contactNumber}}}" disabled>
     </div>
     <div class="col-4"></div>
   </div>
 
   <label for="address" class="form-label">Address</label>
-  <input class="form-control my-1" id="disabledInput" type="text" placeholder="Address" disabled>
+  <input class="form-control my-1" id="disabledInput" type="text" placeholder="{{{pO.supplier.address}}}" disabled>
 </section>
 
 
@@ -95,7 +85,16 @@
             </tr>
           </thead>
           <tbody id="ingredientsTable">
-
+            {{#each pOI}}
+            <tr>
+              <td class="text-start">{{ingredient.ingredientName}}</td>
+              <td class="text-end">{{ingredient.quantityPerStock}}</td>
+              <td class="text-center">{{ingredient.uom.abbrev}}</td>
+              <td class="text-end">{{quantityPurchased}}</td>
+              <td class="text-end">{{ingredient.quantityPerStock}}</td>
+              <td class="text-end">{{amount}}</td>
+              {{/each}}
+            </tr>
           </tbody>
         </table>
 
@@ -114,11 +113,11 @@
                               <span
                               class="input-group-text bg-success text-light"
                               id="basic-addon3"
-                              >TOTAL: </span
+                              >TOTAL:</span
                               >
                               <input
                               type="text"
-                              min="0"
+                              placeholder="₱{{{pO.total}}}"
                               class="form-control text-end col-3"
                               id="totalAmount"
                               aria-describedby="basic-addon3"
@@ -132,103 +131,9 @@
 </div>
 </div>
 <div class="p-3  ">
-  <button type="button" id="download" disabled class="dlBtn btn me-3" style="background-color: #7CA6A6" style="background-color: #7f7c76" onclick="window.print();"><i class="far fa-print"></i> Download</button>
-  <button id="save" disabled type="button" class="saveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save</button>
+  <button type="button" id="download" class="dlBtn btn me-3" style="background-color: #7CA6A6" style="background-color: #7f7c76" onclick="window.print();"><i class="far fa-print"></i> Download</button>
 </div>
 
-
-
-
-
-
-<script>
-  $(document).ready( () => {
-
-    var ingredientsList = [];
-    var supplier = "";
-    var total = 0;
-    var listAmount = [];
-    var listQuantity = [];
-
-    $("#selectSupplier").change(function () {
-      $("#save").removeAttr('disabled');
-      $("#download").removeAttr('disabled');
-      $("#ingredientsTable").empty();   
-
-      ingredientsList = [];
-      supplier = "";
-    total = 0;
-    listAmount = [];
-    listQuantity = []; 
-
-      supplier = $(this).val();
-      $.get("/getOrderIngredients", {
-        supplierName: supplier
-      },
-      ingredients => {
-
-      ingredientsList = ingredients;
-
-      // Must have checker if already ordered by checking the status to avoid multiple orders
-      // Ingredient has status to let the ingredient that has a status that reached the reorder point
-      // So only find ingredients that has enough supply
-      // Dissable save button
-
-      let count = $(ingredients).toArray().length;
-      
-      for (let i = 0; i < count; i++) {
-        let quantity = Math.ceil(ingredients[i].economicOrderQuantity / ingredients[i].quantityPerStock);
-        let amount = ingredients[i].price * quantity;
-        let ingredientInfo =  `<tr>
-        <td class="text-start">`+ingredients[i].ingredientName+`</td>
-        <td class="text-end">`+ingredients[i].quantityPerStock+`</td>
-        <td class="text-center">`+ingredients[i].uom.abbrev+`</td>
-        <td class="text-end">`+quantity+`</td>
-        <td class="text-end">`+ingredients[i].price+`</td>
-        <td class="text-end">`+amount+`</td>
-        </tr>`;
-
-        total+= amount;
-        listQuantity.push(quantity);
-        listAmount.push(amount);
-        $("#ingredientsTable").append(ingredientInfo);
-      }
-      total = (Math.round(total * 100) / 100).toFixed(2);
-      $("#totalAmount").val(`₱${total}`);
-
-    });
-    // Save loaded ingredients into an array outside of this function
-
-  });
-
-    $("#save").click( () => {
-    // Send the loaded array to the backend to be saved
-
-      $.post("/savePurchaseOrder", {
-                    ingredients: ingredientsList,
-                    supplier: supplier,
-                    total: total,
-                    listAmount: listAmount,
-                    listQuantity: listQuantity
-                }, result => {
-                    console.log(result);
-                    ingredientsList = [];
-                    supplier = "";
-                    total = 0;
-                    listAmount = [];
-                    listQuantity = [];
-                    alert('Purchase Order Saved!');
-                    window.location.reload();
-                });  
-  
-  });
-
-
-  });
-
-
-
-</script>
 
 
 

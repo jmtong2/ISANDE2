@@ -44,6 +44,7 @@ router.get('/purchasing/inventory', purchasingController.getInventory);
 router.post('/purchasing/addIngredient', purchasingController.addIngredient);
 router.get('/purchasing/reorder', purchasingController.getReorderIngredients);
 router.get('/purchasing/purchaseOrders', purchasingController.getAllPurchaseOrders);
+router.post('/savePurchaseOrder', purchasingController.savePurchaseOrder);
 router.get('/getOrderIngredients', purchasingController.getOrderIngredients);
 router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
 router.post('/purchasing/addSupplier', purchasingController.addSupplier);
@@ -79,6 +80,7 @@ router.get("/inventory/movement", inventoryController.getMovement);
 router.get("/inventory/shrinkageReport", inventoryController.getShrinkageReport);
 router.get("/inventory/shrinkage", inventoryController.getInputShrinkage);
 router.post("/setReorderEOQ", inventoryController.setReorderEOQ);
+router.get("/inventory/purchaseOrders", inventoryController.getAllPurchaseOrders);
 /*router.post('/inventory/addIngredient', inventoryController.addIngredient);*/
 router.get('/getAddUOMInventory', uomController.getAddUOMInventory);
 

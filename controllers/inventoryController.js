@@ -1,6 +1,7 @@
 const Ingredients = require("../models/IngredientModel.js");
 const Unit = require("../models/UnitModel.js");
-const PurchasedOrders = require("../models/PurchaseOrderModel.js");
+const PurchaseOrder = require("../models/PurchaseOrderModel.js");
+const PurchaseOrderIngredients = require("../models/PurchaseOrderIngredientsModel.js");
 const Shrinkage = require("../models/ShrinkageModel.js");
 
 function ManualCountInstance (purchasedIngredient, manualCount, lossQuantity) {
@@ -12,29 +13,42 @@ function ManualCountInstance (purchasedIngredient, manualCount, lossQuantity) {
 const inventoryController = {
 
     getAllIngredients: async (req, res) => {
-    try {
-        const inventory = await Ingredients.find()
-                    .sort({ totalQuantity: 1 })
-                    .populate('uom', 'abbrev')
-                    .exec();
+        try {
+            const inventory = await Ingredients.find()
+            .sort({ totalQuantity: 1 })
+            .populate('uom', 'abbrev')
+            .exec();
 
-        res.render('inventoryIngredients', {inventory: inventory});   
+            res.render('inventoryIngredients', {inventory: inventory});   
         } catch (e) {
-        res.send('Error page');  
+            res.send('Error page');  
         }
     },
 
     setReorderEOQ: async (req, res) => {
-    try {
-        const inventory = await Ingredients.findOneAndUpdate({ingredientName: req.body.ingredientName}, 
-            {"$set": {reorderPoint: req.body.reorderPoint, economicOrderQuantity: req.body.economicOrderQuantity}})
-                    .exec();
+        try {
+            const inventory = await Ingredients.findOneAndUpdate({ingredientName: req.body.ingredientName}, 
+                {"$set": {reorderPoint: req.body.reorderPoint, economicOrderQuantity: req.body.economicOrderQuantity}})
+            .exec();
 
-        res.send(inventory);
+            res.send(inventory);
         } catch (e) {
-        res.send('Error page');  
+            res.send('Error page');  
         }
     },
+
+    getAllPurchaseOrders: async (req, res) => {
+         try {
+          const purchaseOrders = await PurchaseOrder.find()
+          .populate("supplier", "name")
+          .sort({ createdAt: -1 })
+          .exec();
+
+          res.render("inventoryPurchaseOrders", { purchaseOrder: purchaseOrders });
+      } catch (err) {
+          res.send('Error page'); 
+      }
+  },
 
     /*addIngredient: (req, res) => {
         Unit.findOne({ abbrev: req.body.uom })
@@ -62,50 +76,42 @@ const inventoryController = {
             .catch(err => {
                 console.log(err);
             });
-    },*/
+        },*/
 
-    getMovement: async (req, res) => {
-        try {
+        getMovement: async (req, res) => {
+            try {
 
-            res.render('inventoryMovement');   
-        } catch (e) {
-            res.send('Error page');  
-        }
+                res.render('inventoryMovement');   
+            } catch (e) {
+                res.send('Error page');  
+            }
 
-    },
+        },
 
-    getShrinkageReport: async (req, res) => {
-        try {
-            const shrinkage = await Shrinkage.find()
-            .exec();
-            res.send('inventoryShrinkageReport', {shrinkage: shrinkage});
-        } catch (e) {
-            res.send('Error page');  
-        }
-    },
+        getShrinkageReport: async (req, res) => {
+            try {
+                const shrinkage = await Shrinkage.find()
+                .exec();
+                res.send('inventoryShrinkageReport', {shrinkage: shrinkage});
+            } catch (e) {
+                res.send('Error page');  
+            }
+        },
 
-    getInputShrinkage: async (req, res) => {
-        try {
-            const shrinkage = await Shrinkage.find()
-            .exec();
-            res.send('inventoryShrinkage', {shrinkage: shrinkage});
-        } catch (e) {
-            res.send('Error page');  
-        }
-    },
+        getInputShrinkage: async (req, res) => {
+            try {
+                const shrinkage = await Shrinkage.find()
+                .exec();
+                res.send('inventoryShrinkage', {shrinkage: shrinkage});
+            } catch (e) {
+                res.send('Error page');  
+            }
+        },
 
-    getPurchasedOrders: async (req, res) => {
-        try {
-            const purchasedOrders = await PurchasedOrders.find()
-            .exec();
-            res.send('inventoryPurchasedOrders', {purchasedOrder: purchasedOrders});
-        } catch (e) {
-            res.send('Error page');  
-        }
-    },
 
-    postManualCount: async (req, res) => {
-        try {
+
+  postManualCount: async (req, res) => {
+    try {
             // const inputs = req.body;
 
             const purchasedIngredientsId = req.body.purchasedIngredientId;
@@ -130,7 +136,7 @@ const inventoryController = {
             const ingredients = await Ingredients.find({}).exec();
             console.log('ingredients...');
             console.log(ingredients);
-        
+
             for(let i = 0; i < manualCountInput.length; i++) {
                 const purchasedIngredient = await PurchasedIngredients.find({_id: purchasedIngredientsId[i]})
                 .populate({
@@ -166,7 +172,7 @@ const inventoryController = {
                     //     // console.log('2- ' + result[0].ingredient._id);
                     //     if(result[0].ingredient.ingredientName == ingredients[j].ingredientName) {
                     //         console.log('2- ' + result[0].ingredient.ingredientName);
-                            
+
                     //         console.log('same');
 
                     //         ingredientsDetails.push(ingredients[j]);
@@ -244,25 +250,25 @@ const inventoryController = {
 
     getdiscrepancyReport: (req, res) => {
         Discrepancy.find()
-            .populate({
-                path: 'ingredient',
-                populate: {
-                    path: 'uom',
-                    model: 'Unit'
-                }
-            })
-            .exec()
-            .then(result => {
+        .populate({
+            path: 'ingredient',
+            populate: {
+                path: 'uom',
+                model: 'Unit'
+            }
+        })
+        .exec()
+        .then(result => {
                 //res.send(result);
                 res.render('inventoryDiscrepancyReport', { discrepancyReport: result });
             })
-            .catch(err => {
-                console.log(err);
-            });
+        .catch(err => {
+            console.log(err);
+        });
     }
 
 
-	
+
 
 };
 
