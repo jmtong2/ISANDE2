@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="loginstyle.css" type="text/css"/>
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="full-page">
+        <div id='login-form'class='login-page'>
+            <div class="form-box">
+                <div class='button-box'>
+                    <div id='btn'></div>
+                    <button id="log-btn" type='button'onmouseup='login()'class='toggle-btn' style="color: white";>Log In</button>
+                    <button id="reg-btn" type='button'onmouseup='register()'class='toggle-btn'>Register</button>
+                </div>
+
+                <form id='login' class='input-group-login'>
+                    <input type='text'class='loginemailid-field'placeholder='Email Id' required >
+		                <input type='password'class='loginpass-field'placeholder='Enter Password' required>
+		                <input type='checkbox'class='rememberpass-checkbox'><span>Remember Password</span>
+		                <button type='submit'class='login-btn'>Log in</button>
+		                </form>
+
+          		  <form id='register' class='input-group-register'>
+          		      <input type='text'class='regfirst-field'placeholder='First Name' required>
+          		      <input type='text'class='reglast-field'placeholder='Last Name ' required>
+                    <input type='email'class='regemail-field'placeholder='Email' required>
+          		      <input type='password'class='regpass-field'placeholder='Password'  required>
+                    <select type='typeofuser'class="regselectuser-field" placeholder='Types of User' required>
+                      <option selected>Type of User</option>
+                        <option  value="userfom">Front Office Manager</option>
+                        <option  value="userim">Inventory Manager</option>
+                        <option  value="userpm">Purchasing Manager</option>
+                        <option  value="userfoc">Front Office Cashier</option>
+                    </select>
+		                <input type='checkbox'class='termsagree-checkbox' style="margin-top: 75px;">
+                          <span>I agree to the terms and conditions</span>
+                    <button type='submit'class='register-btn'>Register</button>
+	              </form>
+            </div>
+
+            <div class="logo"><img src="loginlogo.png"style="width: 100px;"></div>
+
+        </div>
+    </div>
+
+    <script>
+        var x=document.getElementById('login');
+		    var y=document.getElementById('register');
+		    var z=document.getElementById('btn');
+        let btnLog = document.getElementById('log-btn');
+        let btnReg = document.getElementById('reg-btn');
+
+        function login()
+        {
+          btnLog.addEventListener('click', () => btnReg.style.color="black", btnLog.style.color="white");
+          x.style.left='50px';
+          y.style.left='450px';
+          z.style.left='0px';
+        }
+
+        function register()
+    		{
+          btnReg.addEventListener('click', () => btnReg.style.color="white", btnLog.style.color="black");
+    			x.style.left='-400px';
+    			y.style.left='50px';
+    			z.style.left='110px';
+    		}
+	   </script>
+
+</body>
+</html>
