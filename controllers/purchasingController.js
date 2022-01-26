@@ -367,7 +367,7 @@ const purchasingController = {
   },
 
 
-getPurchasedOrderDetails: async (req, res) => {
+getPurchaseOrderDetails: async (req, res) => {
     /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
        populate the ref inside a ref
        ex. purchasedOrderIngredients has purchasedIngredients ref

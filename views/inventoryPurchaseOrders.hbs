@@ -97,14 +97,15 @@
                   <th class="text-center">Total</th>
                    <th class="text-center">Status</th>
                   <th class="text-start">Supplier</th>
+                  <th style="width: 300px" class="text-start">Received Date Of Delivery</th>
                  
                 </tr>
               </thead>
               <tbody id="purchasedTable">
                 {{#each purchaseOrder}}
-                <tr class='clickable-row' data-href='/purchasing/purchasedOrdersDetails/{{_id}}'>
+                <tr>
                   <td class="text-center">
-                    <a href="/purchasing/purchasedOrdersDetails/{{_id}}" class="text-dark"
+                    <a href="/inventory/purchaseOrdersDetails/{{_id}}" class="text-dark"
                                             style="text-decoration: none">
                                             {{dateMade}}
                     </a>
@@ -112,6 +113,7 @@
                   <td class="text-end">₱{{total}}</td>
                   <td class="text-center">{{status}}</td>
                    <td class="text-start">{{supplier.name}}</td>
+                   <td class="text-start">{{receivedDateOfDelivery}}</td>
                 </tr>
                 {{/each}}
               </tbody>

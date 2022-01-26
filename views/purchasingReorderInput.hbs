@@ -110,7 +110,7 @@
   </div>
 
   <div class="mt-3 col-3 float-end">
-    <div class="input-group mb-3">
+    <div class="input-group mb-3 shadow-lg">
                               <span
                               class="input-group-text bg-success text-light"
                               id="basic-addon3"
@@ -151,10 +151,8 @@
     var listQuantity = [];
 
     $("#selectSupplier").change(function () {
-      $("#save").removeAttr('disabled');
-      $("#download").removeAttr('disabled');
       $("#ingredientsTable").empty();   
-
+      amount = 0;
       ingredientsList = [];
       supplier = "";
     total = 0;
@@ -177,7 +175,7 @@
       let count = $(ingredients).toArray().length;
       
       for (let i = 0; i < count; i++) {
-        let quantity = Math.ceil(ingredients[i].economicOrderQuantity / ingredients[i].quantityPerStock);
+        let quantity = ingredients[i].economicOrderQuantity;
         let amount = ingredients[i].price * quantity;
         let ingredientInfo =  `<tr>
         <td class="text-start">`+ingredients[i].ingredientName+`</td>
@@ -192,6 +190,14 @@
         listQuantity.push(quantity);
         listAmount.push(amount);
         $("#ingredientsTable").append(ingredientInfo);
+        if (total == 0) {
+          $("#save"). attr("disabled", true);
+          $("#download"). attr("disabled", true);
+          
+        } else {
+          $("#save").removeAttr('disabled');
+         $("#download").removeAttr('disabled');
+        }
       }
       total = (Math.round(total * 100) / 100).toFixed(2);
       $("#totalAmount").val(`₱${total}`);
@@ -202,7 +208,8 @@
   });
 
     $("#save").click( () => {
-    // Send the loaded array to the backend to be saved
+    if (total == 0 && ingredientsList === undefined || ingredientsList.length == 0) 
+      Alert("Select Another Supplier.");
 
       $.post("/savePurchaseOrder", {
                     ingredients: ingredientsList,
@@ -218,7 +225,7 @@
                     listAmount = [];
                     listQuantity = [];
                     alert('Purchase Order Saved!');
-                    window.location.reload();
+                    window.history.back();
                 });  
   
   });

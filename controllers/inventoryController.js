@@ -38,7 +38,7 @@ const inventoryController = {
     },
 
     getAllPurchaseOrders: async (req, res) => {
-         try {
+       try {
           const purchaseOrders = await PurchaseOrder.find()
           .populate("supplier", "name")
           .sort({ createdAt: -1 })
@@ -108,19 +108,130 @@ const inventoryController = {
             }
         },
 
+        getPurchaseOrderDetails: async (req, res) => {
+    /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
+       populate the ref inside a ref
+       ex. purchasedOrderIngredients has purchasedIngredients ref
+       so first populate the purchasedIngredients
+       then populate the uom so it can be used in the hbs
+       */
+       const id = req.params.id;
+       try {
+          const pO = await PurchaseOrder.findById(id)
+          .populate("supplier")
+          .exec();
 
+          const pOI = await PurchaseOrderIngredients.find({ purchaseOrder: id })
+          .populate({
+              path: "ingredient",
+              populate: {
+                path: "uom",
+                model: "Unit",
+            },
+        })
+          .populate({
+              path: "purchaseOrder",
+              populate: {
+                path: "supplier",
+                model: "Supplier",
+            },
+        })
+          .exec();
+
+          res.render("inventoryPurchaseOrderDetails", { 
+            pOI: pOI,
+            pO: pO
+        });
+      } catch (err) {
+          res.send('Error page'); 
+      }
+  },
+
+  receivePurchaseOrder: async (req, res) => {
+    const id = req.params.id;
+    try {
+        const pO = await PurchaseOrder.findById(id)
+        .populate("supplier")
+        .exec();
+
+        const pOI = await PurchaseOrderIngredients.find({ purchaseOrder: id })
+        .populate("ingredient")   
+        .exec();
+
+
+        const pOISize = pOI.length;
+            //const ingr = await Ingredients.findById(pOI[0].ingredient);
+
+            for (let i = 0; i < pOISize; i++) {
+                // Increases the ingredient based on the EOQ
+                const ingredient = await Ingredients.findOneAndUpdate({ _id : pOI[i].ingredient._id},  
+                    {"orderStatus": "Present"},
+                    {   
+                      new: true,
+                  })
+                .exec();
+
+                const ingredient1 = await Ingredients.findOneAndUpdate({ _id : pOI[i].ingredient._id }, 
+                    { $inc: { "quantityOnHand": pOI[i].quantityPurchased}},
+                    {   
+                      new: true,
+                  })
+                .exec();
+            }
+            
+
+            const today = new Date();
+            const receivePO = await PurchaseOrder.findOneAndUpdate({ _id : id},  
+                {"receivedDateOfDelivery": today},
+                {   
+                  new: true,
+              })
+            .exec();
+            const receivePO1 = await PurchaseOrder.findOneAndUpdate({ _id : id},  
+                {"status": "RECEIVED"},
+                {   
+                  new: true,
+              })
+            .exec();
+
+            res.redirect('/inventory/purchaseOrders');
+
+            // inventory.quantityOnHand += qtyPerStock * quantity
+            // inventory.status = Ordered
+            // PucharsedOrder.receivedDateOfDelivery = today
+            // PucharsedOrder.status = received
+
+        } catch (err) {
+          res.send('Error page'); 
+      }
+  },
+
+  isReceived: async (req, res) => {
+    const id = req.body.id;
+    try {
+        const pO = await PurchaseOrder.findById(id)
+        .exec();
+        if (pO.status === "PENDING")
+            res.send(false);
+        else if (pO  === "RECEIVED") 
+            res.send(true);
+    } catch (err) {
+          res.send('Error page'); 
+      }
+  
+  },
 
   postManualCount: async (req, res) => {
     try {
-            // const inputs = req.body;
+        // const inputs = req.body;
 
-            const purchasedIngredientsId = req.body.purchasedIngredientId;
-            const manualCountInput = req.body.manualCount;
-            var details = [];
-            var ingredientsDetails = [];
-            var isFound;
+        const purchasedIngredientsId = req.body.purchasedIngredientId;
+        const manualCountInput = req.body.manualCount;
+        var details = [];
+        var ingredientsDetails = [];
+        var isFound;
 
-            console.log('inputs: ' + manualCountInput.length);
+        console.log('inputs: ' + manualCountInput.length);
 
             // const purchasedIngredients = await PurchasedIngredients.find({})
             //     .populate({

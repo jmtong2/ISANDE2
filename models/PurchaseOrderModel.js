@@ -22,7 +22,6 @@ var purchaseOrderSchema = new Schema({
     },*/
     receivedDateOfDelivery: {
         type: Date,
-        
     },
     supplier: {
         type: Schema.Types.ObjectId,
