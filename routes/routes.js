@@ -65,9 +65,9 @@ router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);*/
 
 // Manager routes
 router.get("/manager/menuItems", managerController.getAllMenuItems);
+router.get("/manager/addMenuItem", managerController.getAddMenuItem);
 router.get("/manager/menuItemDetailed/:id", managerController.getMenuItemDetails);
-router.get("/managerAddMenuItem", managerController.getAddMenuItem);
-router.get("/addMenuItem", managerController.addMenuItem);
+router.post("/addMenuItem", managerController.addMenuItem);
 router.get("/addIngredientsMenu", managerController.addIngredientsMenu);
 router.get('/getAddUOMManager', uomController.getAddUOMManager);
 router.get("/manager/orderHistory", managerController.getAllOrderHistory);

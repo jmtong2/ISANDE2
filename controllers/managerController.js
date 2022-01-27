@@ -6,23 +6,32 @@ const Order = require("../models/OrderModel.js");
 const OrderMenuItem = require("../models/orderMenuItemsModel.js");
 const mongoose = require("mongoose");
 const managerController = {
+
+	getAllMenuItems: async (req, res) => {
+		try {
+			let menuItems = await MenuItem.find({ status: "Active" }).exec();
+			res.render("managerMenu", { menuItem: menuItems });
+		} catch (err) {
+      		res.send('Error page'); 
+  		}
+	},
+
 	getAddMenuItem: async (req, res) => {
 		try {
 			const ingredients = await Ingredients.find().exec();
 			const uom = await Unit.find().exec();
-
-			res.render("managerAddMenuItem", {ingredient: ingredients, uom: uom});
+			res.render("managerMenuAdd", {ingredient: ingredients, uom: uom});
 		} catch(err) {
-			console.log(err);
+			res.send('Error page'); 
 		}
 	},
 
 	addMenuItem: async (req, res) => {
-		let menuItem = req.query.menuItem;
-		let price = req.query.price;
-		let listIngredient = req.query.listIngredient;
-		let listQuantity = req.query.listQuantity;
-		let listUnit = req.query.listUnit;
+		let menuItem = req.body.menuItem;
+		let price = req.body.price;
+		let listIngredient = req.body.listIngredient;
+		let listQuantity = req.body.listQuantity;
+		let listUnit = req.body.listUnit;
 
 		try {
 			const newMenuItem = await MenuItem({
@@ -32,8 +41,8 @@ const managerController = {
 			await newMenuItem.save();
 
 			// Add new ingredients to the new menuItem
-
-			for (let i = 0; i < listIngredient.length; i++) {
+			let listIngredientLength = listIngredient.length;
+			for (let i = 0; i < listIngredientLength; i++) {
 				try {
 					const ingredient2 = await Ingredients.findOne({
 						ingredientName: listIngredient[i],
@@ -53,12 +62,10 @@ const managerController = {
 					console.log(err);
 				}
 			}
-
 			
 		} catch (err) {
 			console.log(err);
 		}
-
 		res.status(200).send({ result: "redirect", url: "/manager/menuItems" });
 	},
 
@@ -151,16 +158,7 @@ const managerController = {
 		res.status(200).send({ result: "redirect", url: "/manager/menuItems" });
 	},
 
-	getAllMenuItems: (req, res) => {
-		MenuItem.find({ status: "active" })
-			.exec()
-			.then((result) => {
-				res.render("managerMenu", { menuItem: result });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	},
+	
 
 	getMenuItemDetails: async (req, res) => {
 		try {

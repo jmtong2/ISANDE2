@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+
+ {{> navbarManager}}
+
+<body style="background-color: #E6E6DE ">
+  <title>Add Menu Item</title>
+
+</head>
+
+     <body style="background-color: #E6E6DE">
+        <div class="p-3">
+            <div class="card border-3">
+                <div class="card-body rounded shadow-lg text-white" style="background-color: #CC985A">
+                <h3>Add Menu Item</h3>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mt-3">
+                    <div class="card shadow-lg">
+                        <div
+                            class="card-body rounded mb-3"
+                            style="height: 67vh"
+                        >
+                        <h2>Input Menu Item Name</h2>
+                        <br>
+                            <input id="menuItem" type="text" name="menuItem"  placeholder="Name" >
+                            <hr class="my-3" style="color: black" />
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="">Price:</h5>
+                                </div>
+                                <div class="text-end col">
+                                    <input
+                                        type="number"
+                                        class="price text-end"
+                                        style="width: 120px"
+                                        name="Price"
+                                        min="0"
+                                        id="price"
+                                       
+                                    />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <span class="col">
+                                    <span
+                                        class="d-flex justify-content-between"
+                                    >
+                                        <h3 class="status">Status:</h3>
+                                        <select
+                                            class="form-select"
+                                            name="status"
+                                            style="width: 100px"
+                                            id="status"
+                                        >
+                                            <option value="Active" selected>
+                                                Active
+                                            </option>                                            
+                                        </select>
+                                    </span>
+                                </span>
+
+                                <div
+                                    class="delete-menu-item"
+                                    style="margin-top: 150px"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 mt-3">
+                    <div class="card shadow-lg">
+                        <div
+                            class="card-body overflow-auto rounded"
+                            style="height: 70vh"
+                        >
+                            <div>
+                                <h2>Recipe</h2>
+                                <form class="col">
+                                    <div class="d-flex mb-3">
+                                        <select
+                                            id="ingredient"
+                                            class="form-select"
+                                            name="ingredient"
+                                            required
+                                            style="width: 150px"
+                                        >
+                                            <option selected>Ingredient</option>
+                                            {{#each ingredient}}
+                                            <option
+                                                value="{{{ingredientName}}}"
+                                            >
+                                                {{ingredientName}}
+                                            </option>
+                                            {{/each}}
+                                        </select>
+
+                                        <input
+                                            type="number"
+                                            class="mx-3 form-control"
+                                            style="width: 120px"
+                                            min="0"
+                                            name="qty"
+                                            id="qty"
+                                            placeholder="Quantity"
+                                        />
+
+                                        <select
+                                            id="unit"
+                                            class="form-select"
+                                            name="unit"
+                                            required
+                                            style="width: 90px"
+                                        >
+                                            <option selected>Unit</option>
+                                            {{#each uom}}
+                                            <option value="{{{abbrev}}}">
+                                                {{abbrev}}
+                                            </option>
+                                            {{/each}}
+                                        </select>
+
+                                        <button
+                                            class="btn mb-2 ms-3 btn-success rounded float-end"
+                                            type="button"
+                                            id="addIngredient"
+                                        >
+                                            <i
+                                                class="fa-regular fa-square-plus"
+                                            ></i>
+                                            Add Ingredient
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="table-responsive rounded">
+                                <table class="table overflow-auto">
+                                    <thead>
+                                        <tr class=" text-light" style="background-color: #7CA6A6" >
+                                            <th class="text-center">
+                                                Ingredient Name
+                                            </th>
+                                            <th class="text-center">
+                                                Quantity
+                                            </th>
+                                            <th class="text-center">UOM</th>
+                                            <th class="text-center"></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ingredientsTable">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="btn my-2 shadow-lg ms-5 btn-success rounded-pill float-end"
+                        type="button"
+                        id="save"
+                    >
+                        <i class="fal fa-save"></i>
+                        Done Adding Ingredients
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<script>
+    $(document).ready(() => {
+        var listIngredient = [];
+        var listUnit = [];
+        var listQuantity = [];
+        var listIndex = [];
+        var index = 0;
+        $("#addIngredient").click(() => {
+            const ingredient = $("#ingredient").val();
+            const quantity = $("#qty").val();
+            const unit = $("#unit").val();
+
+            if (
+                ingredient == "Ingredient" ||
+                quantity == "" ||
+                unit == "Unit" 
+                )
+                alert(
+                    "Please input the appropriate input in all fields!"
+                    );
+            else {
+                let ingredientInfo =  `<tr id="row`+index+`">
+                <td>`+ingredient+`</td>
+                <td class="text-center">`+quantity+`</td>
+                <td class="text-center">`+unit+`</td>
+                <td class="text-center"><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
+                index +
+                `">X</button></td>
+                </tr>`;
+
+
+                $("#ingredientsTable").append(ingredientInfo);
+
+                $("#ingredient").prop("selectedIndex", 0);
+                $("#unit").prop("selectedIndex", 0);
+                $("#qty").val("");
+                //store it in array 
+                listIngredient.push(ingredient);
+                listQuantity.push(quantity);
+                listUnit.push(unit);
+                listIndex.push(index);
+                index++;
+            }
+
+        });
+
+        $(document).on("click", ".remove", function () {
+          const button_id = $(this).attr("id");
+          $(`#row` + button_id + ``).remove();
+          let i = button_id;
+          let num = listIndex.findIndex(item => item == i);
+          
+          listIngredient.splice(num, 1);
+          listUnit.splice(num, 1);
+          listQuantity.splice(num, 1);
+          listIndex.splice(num,1);
+          alert(listIngredient);
+      });
+
+        
+
+        $("#save").click( () => {
+            const name = $("#menuItem").val();
+            const price = $("#price").val();
+            const status = $("#status").val();
+            if (
+                name == "" ||
+                price == "" ||
+                listIngredient.length === 0
+                )
+                alert(
+                    "Please input the appropriate input in all fields!"
+                    );
+            else {
+                $.post("/addMenuItem", {
+                    menuItem: name,
+                    price: price,
+                    listIngredient: listIngredient,
+                    listQuantity: listQuantity,
+                    listUnit: listUnit
+                }, result => {
+                    alert(result.menuItemName);
+                    listIngredient = [];
+                    listQuantity = [];
+                    listUnit = [];
+                    alert('Created Menu Item!');
+                    window.location.replace(result.url);
+                });
+            }
+
+        });
+
+        // whendadidng in database change status of previous menu item to inactive and then make a copy then insert the added
+    });
+</script>
+    </body>
+
+
+
+</html>
