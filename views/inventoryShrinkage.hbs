@@ -63,8 +63,8 @@
     style="width: 200px"
     >
     <option selected>Choose...</option>
-    {{#each purchasedIngredients}}
-    <option  value="{{{purchasedIngredientName}}}">{{purchasedIngredientName}}</option>
+    {{#each ingredients}}
+    <option  value="{{{ingredientName}}}">{{ingredientName}} {{ingredients.uom.abbrev}}</option>
     {{/each}}
   </select>
 
@@ -80,14 +80,19 @@
     style="width: 200px"
     >
     <option selected>Choose...</option>
-    {{#each purchasedIngredients}}
-    <option  value="{{{purchasedIngredientName}}}">{{purchasedIngredientName}}</option>
-    {{/each}}
+    <option  value="Spoilage">Spoilage</option>
+    <option  value="Administrative Error">Administrative Error</option>
+    <option  value="Ingredient Damage">Ingredient Damage</option>
+    <option  value="Cashier Error">Cashier Error</option>
+    <option  value="Theft">Theft</option>
+    <option  value="Shoplifting">Shoplifting</option>
+    <option  value="Unknown">Unknown</option>
+
   </select>
 
   <div class="my-3 col-9 d-flex">
    <label for="exampleInputPassword1" style="width: 85px" class="form-label mt-2 text-light">Remarks</label>
-  <textarea class="form-control ms-3" id="exampleFormControlTextarea1" rows="1"></textarea>
+  <textarea class="form-control ms-3" id="remarks" rows="1"></textarea>
 </div>
 
    <button type="button" class="text-light btn col-2 my-3" id="shrinkage"  name="shrinkage" value="shrinkage" style="background-color: #198754"><i class="far fa-plus-square"></i> Add Shrinkage</button>
@@ -115,17 +120,8 @@
               <th></th>
             </tr>
           </thead>
-          <tbody id="purchasedTable">
-            <tr>
-                <td class="text-center">Milk</td>
-                <td class="text-end">5</td>
-                <td class="text-center">10 g</td>
-                <td class="text-center">Spoilage</td>
-                <td class="text-center col-4">It was left open for quite some time.</td>
-                <th><i class="fad fa-trash-alt"></i></th>
-              </tr>
+          <tbody id="shrinkageTable">
 
-           
           </tbody>
         </table>
 
@@ -134,7 +130,7 @@
     </div>
 
   </div>
-  <a href="inventoryShrinkageReport.html" type="button"  class="mt-3 btn btn-success float-md-end"name="done" value="Report Shrinkage">Shrinkage Report</a>
+  <button type="button" id="done"  class="mt-3 btn btn-success float-md-end" value="Report Shrinkage">Report Ingredients as Shrinkage</button>
 </div>
 
 
@@ -142,46 +138,51 @@
   $(document).ready( () => {
 
     var cart = [];
-    var purchasedQuantity = [];
+    var shrinkageQuantity = [];
+    var reasonsList = [];
+    var remarksList = [];
     var listIndex = [];
     var index = 0;
-    if (cart.length === 0)
-      $('#done').prop('disabled', false);
+    /*if (cart.length === 0)
+      $('#done').prop('disabled', false);*/
 
-    $('#purchase').click( () => {
-      const purchasedIngredient = $('#purchasedIngredient').val();
-      const qty = $('#qty').val();
+    $('#shrinkage').click( () => {
+      const ingredient = $('#ingredient').val();
+      let qty = $('#qty').val();
+      const reason = $('#reason').val();
+      const remarks = $('#remarks').val();
 
-
-      if(purchasedIngredient == 'Choose...' || qty == ''){
-        alert('Please input all both the name and quantity!');
-
+      if(ingredient == 'Choose...' || qty == '' || reason == 'Choose...'){
+        alert('Please input all the fields!');
       }
       else {
-        $.get("/listPurchased", {
-          purchasedIngredient: purchasedIngredient
+        $.get("/listShrinkage", {
+          ingredient: ingredient
         },
-        purchasedIngredients => {
-
+        ingredient => {
            // $('#purchasedIngredient').val("Choose");
 
 
-           let purchased =  `<tr id="row`+index+`">
-           <td>`+purchasedIngredients.ingredient.ingredientName+`</td>
-           <td class="text-center">`+purchasedIngredients.purchasedIngredientName+`</td>
-           <td class="text-center">`+purchasedIngredients.quantityPerStock+`</td>
-           <td class="text-center">`+purchasedIngredients.uom.abbrev+`</td>
-           <td class="text-center">`+qty+`</td>
-           <td class="text-center"><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
+           let shrinkage =  `<tr id="row`+index+`">
+           <td class="text-center">`+ingredient.ingredientName+`</td>
+           <td class="text-end">`+qty+`</td>
+           <td class="text-center">`+ingredient.quantityPerStock +` ` + ingredient.uom.abbrev+`</td>
+           <td class="text-center">`+reason+`</td>
+           <td class="text-center col-4">`+remarks+`</td>
+           <td class="text-center "><button class="btn btn-danger btn_remove mb-2 remove" name='remove' id="` +
                 index +
                 `">X</button></td>
            </tr>`;
-           $("#purchasedTable").append(purchased);
-           $('#purchasedIngredient').prop('selectedIndex',0);
+           $("#shrinkageTable").append(shrinkage);
+           $('#ingredient').prop('selectedIndex',0);
+           $('#reason').prop('selectedIndex',0);
            $('#qty').val("");
+           $('#remarks').val("");
           //store it in array
-          cart.push(purchasedIngredients);
-          purchasedQuantity.push(qty);
+          cart.push(ingredient);
+          shrinkageQuantity.push(qty);
+          reasonsList.push(reason);
+          remarksList.push(remarks);
           listIndex.push(index);
           index++;
         });
@@ -193,7 +194,9 @@
           let num = listIndex.findIndex(item => item == i);
 
           cart.splice(num, 1);
-          purchasedQuantity.splice(num, 1);
+          shrinkageQuantity.splice(num, 1);
+          reasonsList.splice(num, 1);
+          remarksList.splice(num, 1);
           listIndex.splice(num,1);
 
       });
@@ -202,18 +205,24 @@
     });
 
     $('#done').click( () => {
-    if (cart.length === 0) {
-      $('#done').prop('disabled', false);
+    if (cart.length == 0) { 
       alert('Add ingredients first!');
     } else {
-     $.get("/makePurchasedOrder", {
+     $.post("/makeShrinkage", {
       cart: cart,
-      purchasedQuantity: purchasedQuantity
+      shrinkageQuantity: shrinkageQuantity,
+      reasonsList: reasonsList,
+      remarksList: remarksList
     }, result => {
-      cart = [];
-      purchasedQuantity = [];
-      $("#purchasedTable").remove();
-      alert('Purchased Ingredients are added!');
+      /*cart = [];
+      shrinkageQuantity = [];
+      reasonsList = [];
+      remarksList = [];
+      listIndex = [];
+      index = 0;*/
+      $("#shrinkageTable").remove();
+      alert('Ingredients are reported as shrinkage!');
+      window.location.replace("http://localhost:3000/inventory/shrinkageReport");
     });
 
    }

@@ -26,4 +26,4 @@ var discrepancySchema = new Schema({
     }
 }, {timestamps: true});
 
-module.exports = mongoose.model('Discrepancy', discrepancySchema);
+module.exports = mongoose.model('Shrinkage', discrepancySchema);

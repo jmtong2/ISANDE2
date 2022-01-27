@@ -305,7 +305,7 @@ const purchasingController = {
     }
   },
 
-  listIngredient: async (req, res) => {
+  /*listIngredient: async (req, res) => {
     try {
       const purchasedIngredients = await PurchasedIngredients.findOne({
         purchasedIngredientName: req.query.purchasedIngredient,
@@ -318,7 +318,7 @@ const purchasingController = {
     } catch (err) {
       res.send('Error page'); 
     }
-  },
+  },*/
 
 
 

@@ -78,7 +78,7 @@
                   </div>
 
                <div class="col text-end">
-                <a href="/inventory/shrinkageReport" type="button" class="text-light btn btn-success"><i class="fa-solid fa-circle-plus"></i> Input Shrinkage</a>
+                <a href="/inventory/shrinkage" type="button" class="text-light btn btn-success"><i class="fa-solid fa-circle-plus"></i> Input Shrinkage</a>
               </div>
        </div>
      </form>
@@ -108,10 +108,11 @@
           <thead>
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Name</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-center">Quantity Per Stock</th>
+              <th class="text-center col-1">Quantity</th>
+              <th class="text-center col-1">Quantity Per Stock</th>
               <th class="text-center">Reason</th>
-              <th class="text-center">Remarks</th>
+              <th class="text-center col-2">Remarks</th>
+              <th class="text-center col-3">Date</th>
             </tr>
           </thead>
           <tbody id="purchasedTable">
@@ -119,9 +120,10 @@
             <tr>
                 <td class="text-center">{{ingredient.ingredientName}}</td>
                 <td class="text-end">{{lossQuantity}}</td>
-                <td class="text-center">{{ingredient.quantityPerStock}}</td>
+                <td class="text-end">{{ingredient.quantityPerStock}} {{ingredient.uom.abbrev}}</td>
                 <td class="text-center">{{reason}}</td>
-                <td class="text-center col-4">{{remarks}}</td>
+                <td class="text-start">{{remarks}}</td>
+                <td class="text-center">{{date}}</td>
               </tr>
           {{/each}}
           </tbody>

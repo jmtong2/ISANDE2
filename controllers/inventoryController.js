@@ -38,17 +38,17 @@ const inventoryController = {
     },
 
     getAllPurchaseOrders: async (req, res) => {
-       try {
-          const purchaseOrders = await PurchaseOrder.find()
-          .populate("supplier", "name")
-          .sort({ createdAt: -1 })
-          .exec();
+     try {
+      const purchaseOrders = await PurchaseOrder.find()
+      .populate("supplier", "name")
+      .sort({ createdAt: -1 })
+      .exec();
 
-          res.render("inventoryPurchaseOrders", { purchaseOrder: purchaseOrders });
-      } catch (err) {
-          res.send('Error page'); 
-      }
-  },
+      res.render("inventoryPurchaseOrders", { purchaseOrder: purchaseOrders });
+  } catch (err) {
+      res.send('Error page'); 
+  }
+},
 
     /*addIngredient: (req, res) => {
         Unit.findOne({ abbrev: req.body.uom })
@@ -91,24 +91,86 @@ const inventoryController = {
         getShrinkageReport: async (req, res) => {
             try {
                 const shrinkage = await Shrinkage.find()
+                .populate({
+                  path: "ingredient",
+                  populate: {
+                    path: "uom",
+                    model: "Unit",
+                },
+            })
                 .exec();
-                res.send('inventoryShrinkageReport', {shrinkage: shrinkage});
+                res.render('inventoryShrinkageReport', {shrinkage: shrinkage});
             } catch (e) {
                 res.send('Error page');  
             }
         },
 
-        getInputShrinkage: async (req, res) => {
+        getInputShrinkage: async (req, res) => {       
             try {
-                const shrinkage = await Shrinkage.find()
+                const ingredients = await Ingredients.find()
+                .populate("uom", "abbrev")
                 .exec();
-                res.send('inventoryShrinkage', {shrinkage: shrinkage});
+                res.render('inventoryShrinkage', {ingredients: ingredients});
             } catch (e) {
                 res.send('Error page');  
-            }
+            }     
+
         },
 
-        getPurchaseOrderDetails: async (req, res) => {
+        listShrinkage: async (req, res) => {
+            try {
+              const ingredient = await Ingredients.findOne({
+                ingredientName: req.query.ingredient,
+            })
+              .populate("uom", "abbrev")
+              .exec();
+              res.send(ingredient);
+          } catch (err) {
+              res.send('Error page'); 
+          }
+      },
+
+      makeShrinkage: async (req, res) => {
+        let cart = req.body.cart;
+        let shrinkageQuantity = req.body.shrinkageQuantity;
+        let reasons = req.body.reasonsList;
+        let remarks = req.body.remarksList;
+
+        try {
+
+         /* let today = new Date();
+          let date = today.toLocaleDateString();
+          let time = today.toLocaleTimeString();
+          today = date + " - " + time;*/
+      // multiple save  
+
+      let length = cart.length;
+      for (let i = 0; i < length; i++) {
+        let shrinkage = new Shrinkage({
+            ingredient: cart[i]._id,
+            reason: reasons[i],
+            remarks: remarks[i],
+            lossQuantity: shrinkageQuantity[i],
+        });
+        await shrinkage.save();
+        let subtractedIngredient = -Math.abs(shrinkageQuantity[i]);
+          // Subtract the shrinkage to the inventory in the ingredients
+          const ingredient = await Ingredients.findOneAndUpdate({ingredientName : cart[i].ingredientName }, 
+            { $inc: { "quantityOnHand": subtractedIngredient}},
+            {   
+              new: true,
+          })
+          .exec();  
+      }   
+    res.send(true); 
+  } catch (err) {
+      res.send('Error page'); 
+  }
+},
+
+
+
+getPurchaseOrderDetails: async (req, res) => {
     /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
        populate the ref inside a ref
        ex. purchasedOrderIngredients has purchasedIngredients ref
@@ -216,12 +278,12 @@ const inventoryController = {
         else if (pO  === "RECEIVED") 
             res.send(true);
     } catch (err) {
-          res.send('Error page'); 
-      }
+      res.send('Error page'); 
+  }
   
-  },
+},
 
-  postManualCount: async (req, res) => {
+postManualCount: async (req, res) => {
     try {
         // const inputs = req.body;
 

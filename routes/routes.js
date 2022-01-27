@@ -78,6 +78,8 @@ router.get("/inventory/ingredients", inventoryController.getAllIngredients);
 router.get("/inventory/movement", inventoryController.getMovement);
 router.get("/inventory/shrinkageReport", inventoryController.getShrinkageReport);
 router.get("/inventory/shrinkage", inventoryController.getInputShrinkage);
+router.get('/listShrinkage', inventoryController.listShrinkage);
+router.post('/makeShrinkage', inventoryController.makeShrinkage);
 router.post("/setReorderEOQ", inventoryController.setReorderEOQ);
 router.get("/inventory/purchaseOrders", inventoryController.getAllPurchaseOrders);
 router.post("/isReceived", inventoryController.isReceived);
