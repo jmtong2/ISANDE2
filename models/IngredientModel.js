@@ -10,7 +10,7 @@ var ingredientSchema = new Schema({
         type: String,
         required: true
     },
-    quantityOnHand: {
+    totalQuantity: {
         type: Number,
         default: 0
     },
@@ -37,11 +37,6 @@ var ingredientSchema = new Schema({
         type: Number,
         required:true
     }, 
-    status: {
-        type: String,
-        enum: ['Active', 'Inactive']
-        /*default: "Inactive"*/
-    },
     orderStatus: {
         type: String,
         enum: ['Ordered','Present'],

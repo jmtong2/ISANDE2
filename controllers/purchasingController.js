@@ -49,7 +49,7 @@ const purchasingController = {
       const ingredients =  await Ingredient.find({
         $and: [
           {
-            $expr: { $lte: ["$quantityOnHand", "$reorderPoint"] }
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] }
           },
           {
             orderStatus: "Present"
@@ -90,7 +90,7 @@ const purchasingController = {
     const ingredients = await Ingredient.find({
         $and: [
           {
-            $expr: { $lte: ["$quantityOnHand", "$reorderPoint"] }
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] }
           },
           {
             supplier: supplier._id
@@ -172,6 +172,34 @@ const purchasingController = {
     } catch (err) {
       res.send('Error page'); 
     }
+    },
+
+       editIngredient: async (req, res) => {
+        const id = req.body.id;
+        const name = req.body.name;
+        const uomInput = req.body.uom;
+        const qps = req.body.qps;
+        const price = req.body.price;
+        const supplierInput = req.body.supplier;
+        try {
+
+            const supplier = await Supplier.findOne({ name: supplierInput }).exec();
+            const uom = await Unit.findOne({ abbrev: uomInput }).exec();
+/*            const ingredient = await Ingredient.findOne({_id: id}).exec();*/
+            const ingredient = await Ingredient.findOneAndUpdate({_id: id}, 
+                {"$set":
+                        { ingredientName: name, 
+                          uom: uom._id,
+                          quantityPerStock: qps,
+                          price: price,
+                          supplier: supplier._id
+                        }
+                })
+            .exec();
+            res.send(ingredient);
+        } catch (e) {
+            res.send('Error page');  
+        }
     },
 
   getAllPurchaseOrders: async (req, res) => {

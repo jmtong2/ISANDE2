@@ -16,7 +16,7 @@ const inventoryController = {
         try {
             const inventory = await Ingredients.find()
             .sort({ totalQuantity: 1 })
-            .populate('uom', 'abbrev')
+            .populate('uom')
             .exec();
 
             res.render('inventoryIngredients', {inventory: inventory});   
@@ -156,7 +156,7 @@ const inventoryController = {
         let subtractedIngredient = -Math.abs(shrinkageQuantity[i]);
           // Subtract the shrinkage to the inventory in the ingredients
           const ingredient = await Ingredients.findOneAndUpdate({ingredientName : cart[i].ingredientName }, 
-            { $inc: { "quantityOnHand": subtractedIngredient}},
+            { $inc: { "totalQuantity": subtractedIngredient}},
             {   
               new: true,
           })
@@ -234,7 +234,7 @@ getPurchaseOrderDetails: async (req, res) => {
                 .exec();
 
                 const ingredient1 = await Ingredients.findOneAndUpdate({ _id : pOI[i].ingredient._id }, 
-                    { $inc: { "quantityOnHand": pOI[i].quantityPurchased}},
+                    { $inc: { "totalQuantity": pOI[i].quantityPurchased}},
                     {   
                       new: true,
                   })

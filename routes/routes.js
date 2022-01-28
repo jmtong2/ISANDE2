@@ -37,11 +37,12 @@ router.post('/boss/postAssignRole', bossController.postAssignRole);
 
 // Cashier routes
 router.get('/cashier/cashierOrders', cashierController.getAllMenuItems);
-router.get('/sell', cashierController.sell);
+router.post('/sell', cashierController.sell);
 
 // Purchasing routes
 router.get('/purchasing/inventory', purchasingController.getInventory);
 router.post('/purchasing/addIngredient', purchasingController.addIngredient);
+router.post("/editIngredient", purchasingController.editIngredient);
 router.get('/purchasing/reorder', purchasingController.getReorderIngredients);
 router.get('/purchasing/purchaseOrders', purchasingController.getAllPurchaseOrders);
 router.post('/savePurchaseOrder', purchasingController.savePurchaseOrder);
@@ -51,6 +52,7 @@ router.post('/purchasing/addSupplier', purchasingController.addSupplier);
 router.get('/purchasing/reorderInventory', purchasingController.getReorder);
 router.get('/purchasing/purchaseOrdersDetails/:id', purchasingController.getPurchaseOrderDetails);
 
+router.get('/addConversion', cashierController.addConversion);
 /*router.get('/addMeasures', purchasingController.addMeasures);
 router.get('/listPurchased', purchasingController.listIngredient);
 router.get('/getAddUOMPurchasing', uomController.getAddUOMPurchasing);
@@ -68,7 +70,7 @@ router.get("/manager/menuItems", managerController.getAllMenuItems);
 router.get("/manager/addMenuItem", managerController.getAddMenuItem);
 router.get("/manager/menuItemDetailed/:id", managerController.getMenuItemDetails);
 router.post("/addMenuItem", managerController.addMenuItem);
-router.get("/addIngredientsMenu", managerController.addIngredientsMenu);
+router.post("/addIngredientsMenu", managerController.addIngredientsMenu);
 router.get('/getAddUOMManager', uomController.getAddUOMManager);
 router.get("/manager/orderHistory", managerController.getAllOrderHistory);
 router.get("/manager/orderDetails/:id", managerController.getOrderDetails);

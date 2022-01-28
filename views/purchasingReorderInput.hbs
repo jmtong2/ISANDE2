@@ -88,7 +88,6 @@
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Ingredient</th>
               <th style="width: 180px" class="text-center">Quantity Per Stock</th>
-              <th class="text-center">Unit</th>
               <th class="text-center">Quantity</th>
               <th class="text-center">Unit Price</th>
               <th class="text-center">Amount</th>
@@ -179,8 +178,7 @@
         let amount = ingredients[i].price * quantity;
         let ingredientInfo =  `<tr>
         <td class="text-start">`+ingredients[i].ingredientName+`</td>
-        <td class="text-end">`+ingredients[i].quantityPerStock+`</td>
-        <td class="text-center">`+ingredients[i].uom.abbrev+`</td>
+        <td class="text-end">`+ingredients[i].quantityPerStock+ingredients[i].uom.abbrev+`</td>
         <td class="text-end">`+quantity+`</td>
         <td class="text-end">`+ingredients[i].price+`</td>
         <td class="text-end">`+amount+`</td>

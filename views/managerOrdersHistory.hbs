@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+
+{{> navbarManager}}
+
+ <body style="background-color: #E6E6DE">
+    <div class="p-3" >
+            <section>
+                <div class="card">
+      <div class="card-body rounded shadow" style="background-color: #CC985A">
+        <h3 class="text-light mb-3">Orders History</h3>
+        <div class="d-flex justify-content-between">
+          <div class="col">
+            <div class="row">
+              <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="startDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+              <div class="col-sm-2">
+                <div class="input-group date" id="endDate">
+                  <input type="text" class="form-control">
+                  <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </span>
+                </div>
+              </div>        
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+<div class="d-flex m-2 flex-row justify-content-between">
+  <div class="p-2 mt-1">As of November 21, 2021</div>
+  <div class="p-2 "><button class="btn btn-secondary" style="background-color: #7CA6A6" onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
+
+</div>
+               <div class="col-md-12">
+
+  <div class="card ">
+    <div class="card-body overflow-auto  border rounded shadow-lg bg-light ">
+      <div class="table-responsive rounded print-container">
+        <table class="table overflow-auto table-hover table-hover table-bordered table-striped  ">
+          <div id="reportTitle" class="text-center my-3 " >
+            <h4>Orders History Summary Report</h4>
+            <h5>November 1-31, 2021</h5>
+            <h6 class="p-2 mt-1 text-end">Rows: 8</h6>
+          </div>
+          <thead>
+            <tr class="text-light align-top" style="background-color: #7CA6A6">
+              <th class="text-center">Menu Item</th>
+              <th class="text-center"style="width: ">Price</th>
+              <th class="text-center"style="width: ">Cashier</th>
+              <th class="text-center"style="width: 300px">Date</th>
+ 
+             <!--  <th></th> -->
+            </tr>
+          </thead>
+          <tbody>
+            
+             {{#each orders}}
+            <tr>
+              <td class="text-center">{{menuItem.menuItemName}}</td>
+              <td class="text-end">₱{{menuItem.price}} </td>
+              <td class="text-start">{{order.user.firstName}} {{order.user.lastName}}</td>
+              <td class="text-center">{{order.date}}</td>
+            {{/each}}
+          </tbody>
+        </table>
+
+
+      </div>
+      <h6 class="text-center">**END OF REPORT**</h6>
+    </div>
+
+  </div>
+</div>
+
+           
+
+    </div>
+    
+
+
+
+        <script>
+
+          $(document).ready( () => {
+        
+            $(function() {
+              $('#startDate').datepicker();
+            });
+        
+            $(function() {
+              $('#endDate').datepicker();
+            });
+            
+          });
+        
+        </script>
+
+</body>
+
+
+
+</html>

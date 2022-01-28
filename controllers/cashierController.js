@@ -8,12 +8,13 @@ const orderMenuItems = require("../models/orderMenuItemsModel.js");
 const User = require("../models/UserModel.js");
 
 const cashierController = {
+
 	getAllMenuItems: async (req, res) => {
 		try {
-			const menu = await MenuItem.find({ status: "active" }).exec();
+			const menu = await MenuItem.find({ status: "Active" }).exec();
 			res.render("cashierOrders", { menuItem: menu });
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 	},
 
@@ -76,23 +77,25 @@ const cashierController = {
 			return convertedValue;
 			//findOneAndUpdate the ingredient
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 	},
 
 	sell: async (req, res) => {
 		// load cart ARRAY
-		const cart = req.query.cart;
-
+		const cart = req.body.cart;
+		const price = req.body.totalPrice;
 		try {
 			let list = [];
 			let menuList = [];
-			for (let i = 0; i < cart.length; i++) {
+
+
+			const cartLength = cart.length;
+			for (let i = 0; i < cartLength; i++) {
 				const menuItem = await MenuItem.findOne({
 					menuItemName: cart[i],
-					status: "active",
+					status: "Active",
 				}).exec();
-
 				menuList.push(menuItem);
 
 				// get menuItemIngredients to be subtracted
@@ -102,32 +105,36 @@ const cashierController = {
 					.populate("ingredient", "ingredientName")
 					.populate("uom", "abbrev")
 					.exec();
-
-				for (let j = 0; j < menuItemIngredient.length; j++) {
+					const menuItemIngredientLength = menuItemIngredient.length;
+				for (let j = 0; j < menuItemIngredientLength; j++) {
 					let converted = await cashierController.convert(
 						menuItemIngredient[j]
 					);
 				}
 			}
-			// Make order history
+			// Make order history 
+
+			// Edit email
 			const user = await User.findOne({
-				email: req.session.email,
+				email: "cashier@gmail.com",
 			}).exec();
 
-			let today = new Date();
+
+		let today = new Date();
 			let date = today.toLocaleDateString();
 			let time = today.toLocaleTimeString();
-			today = date + " - " + time;
+			/*today = date + " - " + time;*/
 
 			const order = new Order({
 				user: user._id,
-				totalAmount: req.query.totalPrice,
+				totalAmount: price,
 				date: today,
 			});
 			await order.save();
-			// Store bought menuItems in Orders
 
-			for (let i = 0; i < menuList.length; i++) {
+			// Store bought menuItems in Orders
+			const menuListLength = menuList.length;
+			for (let i = 0; i < menuListLength; i++) {
 				try {
 					let orderMenuItem = new orderMenuItems({
 						order: order._id,
@@ -135,14 +142,30 @@ const cashierController = {
 					});
 					await orderMenuItem.save();
 				} catch (err) {
-					console.log(err);
+					res.send('Error page');
 				}
 			}
 			res.send(true);
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 	},
+
+	 async createConversion(unitAInput, unitBInput, unitBMeasureInput) {
+    const conversion = new Conversion({
+        unitA: unitAInput,
+        unitB: unitBInput,
+        unitBMeasure: unitBMeasureInput
+    });
+    const result = await conversion.save();
+   },
+
+   addConversion: async (req,res) => {
+    //cashierController.createConversion('tbsp', 'tsps', 3 );
+       const conversion = await Conversion.find().exec();
+        res.send(conversion);
+   },
+
 };
 
 module.exports = cashierController;

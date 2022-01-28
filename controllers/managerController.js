@@ -59,27 +59,28 @@ const managerController = {
 					});
 					await menuIngredient.save();
 				} catch (err) {
-					console.log(err);
+					res.send('Error page');
 				}
 			}
 			
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 		res.status(200).send({ result: "redirect", url: "/manager/menuItems" });
 	},
 
 	addIngredientsMenu: async (req, res) => {
-		let oldMenuItemName = req.query.oldMenuItemName;
-		let listIngredient = req.query.listIngredient;
-		let listQuantity = req.query.listQuantity;
-		let listUnit = req.query.listUnit;
+		let oldMenuItemName = req.body.oldMenuItemName;
+		let listIngredient = req.body.listIngredient;
+		let listQuantity = req.body.listQuantity;
+		let listUnit = req.body.listUnit;
 
 		try {
-			// Duplicate old menu Item
+			// Duplicate old menu Item so it can stay in the reports
 			const oldMenuItem = await MenuItem.findOne({
 				menuItemName: oldMenuItemName,
 			}).exec();
+		
 
 			// duplicate menuItem
 			const newMenuItem = new MenuItem(oldMenuItem);
@@ -96,7 +97,7 @@ const managerController = {
 				.exec();
 
 			let length = oldMenuItemIngredients.length;
-
+			// Load old ingredients to the new edited menu item
 			for (let i = 0; i < length; i++) {
 				try {
 					const ingredient = await Ingredients.findOne({
@@ -112,12 +113,11 @@ const managerController = {
 					await menuIngredient.save();
 
 				} catch (err) {
-					console.log(err);
+					res.send('Error page');
 				}
 			}
 
 			// Add new ingredients to the new menuItem
-
 			for (let i = 0; i < listIngredient.length; i++) {
 				try {
 					const ingredient2 = await Ingredients.findOne({
@@ -135,7 +135,7 @@ const managerController = {
 					});
 					await menuIngredient.save();
 				} catch (err) {
-					console.log(err);
+					res.send('Error page');
 				}
 			}
 
@@ -145,14 +145,14 @@ const managerController = {
 					menuItemName: oldMenuItemName,
 				},
 				{
-					status: "old version",
+					status: "Old version",
 				},
 				{
 					new: true,
 				}
 			).exec();
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 
 		res.status(200).send({ result: "redirect", url: "/manager/menuItems" });
@@ -178,20 +178,27 @@ const managerController = {
 				uom: uom,
 			});
 		} catch (err) {
-			console.log(err);
+			res.send('Error page');
 		}
 	},
 
-	getAllOrderHistory: (req, res) => {
-		Order.find()
-			.populate("user")
-			.exec()
-			.then((result) => {
-				res.render("managerOrdersHistory", { Orders: result });
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+	getAllOrderHistory: async (req, res) => {
+		try {
+			const orderMenuItems = await OrderMenuItem.find()
+			.populate({
+          path: "order",
+          populate: {
+            path: "user",
+            model: "User",
+          },
+        })
+			.populate("menuItem")
+			.exec();
+			res.render("managerOrdersHistory", { orders: orderMenuItems });
+
+		} catch (err) {
+			res.send('Error page');
+		}
 	},
 
 	getOrderDetails: (req, res) => {
@@ -204,7 +211,7 @@ const managerController = {
 				res.render("managerSpecificOrder", { orders: result });
 			})
 			.catch((err) => {
-				console.log(err);
+				res.send('Error page');
 			});
 	},
 };

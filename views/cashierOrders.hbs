@@ -1,45 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-  crossorigin="anonymous"
-  />
-  <link
-  rel="stylesheet"
-  href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css"
-  />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <title>Orders</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 </head>
-<body>
-
+ <body style="background-color: #E6E6DE">
   {{> navbarCashier}}
 
-  <div class="row p-3 bg-light vw-100">
+  <div class="row p-3">
     <!-- Left Column Orders -->
     <div class="col-sm-8">
-      <div class="card pb-3 mb-3 border-3 " style="border-bottom-color: #0d6efd">
-        <div class="card-body rounded " style="height: 9vh">
-          <h3 class="text-secondary">Order</h3>
-        </div>
-      </div>
+      <div class="card-body rounded shadow-lg" style="background-color: #CC985A">
+                    <div class="card-body rounded text-white row">
+                        <span class="col">
+                     <h3>Add Menu Item</h3>
+                        </span>
+                    </div>
+            </div>
+<br>
 
-      <div class="row row-cols-md-3 g-2">
+      <div class="row row-cols-md-3 g-4">
         {{#each menuItem}}
         <div class="col">
           <div
-          class="card rounded addOrder"
-          style="border-color:green"
+          class="card rounded addOrder shadow-lg"
+          style="background-color: #7CA6A6"
           >
           <div class="card-body">
-            <h5 class="card-title text-center text-info menuItemName" date-value="{{{menuItemName}}}">{{menuItemName}}</h5>
+            <h5 class="card-title text-center text-white menuItemName" date-value="{{{menuItemName}}}">{{menuItemName}}</h5>
             <p class="card-text text-center menuItemPrice" date-value="{{{price}}}">₱{{price}}</p>
           </div>
         </div>
@@ -50,9 +42,9 @@
 
   <!-- Right Column Cart -->
   <div class="col-sm-4">
-    <div class="card overflow-auto" style="height: 60vh">
+    <div class="card overflow-auto shadow-lg" style="height: 60vh">
       <div class="card-body rounded">
-        <h3 class="text-secondary">Orders</h3>
+        <h3 >Orders</h3>
         <hr />
         <ul id="orderList" class="list-unstyled">
 
@@ -63,7 +55,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card shadow-lg">
       <div class="card-body rounded" style="height: 9vh">
         <div class="total-amount fs-5 row">
           <span class="col fw-bold">Total Amount:</span>
@@ -72,7 +64,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card shadow-lg">
       <div class="card-body rounded" style="height: 9vh">
         <div class="fs-5 row">
           <span class="col fw-bold">Payment:</span>
@@ -83,10 +75,10 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card shadow-lg">
       <div class="card-body rounded">
-        <button id="confirm" class="w-100 btn btn-lg bg-primary text-light">
-          Confirm Order
+        <button id="confirm" class="w-100 btn btn-lg text-light" style="background-color: #243b31">
+          <i class="fa-regular fa-circle-check"></i> Confirm Order
         </button>
       </div>
     </div>
@@ -142,8 +134,7 @@
 
   $("#confirm").click( () => {
     const payment = $("#payment").val();
-
-    if (cart.length === 0 )
+    if (totalPrice === 0 )
       alert('Add Orders First!');
     else if (payment == 0)
       alert('Enter payment first!');
@@ -153,12 +144,12 @@
       const change = payment - totalPrice;
 
       if (change > 0)
-        alert('Change is: ₱'+change+'');
-      alert(cart[1]);
-      $.get('/sell', {
+        alert('Change is: ₱'+change);
+      $.post('/sell', {
         cart: cart,
         totalPrice: totalPrice
       }, result => {
+  
          cart = [];
          totalPrice = 0;
          $("#orderList").remove();
@@ -178,4 +169,7 @@
 
 </script>
 </body>
+
+
+
 </html>

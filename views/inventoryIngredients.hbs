@@ -100,12 +100,12 @@
           <thead>
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Ingredient</th>
-              <th class="text-center"style="width: 200px">Quantity On Hand (QOH)</th>
+              <th class="text-center"style="width: 200px">Total Quantity (TQ)</th>
               <th class="text-center"style="width: 200px">Quantity Per Stock</th>
-              <th class="text-center"style="width: 200px">Unit of Measurement</th>
-              <th class="text-center"style="width: 200px">Reorder Point based on QOH <br> (Edit if "0")</th>
-              <th class="text-center"style="width: 200px">Economic Order Quantity based on QOH<br> (Edit if "0")</th>
+              <th class="text-center"style="width: 200px">Reorder Point<br> (Click if "0")</th>
+              <th class="text-center"style="width: 200px">Economic Order Quantity<br> (Click if "0")</th>
               <th class="text-center">Status</th>
+             <!--  <th></th> -->
             </tr>
           </thead>
           <tbody>
@@ -113,19 +113,20 @@
              {{#each inventory}}
             <tr>
               <td class="text-center">{{ingredientName}}</td>
-              <td class="text-end">{{quantityOnHand}}</td>
-              <td class="text-end">{{quantityPerStock}}</td>
-              <td class="text-center">{{uom.abbrev}}</td>
-              <td class="text-end">{{reorderPoint}}</td>
-              <td class="text-end">{{economicOrderQuantity}}</td>
+              <td class="text-end">{{totalQuantity}} {{uom.abbrev}}</td>
+              <td class="text-end">{{quantityPerStock}} {{uom.abbrev}}</td>
+              <td style="display:none;" >{{uom.fullName}}</td>
+              <td class="text-end">{{reorderPoint}} {{uom.abbrev}}</td>
+              <td class="text-end">{{economicOrderQuantity}} {{uom.abbrev}}</td>
 
               <td style="text-align:center;">
-                            {{#isGreaterThan reorderPoint quantityOnHand}}
-                                <button type="button" class="btn btn-warning">Low Stock</button>
-                            {{else}}
-                                <button type="button" class="btn btn-success">Sufficient Stock</button>
-                            {{/isGreaterThan}}
-                            </td>
+                {{#isGreaterThan reorderPoint totalQuantity}}
+                    <button type="button" class="btn btn-warning">Low Stock</button>
+                {{else}}
+                    <button type="button" class="btn btn-success">Sufficient Stock</button>
+                {{/isGreaterThan}}
+              </td>
+              <!-- <td class="text-center"><i class="fa-solid fa-pen-to-square"></i></td> -->
             </tr>
             {{/each}}
           </tbody>
@@ -147,7 +148,7 @@
                   <div class="modal-content">
                     <div class="modal-body">
                      <section>
-                      <div class="card position-absolute top-10 start-50 translate-middle" style="width: 120vh">
+                      <div class="card position-absolute top-10 start-50 translate-middle" style="width: 700px">
                         <div style="background-color:#F8F5F1;">
                           <form action="/purchasing/edit" method="PATCH" class=" p-2">
                             <header class="p-4">
@@ -179,7 +180,7 @@
                             >
                             <input 
                                 type="text"
-                                class="form-control col-1 text-end quantityOnHand"
+                                class="form-control col-1 text-end totalQuantity"
                                 aria-describedby="basic-addon3"
                                 disabled
                                 />
@@ -207,46 +208,40 @@
                               >
                               <input 
                                 type="text"
-                                class="form-control text-end ingredientUOM"
+                                class="form-control text-start ingredientUOM"
                                 aria-describedby="basic-addon3"
                                 name="uom"
                                 disabled
                                 />
                           </div>
 
+                           <div class="input-group px-4 mb-3">
+                            <span
+                            class="input-group-text col-4 bg-success text-light"
+                            >Reorder Point</span
+                            >
+                            <input 
+                                type="number"
+                                class="form-control col-1 text-end reorderPoint"
+                                aria-describedby="basic-addon3"
+                                
+                                />
+                          </div>
+
                           <div class="input-group px-4 mb-3">
                             <span
                             class="input-group-text col-4 bg-success text-light"
-                            id="basic-addon3"
-                            >Reorder Point</span
-                            >
-                            <input
-                            type="number"
-                            min="0"
-                            class="form-control text-end reorderPoint"
-                            id="reorderPoint"
-                            aria-describedby="basic-addon3"
-                            name="reorderPoint"
-                            required
-                            />
-                          </div>
-
-                            <div class="input-group px-4 mb-3">
-                            <span
-                            class="input-group-text col-4 bg-success text-light"
-                            id="basic-addon3"
                             >Economic Order Quantity</span
                             >
-                            <input
-                            type="number"
-                            min="0"
-                            class="form-control text-end economicOrderQuantity"
-                            id="economicOrderQuantity"
-                            aria-describedby="basic-addon3"
-                            name="economicOrderQuantity"
-                            required
-                            />
+                            <input 
+                                type="number"
+                                class="form-control col-1 text-end economicOrderQuantity"
+                                aria-describedby="basic-addon3"
+                                
+                                />
                           </div>
+
+                      
 
                         <div class="float-end m-3">
                          <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
@@ -289,18 +284,18 @@
     $('table tbody tr  td').on('click',function(){
       $("#editModal").modal("show");
       $(".ingredientName").val($(this).closest('tr').children()[0].textContent);
-      $(".quantityOnHand").val($(this).closest('tr').children()[1].textContent);
+      $(".totalQuantity").val($(this).closest('tr').children()[1].textContent);
       $(".quantityPerStock").val($(this).closest('tr').children()[2].textContent);
       $(".ingredientUOM").val($(this).closest('tr').children()[3].textContent);
-      $(".reorderPoint").val($(this).closest('tr').children()[4].textContent);
-      $(".economicOrderQuantity").val($(this).closest('tr').children()[5].textContent);
+      $(".reorderPoint").val($(this).closest('tr').children()[4].textContent).replace(/ .*/,'');
+      $(".economicOrderQuantity").val($(this).closest('tr').children()[5].textContent).replace(/ .*/,'');
 
-      clickedIngredientName = $(".ingredientName").val();
-      clickedIngredientQOH = $(".quantityOnHand").val();
+      /*clickedIngredientName = $(".ingredientName").val();
+      clickedIngredientQOH = $(".totalQuantity").val();
       clickedIngredientQPS = $(".quantityPerStock").val();
       clickedIngredientUOM = $(".ingredientUOM").val();
-      clickedIngredientReorderPoint = $(".reorderPoint").val();
-      clickedIngredientEOQ = $(".economicOrderQuantity").val();
+      clickedIngredientReorderPoint = $(".reorderPoint").val().replace(/ .,'');
+      clickedIngredientEOQ = $(".economicOrderQuantity").val().replace(/ .,''); */
 
     });
 
@@ -308,9 +303,9 @@
 
 
     $('#save-edited').click( () => {
-      clickedIngredientReorderPoint = $(".reorderPoint").val();
-      clickedIngredientEOQ = $(".economicOrderQuantity").val();
-
+      clickedIngredientReorderPoint = $(".reorderPoint").val().replace(/ .*/,'');
+      clickedIngredientEOQ = $(".economicOrderQuantity").val().replace(/ .*/,'');
+      clickedIngredientName = $(".ingredientName").val();
       $.post("/setReorderEOQ", {
           ingredientName: clickedIngredientName,
           reorderPoint: clickedIngredientReorderPoint,

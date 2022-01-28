@@ -8,13 +8,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
 </head>
-<body style="background-color: #E6E6DE ">
   <title>Menu</title>
-
-</head>
-
-<body>
-
   
  {{> navbarManager}} 
 
@@ -53,10 +47,10 @@
                     {{#each menuItem}}
             <a href="/manager/menuItemDetailed/{{_id}}" style="text-decoration: none">
                 <div class="col">
-                    <div class="card shadow-lg rounded">
+                    <div class="card shadow-lg rounded" style="background-color: #7CA6A6">
                         <div class="card-body">
-                            <h5 class="card-title text-black text-center">{{menuItemName}}</h5>
-                            <p class="card-text text-center text-secondary">₱{{price}}</p>
+                            <h5 class="card-title text-white text-center">{{menuItemName}}</h5>
+                            <p class="card-text text-center text-black">₱{{price}}</p>
                         </div>
                     </div>
                 </div>
@@ -75,12 +69,6 @@
                 </div>
         </div>
         </section>
-
-
-
-
-
-
 
 </body>
 
