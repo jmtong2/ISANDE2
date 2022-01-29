@@ -132,7 +132,7 @@
 </div>
 <div class="p-3  ">
   <button type="button" id="download" disabled class="dlBtn btn me-3" style="background-color: #7CA6A6" style="background-color: #7f7c76" onclick="window.print();"><i class="far fa-print"></i> Download</button>
-  <button id="save" disabled type="button" class="saveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save</button>
+  <button id="save" disabled type="button" class="saveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Save and Order</button>
 </div>
 
 
@@ -174,14 +174,14 @@
       let count = $(ingredients).toArray().length;
       
       for (let i = 0; i < count; i++) {
-        let quantity = ingredients[i].economicOrderQuantity;
+        let quantity = Math.ceil(ingredients[i].economicOrderQuantity / ingredients[i].quantityPerStock);
         let amount = ingredients[i].price * quantity;
         let ingredientInfo =  `<tr>
         <td class="text-start">`+ingredients[i].ingredientName+`</td>
-        <td class="text-end">`+ingredients[i].quantityPerStock+ingredients[i].uom.abbrev+`</td>
+        <td class="text-end">`+ingredients[i].quantityPerStock+ ` ` + ingredients[i].uom.abbrev+`</td>
         <td class="text-end">`+quantity+`</td>
-        <td class="text-end">`+ingredients[i].price+`</td>
-        <td class="text-end">`+amount+`</td>
+        <td class="text-end"> ₱`+ingredients[i].price+`</td>
+        <td class="text-end"> ₱`+amount+`</td>
         </tr>`;
 
         total+= amount;

@@ -64,7 +64,7 @@
     >
     <option selected>Choose...</option>
     {{#each ingredients}}
-    <option  value="{{{ingredientName}}}">{{ingredientName}} {{ingredients.uom.abbrev}}</option>
+    <option  value="{{{ingredientName}}}">{{ingredientName}} ({{uom.fullName}})</option>
     {{/each}}
   </select>
 
@@ -112,7 +112,7 @@
         <table class="table overflow-auto table-hover table-bordered table-hover">
           <thead>
             <tr class="text-light" style="background-color: #7CA6A6">
-              <th class="text-center">Name</th>
+              <th class="text-center">Ingredient</th>
               <th class="text-center">Quantity</th>
               <th class="text-center">Quantity per Stock</th>
               <th class="text-center">Reason</th>
@@ -148,11 +148,13 @@
 
     $('#shrinkage').click( () => {
       const ingredient = $('#ingredient').val();
+      const lastIndex = ingredient.lastIndexOf(" ");
+      ingredient.substring(0, lastIndex);
       let qty = $('#qty').val();
       const reason = $('#reason').val();
       const remarks = $('#remarks').val();
 
-      if(ingredient == 'Choose...' || qty == '' || reason == 'Choose...'){
+      if(ingredient == 'Choose...' || qty == '' || reason == 'Choose...' || remarks == ''){
         alert('Please input all the fields!');
       }
       else {
@@ -220,6 +222,8 @@
       remarksList = [];
       listIndex = [];
       index = 0;*/
+      console.log("sdfsajfksdjafkl");
+
       $("#shrinkageTable").remove();
       alert('Ingredients are reported as shrinkage!');
       window.location.replace("http://localhost:3000/inventory/shrinkageReport");

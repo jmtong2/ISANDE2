@@ -1,22 +1,26 @@
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
  
-var discrepancySchema = new Schema({
+var movementSchema = new mongoose.Schema({
     ingredient: {
         type: Schema.Types.ObjectId,
         ref: 'Ingredient',
         required: true
-    }, 
-    reason: {
+    },
+    beforeTotalQuantity: {
+        type: Number,
+        required: true
+    },
+    action: {
         type: String,
         required: true
     },
-    remarks: {
+    quantity: {
         type: String,
-        required: true,
-        default: 'N/A'
+        required: true
     },
-    lossQuantity: {
+    afterTotalQuantity: {
         type: Number,
         required: true
     },
@@ -27,4 +31,4 @@ var discrepancySchema = new Schema({
     }
 }, {timestamps: true});
 
-module.exports = mongoose.model('Shrinkage', discrepancySchema);
+module.exports = mongoose.model('Movement', movementSchema);

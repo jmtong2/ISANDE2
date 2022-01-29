@@ -94,32 +94,27 @@
                       </div>
                         <thead>
                             <tr class="text-light align-top" style="background-color: #7CA6A6">
-                                <th class="text-center text-light">Ingredient</th>
-                                <th class="text-center text-light" style="width: 130px">Beginning Inventory</th>
-                                <th class="text-center text-light">Received</th>
-                                <th class="text-center text-light">Total Sold </th>
-                                <th class="text-center text-light">Shrinakage</th>
-                                <th class="text-center text-light">Shrinakage Reason</th>
-                                <th class="text-center text-light" style="width: 130px">Quantity On Hand</th>
-                                <th class="text-center text-light">Date</th>
+                                <th class="text-center text-light col-3">Ingredient</th>
+                                <th class="text-center text-light" style="width: 130px">Before Total Quantity</th>
+                                <th class="text-center text-light">Action</th>
+                                <th class="text-center text-light" style="width: 130px">Quantity </th>
+                                <th class="text-center text-light" style="width: 130px">After Total Quantity</th>
+                                <th class="text-center text-light col-3">Date</th>
                             </tr>
                         </thead>
 
         <!-- Contents of table -->
         <tbody>
-            
+            {{#each movement}}
               <tr>
-                <td class="text-start">Cream Cheese</td>
-                <td class="text-end">15 g</td>
-                <td class="text-end">20 g</td>
-                <td class="text-end">10 g</td>
-                <td class="text-end">3 g</td>
-                <td class="text-center">Spoilage</td>
-                <td class="text-end">22 g</td>
-                <td class="text-center">03/03/2021</td>
-
+                <td class="text-start">{{ingredient.ingredientName}}</td>
+                <td class="text-end">{{beforeTotalQuantity}} {{ingredient.uom.abbrev}}</td>
+                <td class="text-center">{{action}}</td>
+                <td class="text-end">{{quantity}}</td>
+                <td class="text-end">{{afterTotalQuantity}} {{ingredient.uom.abbrev}}</td>
+                <td class="text-center">{{date}}</td>
               </tr>
-          
+          {{/each}}
  </tbody>
 </table>
             </div>

@@ -193,6 +193,7 @@ const managerController = {
           },
         })
 			.populate("menuItem")
+			.sort({ createdAt: -1 })
 			.exec();
 			res.render("managerOrdersHistory", { orders: orderMenuItems });
 

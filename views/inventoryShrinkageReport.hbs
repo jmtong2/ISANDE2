@@ -108,8 +108,8 @@
           <thead>
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center">Name</th>
-              <th class="text-center col-1">Quantity</th>
               <th class="text-center col-1">Quantity Per Stock</th>
+              <th class="text-center col-1">Quantity</th>
               <th class="text-center">Reason</th>
               <th class="text-center col-2">Remarks</th>
               <th class="text-center col-3">Date</th>
@@ -119,8 +119,8 @@
             {{#each shrinkage}}
             <tr>
                 <td class="text-center">{{ingredient.ingredientName}}</td>
-                <td class="text-end">{{lossQuantity}}</td>
                 <td class="text-end">{{ingredient.quantityPerStock}} {{ingredient.uom.abbrev}}</td>
+                <td class="text-end">{{lossQuantity}} {{ingredient.uom.abbrev}}</td>
                 <td class="text-center">{{reason}}</td>
                 <td class="text-start">{{remarks}}</td>
                 <td class="text-center">{{date}}</td>

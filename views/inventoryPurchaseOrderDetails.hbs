@@ -132,7 +132,7 @@
 </div>
 <div class="p-3  ">
   <button type="button" disabled id="download" class="dlBtn btn me-3" style="background-color: #7CA6A6"  onclick="window.print();"><i class="far fa-print"></i> Download</button>
-  <a id="receiveA" href="/inventory/purchaseOrdersReceive/{{pO._id}}"><button id="receive" disabled type="button" class="receiveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Receive</button></a>
+  <a id="receiveA" href="/inventory/purchaseOrdersReceive/{{pO._id}}"><button id="receive" disabled type="button" class="receiveBtn btn" style="background-color: #DD620E" ><i class="far fa-check"></i> Order Receive</button></a>
    <input type="hidden" id="poID" name="poID" value="{{pO._id}}">
 </div>
 
@@ -145,7 +145,6 @@
    $.post("/isReceived", {
     id: id
    }, result => {
-    alert(result);
     if (!result) {
        $("#receive").removeAttr('disabled');
         $("#download").removeAttr('disabled');
