@@ -172,7 +172,6 @@ const managerController = {
 				status: status,
 			});
 			await newMenuItem.save();
-			res.send(newMenuItem);
 
 			// edit new menu item
 			const newMenu = await MenuItem.findOneAndUpdate(
