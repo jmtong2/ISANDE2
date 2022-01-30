@@ -71,6 +71,7 @@ router.get("/manager/addMenuItem", managerController.getAddMenuItem);
 router.get("/manager/menuItemDetailed/:id", managerController.getMenuItemDetails);
 router.post("/addMenuItem", managerController.addMenuItem);
 router.post("/addIngredientsMenu", managerController.addIngredientsMenu);
+router.post("/editMenuItem", managerController.editMenuItem);
 router.get('/getAddUOMManager', uomController.getAddUOMManager);
 router.get("/manager/orderHistory", managerController.getAllOrderHistory);
 router.get("/manager/orderDetails/:id", managerController.getOrderDetails);

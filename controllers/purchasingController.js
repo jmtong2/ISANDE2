@@ -1,4 +1,3 @@
-
 const Ingredient = require("../models/IngredientModel.js");
 const Supplier = require("../models/SupplierModel.js");
 const PurchaseOrder = require("../models/PurchaseOrderModel.js");
@@ -9,104 +8,114 @@ const Unit = require("../models/UnitModel.js");
 const User = require("../models/UserModel.js");
 const Conversion = require("../models/ConversionModel.js");
 const purchasingController = {
-
-   async createUnit(abbrev, fullName) {
+  async createUnit(abbrev, fullName) {
     const unit = new Unit({
-        abbrev: abbrev,
-        fullName: fullName
+      abbrev: abbrev,
+      fullName: fullName,
     });
 
     const result = await unit.save();
     console.log(result);
-   },
+  },
 
-   addMeasures: async (req,res) => {
-    purchasingController.createUnit('mg', 'milligram');
-    purchasingController.createUnit('g', 'gram');
-    purchasingController.createUnit('kg', 'kilogram');
-    purchasingController.createUnit('lb', 'pound');
-    purchasingController.createUnit('oz', 'ounce');
+  addMeasures: async (req, res) => {
+    purchasingController.createUnit("mg", "milligram");
+    purchasingController.createUnit("g", "gram");
+    purchasingController.createUnit("kg", "kilogram");
+    purchasingController.createUnit("lb", "pound");
+    purchasingController.createUnit("oz", "ounce");
 
-// Volume units
-    purchasingController.createUnit('ml', 'milliliter');
-    purchasingController.createUnit('l', 'liter');
-    purchasingController.createUnit('gal', 'gallon');
-    purchasingController.createUnit('qt', 'quart');
-    purchasingController.createUnit('p', 'pint');
-    purchasingController.createUnit('c', 'cup');
+    // Volume units
+    purchasingController.createUnit("ml", "milliliter");
+    purchasingController.createUnit("l", "liter");
+    purchasingController.createUnit("gal", "gallon");
+    purchasingController.createUnit("qt", "quart");
+    purchasingController.createUnit("p", "pint");
+    purchasingController.createUnit("c", "cup");
 
-    purchasingController.createUnit('tbsp', 'tablespoon');
-    purchasingController.createUnit('tsps', 'teaspoon');
+    purchasingController.createUnit("tbsp", "tablespoon");
+    purchasingController.createUnit("tsps", "teaspoon");
 
-       const units = await Unit
-        .find()
-        .exec();
-        res.send(units);
-   },
+    const units = await Unit.find().exec();
+    res.send(units);
+  },
 
-   getReorderIngredients: async (req, res) => {
+  getReorderIngredients: async (req, res) => {
     try {
-      const ingredients =  await Ingredient.find({
+      const ingredients = await Ingredient.find({
         $and: [
           {
-            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] }
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
           },
           {
-            orderStatus: "Present"
+            orderStatus: "Present",
           },
         ],
       })
-      .populate("uom", "abbrev")
-      .populate("supplier", "name")
-      .sort({ totalQuantity: 1 })
-      .exec();
-    
+        .populate("uom", "abbrev")
+        .populate("supplier", "name")
+        .sort({ totalQuantity: 1 })
+        .exec();
+
       res.render("purchasingReorder", { ingredients: ingredients });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
   getReorder: async (req, res) => {
     try {
-      const suppliers = await Supplier.find().exec();
 
-    /*  const ingredients =  await Ingredient.find({ $expr: { $lte: ["$totalQuantity", "$reorderPoint"] } })
-      .populate("uom", "abbrev")
-      .sort({ totalQuantity: 1 })
-      .exec();
-*/
-      res.render("purchasingReorderInput", {supplier: suppliers });
+      const reorderIngredients = await Ingredient.find({
+        $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
+      })
+        .populate("supplier")
+        .exec();
+
+        const suppliersWithReorder = [];
+        let length = reorderIngredients.length;
+      for (let i = 0; i < length; i++) {
+        let supplier = await Supplier.findOne({_id: reorderIngredients[i].supplier._id})
+        .exec();
+
+        suppliersWithReorder.push(supplier.name);
+
+
+      }
+      // Remove if duplicate
+      let uniqueSupplier = [...new Set(suppliersWithReorder)];
+
+      res.render("purchasingReorderInput", { supplier: uniqueSupplier });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
   getOrderIngredients: async (req, res) => {
     try {
-      const supplier = await Supplier.findOne({name: req.query.supplierName})
-      .exec();
+      const supplier = await Supplier.findOne({
+        name: req.query.supplierName,
+      }).exec();
 
-    const ingredients = await Ingredient.find({
+      const ingredients = await Ingredient.find({
         $and: [
           {
-            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] }
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
           },
           {
-            supplier: supplier._id
+            supplier: supplier._id,
           },
           {
-            orderStatus: "Present"
+            orderStatus: "Present",
           },
         ],
       })
-      .populate("uom", "abbrev")
-      .exec();
-  
+        .populate("uom", "abbrev")
+        .exec();
+
       res.send(ingredients);
-      
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
@@ -124,30 +133,27 @@ const purchasingController = {
     //you can populate two times if needed
     // for the ingredients, you only need to populate the uom as seen in getToPurchasedIngredients below
     try {
-
       const inventory = await Ingredient.find()
-      .populate("supplier", "name")
-      .populate("uom", "abbrev")
-      .sort({ name: 1 }) 
-      .exec();
+        .populate("supplier", "name")
+        .populate("uom", "abbrev")
+        .sort({ name: 1 })
+        .exec();
 
+      const uom = await Unit.find().exec();
 
+      const supplier = await Supplier.find().exec();
 
-      const uom = await Unit.find()
-      .exec();
-
-
-      const supplier = await Supplier.find()
-      .exec();
-
-      res.render("purchasingInventory", { inventory: inventory, uom: uom, supplier: supplier });
+      res.render("purchasingInventory", {
+        inventory: inventory,
+        uom: uom,
+        supplier: supplier,
+      });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
   addIngredient: async (req, res) => {
-
     try {
       const inputName = req.body.name;
       const inputUOM = req.body.uom;
@@ -168,52 +174,51 @@ const purchasingController = {
 
       await ingredient.save();
       res.redirect("/purchasing/inventory");
-
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
-    },
+  },
 
-       editIngredient: async (req, res) => {
-        const id = req.body.id;
-        const name = req.body.name;
-        const uomInput = req.body.uom;
-        const qps = req.body.qps;
-        const price = req.body.price;
-        const supplierInput = req.body.supplier;
-        try {
-
-            const supplier = await Supplier.findOne({ name: supplierInput }).exec();
-            const uom = await Unit.findOne({ abbrev: uomInput }).exec();
-/*            const ingredient = await Ingredient.findOne({_id: id}).exec();*/
-            const ingredient = await Ingredient.findOneAndUpdate({_id: id}, 
-                {"$set":
-                        { ingredientName: name, 
-                          uom: uom._id,
-                          quantityPerStock: qps,
-                          price: price,
-                          supplier: supplier._id
-                        }
-                })
-            .exec();
-            res.send(ingredient);
-        } catch (e) {
-            res.send('Error page');  
+  editIngredient: async (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const uomInput = req.body.uom;
+    const qps = req.body.qps;
+    const price = req.body.price;
+    const supplierInput = req.body.supplier;
+    try {
+      const supplier = await Supplier.findOne({ name: supplierInput }).exec();
+      const uom = await Unit.findOne({ abbrev: uomInput }).exec();
+      /*            const ingredient = await Ingredient.findOne({_id: id}).exec();*/
+      const ingredient = await Ingredient.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            ingredientName: name,
+            uom: uom._id,
+            quantityPerStock: qps,
+            price: price,
+            supplier: supplier._id,
+          },
         }
-    },
+      ).exec();
+      res.send(ingredient);
+    } catch (e) {
+      res.send("Error page");
+    }
+  },
 
   getAllPurchaseOrders: async (req, res) => {
     try {
       const purchaseOrders = await PurchaseOrder.find()
-      .populate("supplier", "name")
-      .sort({ createdAt: -1 })
-      .exec();
+        .populate("supplier", "name")
+        .sort({ createdAt: -1 })
+        .exec();
 
       res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
-
   },
 
   savePurchaseOrder: async (req, res) => {
@@ -226,13 +231,13 @@ const purchasingController = {
       const dateMade = new Date();
       dateMade.toLocaleDateString();
 
-      const supplier = await Supplier.findOne({name: supplierName}).exec();
+      const supplier = await Supplier.findOne({ name: supplierName }).exec();
 
       const purchaseOrder = new PurchaseOrder({
         dateMade: dateMade,
         supplier: supplier._id,
         status: "PENDING",
-        total: total
+        total: total,
       });
 
       await purchaseOrder.save();
@@ -240,49 +245,43 @@ const purchasingController = {
       const count = ingredients.length;
       for (let i = 0; i < count; i++) {
         const updatedIngredient = await Ingredient.findOneAndUpdate(
-        {
-          ingredientName: ingredients[i].ingredientName
-        },
-        {
-          orderStatus: "Ordered"
-        },
-        {
-          new: true,
-        }
-      ).exec();
+          {
+            ingredientName: ingredients[i].ingredientName,
+          },
+          {
+            orderStatus: "Ordered",
+          },
+          {
+            new: true,
+          }
+        ).exec();
 
         const purchaseOrderIngredient = await PurchaseOrderIngredients({
           purchaseOrder: purchaseOrder._id,
           ingredient: ingredients[i]._id,
           amount: listAmount[i],
-          quantityPurchased: listQuantity[i]
+          quantityPurchased: listQuantity[i],
         });
         await purchaseOrderIngredient.save();
       }
 
       res.send(true);
-      
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
-
- getAllSuppliers: async (req, res) => {
+  getAllSuppliers: async (req, res) => {
     try {
-      const suppliers = await Supplier.find()
-      .sort({ name: 1 })
-      .exec();
+      const suppliers = await Supplier.find().sort({ name: 1 }).exec();
 
       res.render("purchasingSuppliers", { supplier: suppliers });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
-
   },
 
   addSupplier: async (req, res) => {
-
     try {
       const inputName = req.body.name;
       const inputContact = req.body.contact;
@@ -296,21 +295,12 @@ const purchasingController = {
 
       await supplier.save();
       res.redirect("/purchasing/suppliers");
-
     } catch (err) {
-     res.send('Error page'); 
+      res.send("Error page");
     }
-    },
-
-
-
-
-
-
+  },
 
   /* OLDS ---------------------------------------------------------*/
-
-
 
   // for purchased
   getPurchasedIngredientsToList: async (req, res) => {
@@ -329,7 +319,7 @@ const purchasingController = {
         uom: uom,
       });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
@@ -347,8 +337,6 @@ const purchasingController = {
       res.send('Error page'); 
     }
   },*/
-
-
 
   makePurchasedOrder: async (req, res) => {
     let cart = req.query.cart;
@@ -383,19 +371,18 @@ const purchasingController = {
             purchasedQuantity[i]
           );
         } catch (err) {
-          res.send('Error page'); 
+          res.send("Error page");
         }
       }
       res.send(true);
 
       // multiple add to system ingredients
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
 
-
-getPurchaseOrderDetails: async (req, res) => {
+  getPurchaseOrderDetails: async (req, res) => {
     /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
        populate the ref inside a ref
        ex. purchasedOrderIngredients has purchasedIngredients ref
@@ -404,9 +391,7 @@ getPurchaseOrderDetails: async (req, res) => {
        */
     const id = req.params.id;
     try {
-      const pO = await PurchaseOrder.findById(id)
-      .populate("supplier")
-      .exec();
+      const pO = await PurchaseOrder.findById(id).populate("supplier").exec();
 
       const pOI = await PurchaseOrderIngredients.find({ purchaseOrder: id })
         .populate({
@@ -425,18 +410,16 @@ getPurchaseOrderDetails: async (req, res) => {
         })
         .exec();
 
-      res.render("purchasingPurchaseOrderDetails", { 
+      res.render("purchasingPurchaseOrderDetails", {
         pOI: pOI,
-        pO: pO
+        pO: pO,
       });
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
- 
 
-  
- async convert(purchasedIngredientName, quantityPurchased) {
+  async convert(purchasedIngredientName, quantityPurchased) {
     try {
       const purchased = await PurchasedIngredients.findOne({
         purchasedIngredientName: purchasedIngredientName,
@@ -446,7 +429,9 @@ getPurchaseOrderDetails: async (req, res) => {
 
       const ingredient = await Ingredient.findOne({
         ingredientName: purchased.ingredient.ingredientName,
-      }).populate("uom", "abbrev").exec();
+      })
+        .populate("uom", "abbrev")
+        .exec();
 
       // Find conversion based on purchasedIngredient and systemIngredient uom
       const conversion = await Conversion.findOne({
@@ -488,10 +473,10 @@ getPurchaseOrderDetails: async (req, res) => {
 
       const convertedValue = await Ingredient.findOneAndUpdate(
         {
-          ingredientName: purchased.ingredient.ingredientName
+          ingredientName: purchased.ingredient.ingredientName,
         },
         {
-          totalQuantity: addedValue
+          totalQuantity: addedValue,
         },
         {
           new: true,
@@ -501,13 +486,12 @@ getPurchaseOrderDetails: async (req, res) => {
       return convertedValue;
       //findOneAndUpdate the ingredient
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
   },
-   
 
- /* getPurchasedOrderDetails: async (req, res) => {*/
-    /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
+  /* getPurchasedOrderDetails: async (req, res) => {*/
+  /* https://stackoverflow.com/questions/19222520/populate-nested-array-in-mongoose --- paths
        populate the ref inside a ref
        ex. purchasedOrderIngredients has purchasedIngredients ref
        so first populate the purchasedIngredients
@@ -556,23 +540,24 @@ getPurchaseOrderDetails: async (req, res) => {
       await purchasedIngredient.save();
       res.redirect("/purchasing/purchased");
     } catch (err) {
-      res.send('Error page'); 
+      res.send("Error page");
     }
-
   },
 
   getAllPurchasedIngredients: async (req, res) => {
     try {
       const purchasedIngredient = await PurchasedIngredients.find()
-      .populate("ingredient", "ingredientName")
-      .populate("uom", "abbrev")
-      .sort({ createdAt: -1 })
-      .exec();
-      res.render('purchasedIngredients', {purchasedIngredient: purchasedIngredient});
-    } catch(err) {
-      res.send('Error page'); 
+        .populate("ingredient", "ingredientName")
+        .populate("uom", "abbrev")
+        .sort({ createdAt: -1 })
+        .exec();
+      res.render("purchasedIngredients", {
+        purchasedIngredient: purchasedIngredient,
+      });
+    } catch (err) {
+      res.send("Error page");
     }
-  }
+  },
 };
 
 module.exports = purchasingController;

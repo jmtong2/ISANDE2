@@ -16,7 +16,7 @@
         <div class="card-body rounded shadow-lg" style="background-color: #CC985A">
             <div class="card-body rounded text-white row">
                 <span class="col">
-                   <h3>Edit Menu Item</h3>
+                   <h5>Edit Menu Item</h5>
                </span>
            </div>
        </div>
@@ -28,23 +28,28 @@
                 style="height: 67vh"
                 >
                 <button
-                class="btn rounded float-end"
+                id="doneEditingMenuItem"
+                class="btn rounded text-center"
                 type="button"
                 style="background-color: #DD610C"
                 >
-                <i class="fa-regular fa-circle-check"></i> Done 
+                <i class="fa-regular fa-circle-check"></i> Done Editing Menu Item Information
             </button>
-            <h2 >{{menuItem.menuItemName}}</h2>
-            <input id="oldMenuItem" type="hidden" name="oldMenuItem" value ="{{{menuItem.menuItemName}}}" >
+            <br><br>
+            <h2 >Menu Item Name:</h2>
+
+            <input id="editedName" placeholder="{{{menuItem.menuItemName}}}">
+            
+            <input id="oldMenuItemName" type="hidden" value ="{{{menuItem.menuItemName}}}">
+            <input id="id" type="hidden"  value ="{{{menuItem._id}}}">
+            <input id="oldPrice" type="hidden"  value="{{{menuItem.price}}}">
+            <input id="oldStatus" type="hidden"  value="{{{menuItem.status}}}">
             <br>
             <hr class="my-3" style="color: black" />
             <div class="row">
                 <div class="col">
-                    <h3 class="">Price:</h3>
-                </div>
-                <div class="text-end col">
-                    <h4>₱{{menuItem.price}}</h4>
-
+                    <h3 >Price:</h3>
+                    <input id="editedPrice" type="number" min=0 placeholder="{{{menuItem.price}}}">
                 </div>
             </div>
             <hr />
@@ -55,6 +60,7 @@
                     >
                     <h4 class="status">Status:</h4>
                     <select
+                    id="editedStatus"
                     class="form-select"
                     name="status"
                     style="width: 100px"
@@ -62,11 +68,11 @@
                     <option selected>
                         {{menuItem.status}}
                     </option>
-                    <option value="active">
-                        active
+                    <option value="Active">
+                        Active
                     </option>
-                    <option value="inactive">
-                        inactive
+                    <option value="Inactive">
+                        Inactive
                     </option>
                 </select>
             </span>
@@ -274,7 +280,7 @@ id="doneAdding"
 style="background-color: #243b31"
 >
 <i class="fa-regular fa-check"></i>
-Done Editing Ingredients
+Done Editing Menu Item
 </button>
 </div>
 </div>
@@ -338,12 +344,14 @@ Done Editing Ingredients
       });
 
         $("#doneAdding").click( () =>  {
-            const oldMenuItemName = $("#oldMenuItem").val();
+            const oldMenuItemName = $("#oldMenuItemName").val();
+            const id = $("#id").val();
            
             if (listIngredient.length === 0)
                 alert('Add ingredients first!');
             else {
                 $.post("/addIngredientsMenu", {
+                    id: id,
                     oldMenuItemName: oldMenuItemName,
                     listIngredient: listIngredient,
                     listQuantity: listQuantity,
@@ -362,7 +370,71 @@ Done Editing Ingredients
 
         });
 
-        // whendadidng in database change status of previous menu item to inactive and then make a copy then insert the added
+        $("#doneEditingMenuItem").click( () =>  {
+            const oldMenuItemName = $("#oldMenuItemName").val();
+            const oldStatus = $("#oldStatus").val();
+            const oldPrice = $("#oldPrice").val();
+            const editedName = $("#editedName").val();
+            const editedStatus = $("#editedStatus").val();
+            const editedPrice = $("#editedPrice").val();
+            const id = $("#id").val();
+            let name = "";
+            let price = 0;
+            let status = "";
+            if (editedName.trim() === "" && editedStatus === oldStatus && editedPrice.trim() === "") {
+                alert("Input different name, price, and status!");
+            }
+            else if (oldMenuItemName === editedName && oldStatus === editedStatus && oldPrice === editedPrice)
+                alert("Input different name, price, and status!");
+            else if (editedName.trim() === "" || editedPrice.trim() === "") 
+                alert("Input the missing fields (even if the same) to continue!");      
+            
+            /*else if (oldMenuItemName === editedName) {
+                if (editedPrice.trim() === "" && editedStatus === oldStatus)
+                    alert("Input price or a different status!");
+                else {
+                    name = oldMenuItemName;
+                    price = editedPrice;
+                    status = editedStatus;
+                }     
+            }*/
+            /*else if (oldStatus === editedStatus ) {
+                if (editedName.trim() === "" && editedPrice.trim() === "")
+                    alert("Input price, and status!");
+                else {
+                    price = editedPrice;
+                    name = editedName;
+                }     
+            }*/
+            /*else if (oldPrice === editedPrice) {
+                if (editedName.trim() === "" && editedStatus === oldStatus)
+                    alert("Input name or input a different status!");
+                else {
+                    price = oldPrice;
+                    status = editedStatus;
+                    name = editedName;
+                }     
+            }*/
+            else {
+                name = editedName;
+                price = editedPrice;
+                status = editedStatus;
+                $.post("/editMenuItem", {
+                    id: id,
+                    name: name,
+                    price: price,
+                    status: status,
+                }, result => {
+                    alert(result.menuItemName);
+                    alert('Menu Item Edited!');
+                    window.location.replace(result.url);
+                });
+
+            }
+
+        });
+
+
     });
 </script>
 </body>
