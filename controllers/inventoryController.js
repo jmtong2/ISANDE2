@@ -45,10 +45,44 @@ const inventoryController = {
 
     getAllPurchaseOrders: async (req, res) => {
         try {
-            const purchaseOrders = await PurchaseOrder.find()
+            const purchaseOrderList = await PurchaseOrder.find()
                 .populate("supplier", "name")
                 .sort({ createdAt: -1 })
                 .exec();
+
+            let purchaseOrders = [];
+            const poLength = purchaseOrderList.length;
+            for (let i = 0; i < poLength; i++) {
+                let date = new Date(purchaseOrderList[i].dateMade);
+                date.setHours(0, 0, 0, 0);
+                let dateReceived = new Date(
+                    purchaseOrderList[i].receivedDateOfDelivery
+                );
+                dateReceived.setHours(0, 0, 0, 0);
+
+                const sortedPO = {
+                    id: purchaseOrderList[i]._id,
+                    ingredient: purchaseOrderList[i].ingredient,
+                    dateMade:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    receivedDateOfDelivery:
+                        dateReceived.getMonth() +
+                        1 +
+                        "/" +
+                        dateReceived.getDate() +
+                        "/" +
+                        dateReceived.getFullYear(),
+                    supplier: purchaseOrderList[i].supplier,
+                    status: purchaseOrderList[i].status,
+                    total: purchaseOrderList[i].total,
+                };
+                purchaseOrders.push(sortedPO);
+            }
 
             res.render("inventoryPurchaseOrders", {
                 purchaseOrder: purchaseOrders,
@@ -60,7 +94,7 @@ const inventoryController = {
 
     getMovement: async (req, res) => {
         try {
-            const movement = await Movement.find()
+            const movementList = await Movement.find()
                 .populate({
                     path: "ingredient",
                     populate: {
@@ -71,7 +105,30 @@ const inventoryController = {
                 .sort({ createdAt: -1 })
                 .exec();
 
-            res.render("inventoryMovement", { movement: movement });
+            let movements = [];
+            const movementLength = movementList.length;
+            for (let i = 0; i < movementLength; i++) {
+                let date = new Date(movementList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                const sortedMovement = {
+                    ingredient: movementList[i].ingredient,
+                    date:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    beforeTotalQuantity: movementList[i].beforeTotalQuantity,
+                    action: movementList[i].action,
+                    quantity: movementList[i].quantity,
+                    afterTotalQuantity: movementList[i].lossQuantity,
+                };
+                movements.push(sortedMovement);
+            }
+
+            res.render("inventoryMovement", { movement: movements });
         } catch (e) {
             res.send("Error page");
         }
@@ -96,22 +153,22 @@ const inventoryController = {
                 let date = new Date(shrinkageList[i].date);
                 date.setHours(0, 0, 0, 0);
 
-                    const sortedShrinkage = {
-                        ingredient: shrinkageList[i].ingredient,
-                        date:
-                            date.getMonth() +
-                            1 +
-                            "/" +
-                            date.getDate() +
-                            "/" +
-                            date.getFullYear(),
-                        reason: shrinkageList[i].reason,
-                        remarks: shrinkageList[i].remarks,
-                        lossQuantity: shrinkageList[i].lossQuantity,
-                    };
-                    shrinkages.push(sortedShrinkage);
+                const sortedShrinkage = {
+                    ingredient: shrinkageList[i].ingredient,
+                    date:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    reason: shrinkageList[i].reason,
+                    remarks: shrinkageList[i].remarks,
+                    lossQuantity: shrinkageList[i].lossQuantity,
+                };
+                shrinkages.push(sortedShrinkage);
             }
-            
+
             res.render("inventoryShrinkageReport", { shrinkage: shrinkages });
         } catch (e) {
             res.send("Error page");

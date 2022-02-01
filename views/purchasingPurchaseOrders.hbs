@@ -96,11 +96,11 @@
               <div id="reportTitle" class="text-center my-3" >
                 <h4>Purchase Orders Summary Report</h4>
                 <h5 id="reportDate">November 1-31, 2021</h5>
-                <h6 class="p-2 mt-1 text-end">Row/s: {{purchaseOrder.length}}</h6>
+                <h6 id="rows" class="p-2 mt-1 text-end">Row/s: {{purchaseOrder.length}}</h6>
               </div>
               <thead>
                 <tr class="text-light align-top" style="background-color: #7CA6A6">
-                  <th style="width: 330px" class="text-center">Date</th>
+                  <th style="width: 150px" class="text-center">Date</th>
                   <th style="width: 150px" class="text-center">Total</th>
                    <th style="width: 150px" class="text-center">Status</th>
                   <th style="width: 300px" class="text-start">Supplier</th>
@@ -131,29 +131,36 @@
 
 <script>
  $(document).ready(function () {
+
+  // Updates the date today in the html
   options = { year: "numeric", month: "long", day: "numeric" };
   let today = new Date();
   let todayDate = today.toLocaleDateString("en-US", options);
   let asOf = $("#asOf").text("As of " + todayDate);
   $("#reportDate").text(todayDate);
 
+  // Makes the whole row clickable
   $(".link").click(function () {
     window.location = $(this).data("href");
   });
 
+// Initializess the startdate picker so it can be fuinctional
   $("#startDate").datepicker();
+  $("#endDate").datepicker();
 
+// Removes the red border after clicking the date
   $("#startDateButton").click(() => {
     $("#startDateValue").css("border", "");
   });
-  $("#endDate").datepicker();
   $("#endDate").click(() => {
     $("#endDateValue").css("border", "");
   });
 
+  // When click the search date button
   $("#orderHistoryDate").click(function () {
     const startDate = $("#startDateValue").val();
     const endDate = $("#endDateValue").val();
+    // Checks if the dates inputted are valid
     if (
       startDate == null ||
       startDate == "" ||
@@ -169,6 +176,7 @@
         alert("Input an ending date!");
       }
     } else {
+      // Converts the dates inputted to Date object because the date fields in the database models are date objects 
       let convertedStartDate = new Date(startDate);
       let convertedEndDate = new Date(endDate);
 
@@ -180,26 +188,29 @@
         // valid dates
         $("#startDateValue").css("border", "");
         $("#endDateValue").css("border", "");
-        alert(startDateValue.toString());
-       /* $.get(
+        // See in routes
+        // Passes the valid dates inputted
+        $.get(
           "/getOrderHistoryDates",
           { startDate: convertedStartDate, endDate: convertedEndDate },
-          (result) => {
-            alert(result[0].id);
-            alert(result[0].dateMade);
-            alert(result[0].supplier);
-            alert(result[0].status);
-            alert(result[0].total);
-
-            let total = 0;
+          (purchaseOrders) => {
+            // After getting the result, update the HTML dates, and table
+            options = { year: "numeric", month: "long", day: "numeric" };
+            let startDateFiltered = convertedStartDate.toLocaleDateString("en-US", options);
+            let endDateFiltered = convertedEndDate.toLocaleDateString("en-US", options);
+             $("#reportDate").text(`${startDateFiltered} - ${endDateFiltered}`);
+             $("#rows").text(`Row/s ${purchaseOrders.length}`);
+             // Remove the table rows to only put the filtered data
             $("#purchaseOrderTable").empty(); 
-            let length = result.length;
+            //let total = 0;
+            // Loop to create the rows
+            let length = purchaseOrders.length;
             for (let i = 0; i < length; i++) {
-              const id = result[i].id;
-              const dateMade = result[i].dateMade;
-              const supplier = result[i].supplier;
-              const status = result[i].status;
-              const total = result[i].total;
+              const id = purchaseOrders[i].id;
+              const dateMade = purchaseOrders[i].dateMade;
+              const supplier = purchaseOrders[i].supplier;
+              const status = purchaseOrders[i].status;
+              const total = purchaseOrders[i].total;
               // total += parseFloat(resultTotal);
 
               let sortedDate = 
@@ -211,19 +222,18 @@
                               </tr>`;
               $("#purchaseOrderTable").append(sortedDate);
 
+              // Makes the link clickable
               $(".link").click(function () {
                 window.location = $(this).data("href");
               });
             }
 
             //$("#view-order-history-total").text("₱ " + total.toFixed(2));
-            const today = new Date().toLocaleString("en-US");
-            $("#dateToday").text(today);
-
+            // Removes the inputted dates
             $("#startDateValue").val(null);
             $("#endDateValue").val(null);
           }
-        );*/
+        );
       }
     }
   });

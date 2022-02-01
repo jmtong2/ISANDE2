@@ -68,7 +68,8 @@
               </div>
 
               <div class="col text-end">
-                <h5 style="color: #243b31">(*Click the PO to receive the order)</h5>
+                <h6 style="color: #243b31">(*Click the PO row to receive the order </h6>
+                <h6 style="color: #243b31">*"NaN/NaN/NaN" means PO has not been received)</h6>
               </div>
 
             </div>
@@ -107,14 +108,14 @@
               </thead>
               <tbody id="purchasedTable">
                 {{#each purchaseOrder}}
-                 <tr class="link" data-href="/inventory/purchaseOrdersDetails/{{_id}}">
+                 <tr class="link" data-href="/inventory/purchaseOrdersDetails/{{id}}">
                   <td class="text-center">
                     {{dateMade}}
                   </td>
                   <td class="text-end">₱{{total}}</td>
                   <td class="text-center">{{status}}</td>
                    <td class="text-start">{{supplier.name}}</td>
-                   <td class="text-start">{{receivedDateOfDelivery}}</td>
+                   <td class="text-center">{{receivedDateOfDelivery}}</td>
                 </tr>
                 {{/each}}
               </tbody>

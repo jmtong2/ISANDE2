@@ -250,7 +250,7 @@ const managerController = {
 
 	getAllOrderHistory: async (req, res) => {
 		try {
-			const orderMenuItems = await OrderMenuItem.find()
+			const orderMenuItemList = await OrderMenuItem.find()
 				.populate({
 					path: "order",
 					populate: {
@@ -261,6 +261,27 @@ const managerController = {
 				.populate("menuItem")
 				.sort({ createdAt: -1 })
 				.exec();
+
+				let orderMenuItems = [];
+            const orderMenutItemLength = orderMenuItemList.length;
+            for (let i = 0; i < orderMenutItemLength; i++) {
+            	let date = new Date(orderMenuItemList[i].order.date);
+                date.setHours(0, 0, 0, 0);
+
+                const sortedOrderMenuItems = {
+                    order: orderMenuItemList[i].order,
+                    orderDate:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    menuItem: orderMenuItemList[i].menuItem,
+                };
+                orderMenuItems.push(sortedOrderMenuItems);
+            }
+
 			res.render("managerOrdersHistory", { orders: orderMenuItems });
 		} catch (err) {
 			res.send("Error page");

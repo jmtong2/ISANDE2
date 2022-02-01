@@ -215,11 +215,44 @@ const purchasingController = {
 
   getAllPurchaseOrders: async (req, res) => {
     try {
-      const purchaseOrders = await PurchaseOrder.find()
+      const purchaseOrderList = await PurchaseOrder.find()
         .populate("supplier", "name")
         .sort({ createdAt: -1 })
         .exec();
 
+      let purchaseOrders = [];
+      const poLength = purchaseOrderList.length;
+      for (let i = 0; i < poLength; i++) {
+        let date = new Date(purchaseOrderList[i].dateMade);
+        date.setHours(0, 0, 0, 0);
+        let dateReceived = new Date(
+          purchaseOrderList[i].receivedDateOfDelivery
+        );
+        dateReceived.setHours(0, 0, 0, 0);
+
+        const sortedPO = {
+          id: purchaseOrderList[i]._id,
+          ingredient: purchaseOrderList[i].ingredient,
+          dateMade:
+            date.getMonth() +
+            1 +
+            "/" +
+            date.getDate() +
+            "/" +
+            date.getFullYear(),
+          receivedDateOfDelivery:
+            dateReceived.getMonth() +
+            1 +
+            "/" +
+            dateReceived.getDate() +
+            "/" +
+            dateReceived.getFullYear(),
+          supplier: purchaseOrderList[i].supplier,
+          status: purchaseOrderList[i].status,
+          total: purchaseOrderList[i].total,
+        };
+        purchaseOrders.push(sortedPO);
+      }
       res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
     } catch (err) {
       res.send("Error page");
@@ -227,38 +260,51 @@ const purchasingController = {
   },
 
   getOrderHistoryDates: async (req, res) => {
-    /*let startDate = new Date(req.query.startDate);
-    let endDate = new Date(req.query.endDate);*/
-    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
-    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    // Gets the queried dataes
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+    /*    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
     // set Hours to 0 so you can compare just the dates
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
 
     try {
+      // save every PO
       const purchaseOrdersList = await PurchaseOrder.find()
-      .populate('supplier')
-      .exec();
+        .populate("supplier")
+        .exec();
 
+      // POArray to be returned
       let purchaseOrders = [];
       const poLength = purchaseOrdersList.length;
       for (let i = 0; i < poLength; i++) {
+        // Loads the date of the PO to be converted to proper format
         let date = new Date(purchaseOrdersList[i].dateMade);
         date.setHours(0, 0, 0, 0);
 
+        // Checks if the PO is inside the inputted dates
         if (!(startDate > date || date > endDate)) {
+          // Saves the PO to a new Object to be put into the POArray
           const sortedPurchaseOrder = {
             id: purchaseOrdersList[i]._id,
-            dateMade: date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(),
+            dateMade:
+              date.getMonth() +
+              1 +
+              "/" +
+              date.getDate() +
+              "/" +
+              date.getFullYear(),
             supplier: purchaseOrdersList[i].supplier.name,
             status: purchaseOrdersList[i].status,
-            total : parseFloat(purchaseOrdersList[i].total).toFixed(2)
+            total: parseFloat(purchaseOrdersList[i].total).toFixed(2),
           };
-         purchaseOrders.push(sortedPurchaseOrder);
-       }
+          purchaseOrders.push(sortedPurchaseOrder);
+        }
       }
+      // Send back to the JS
+      // This is the returned object
       res.send(purchaseOrders);
-
     } catch (err) {
       res.send("Error page");
     }
