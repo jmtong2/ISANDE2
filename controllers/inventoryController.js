@@ -92,6 +92,67 @@ const inventoryController = {
         }
     },
 
+    getInventoryPurchaseOrderHistoryDates: async (req, res) => {
+    // Gets the queried dataes
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+        /*let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
+    // set Hours to 0 so you can compare just the dates
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+     try {
+            const purchaseOrderList = await PurchaseOrder.find()
+                .populate("supplier", "name")
+                .sort({ createdAt: -1 })
+                .exec();
+
+
+
+            let purchaseOrders = [];
+            const poLength = purchaseOrderList.length;
+            for (let i = 0; i < poLength; i++) {
+                let date = new Date(purchaseOrderList[i].dateMade);
+                date.setHours(0, 0, 0, 0);
+                let dateReceived = new Date(
+                    purchaseOrderList[i].receivedDateOfDelivery
+                );
+                dateReceived.setHours(0, 0, 0, 0);
+
+                if (!(startDate > date || date > endDate)) {
+                    const sortedPO = {
+                    id: purchaseOrderList[i]._id,
+                    ingredient: purchaseOrderList[i].ingredient,
+                    dateMade:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    receivedDateOfDelivery:
+                        dateReceived.getMonth() +
+                        1 +
+                        "/" +
+                        dateReceived.getDate() +
+                        "/" +
+                        dateReceived.getFullYear(),
+                    supplier: purchaseOrderList[i].supplier,
+                    status: purchaseOrderList[i].status,
+                    total: purchaseOrderList[i].total,
+                };
+                purchaseOrders.push(sortedPO);
+                }
+
+                
+            }
+
+            res.send(purchaseOrders);
+        } catch (err) {
+            res.send("Error page");
+        }
+  },
+
     getMovement: async (req, res) => {
         try {
             const movementList = await Movement.find()
@@ -123,13 +184,67 @@ const inventoryController = {
                     beforeTotalQuantity: movementList[i].beforeTotalQuantity,
                     action: movementList[i].action,
                     quantity: movementList[i].quantity,
-                    afterTotalQuantity: movementList[i].lossQuantity,
+                    afterTotalQuantity: movementList[i].afterTotalQuantity,
                 };
                 movements.push(sortedMovement);
             }
 
             res.render("inventoryMovement", { movement: movements });
         } catch (e) {
+            res.send("Error page");
+        }
+    },
+
+    getMovementDates: async (req, res) => {
+        let startDate = new Date(req.query.startDate);
+        let endDate = new Date(req.query.endDate);
+
+        /*        let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
+        // set Hours to 0 so you can compare just the dates
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
+
+        try {
+            const movementList = await Movement.find()
+                .populate({
+                    path: "ingredient",
+                    populate: {
+                        path: "uom",
+                        model: "Unit",
+                    },
+                })
+                .sort({ createdAt: -1 })
+                .exec();
+
+            let movements = [];
+            const movementLength = movementList.length;
+            for (let i = 0; i < movementLength; i++) {
+                let date = new Date(movementList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                if (!(startDate > date || date > endDate)) {
+                    const sortedMovement = {
+                        ingredient: movementList[i].ingredient,
+                        date:
+                            date.getMonth() +
+                            1 +
+                            "/" +
+                            date.getDate() +
+                            "/" +
+                            date.getFullYear(),
+                        beforeTotalQuantity:
+                            movementList[i].beforeTotalQuantity,
+                        action: movementList[i].action,
+                        quantity: movementList[i].quantity,
+                        afterTotalQuantity: movementList[i].afterTotalQuantity,
+                    };
+                    movements.push(sortedMovement);
+                }
+            }
+
+            res.send(movements);
+        } catch (err) {
             res.send("Error page");
         }
     },
@@ -171,6 +286,56 @@ const inventoryController = {
 
             res.render("inventoryShrinkageReport", { shrinkage: shrinkages });
         } catch (e) {
+            res.send("Error page");
+        }
+    },
+
+    getShrinkageDates: async (req, res) => {
+        let startDate = new Date(req.query.startDate);
+        let endDate = new Date(req.query.endDate);
+
+              /* let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
+        // set Hours to 0 so you can compare just the dates
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(0, 0, 0, 0);
+        try {
+            const shrinkageList = await Shrinkage.find()
+                .populate({
+                    path: "ingredient",
+                    populate: {
+                        path: "uom",
+                        model: "Unit",
+                    },
+                })
+                .sort({ createdAt: -1 })
+                .exec();
+
+            let shrinkages = [];
+            const shrinkageLength = shrinkageList.length;
+            for (let i = 0; i < shrinkageLength; i++) {
+                let date = new Date(shrinkageList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                if (!(startDate > date || date > endDate)) {
+                    const sortedShrinkage = {
+                        ingredient: shrinkageList[i].ingredient,
+                        date:
+                            date.getMonth() +
+                            1 +
+                            "/" +
+                            date.getDate() +
+                            "/" +
+                            date.getFullYear(),
+                        reason: shrinkageList[i].reason,
+                        remarks: shrinkageList[i].remarks,
+                        lossQuantity: shrinkageList[i].lossQuantity,
+                    };
+                    shrinkages.push(sortedShrinkage);
+                }
+            }
+            res.send(shrinkages);
+        } catch (err) {
             res.send("Error page");
         }
     },

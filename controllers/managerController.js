@@ -250,56 +250,116 @@ const managerController = {
 
 	getAllOrderHistory: async (req, res) => {
 		try {
-			const orderMenuItemList = await OrderMenuItem.find()
-				.populate({
-					path: "order",
-					populate: {
-						path: "user",
-						model: "User",
-					},
-				})
-				.populate("menuItem")
+			const orderList = await Order.find()
+				.populate("user")
 				.sort({ createdAt: -1 })
 				.exec();
 
-				let orderMenuItems = [];
-            const orderMenutItemLength = orderMenuItemList.length;
-            for (let i = 0; i < orderMenutItemLength; i++) {
-            	let date = new Date(orderMenuItemList[i].order.date);
+				let orders = [];
+            const orderLength = orderList.length;
+            for (let i = 0; i < orderLength; i++) {
+            	let date = new Date(orderList[i].date);
                 date.setHours(0, 0, 0, 0);
 
-                const sortedOrderMenuItems = {
-                    order: orderMenuItemList[i].order,
-                    orderDate:
+                let totalAmount = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
+                const sortedOrders = {
+                	id: orderList[i]._id,
+                	user: orderList[i].user,
+                    date:
                         date.getMonth() +
                         1 +
                         "/" +
                         date.getDate() +
                         "/" +
                         date.getFullYear(),
-                    menuItem: orderMenuItemList[i].menuItem,
+                    totalAmount: totalAmount,
                 };
-                orderMenuItems.push(sortedOrderMenuItems);
+                orders.push(sortedOrders);
             }
 
-			res.render("managerOrdersHistory", { orders: orderMenuItems });
+			res.render("managerOrdersHistory", { orders: orders });
 		} catch (err) {
 			res.send("Error page");
 		}
 	},
 
-	getOrderDetails: (req, res) => {
-		//Order to get the number to be shown in hbs
+	 getOrderHistoryDates: async (req, res) => {
+    // Gets the queried dataes
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+    /*    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
+    // set Hours to 0 so you can compare just the dates
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
 
-		OrderMenuItem.find({ order: req.params.id })
-			.populate("menuItem")
-			.exec()
-			.then((result) => {
-				res.render("managerSpecificOrder", { orders: result });
-			})
-			.catch((err) => {
-				res.send("Error page");
-			});
+    try {
+      // save every PO
+      const orderList = await Order.find()
+				.populate("user")
+				.sort({ createdAt: -1 })
+				.exec();
+
+				let orders = [];
+            const orderLength = orderList.length;
+            for (let i = 0; i < orderLength; i++) {
+            	let date = new Date(orderList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                let totalAmount = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
+                if (!(startDate > date || date > endDate)) {
+                const sortedOrders = {
+                	id: orderList[i]._id,
+                	user: orderList[i].user,
+                    date:
+                        date.getMonth() +
+                        1 +
+                        "/" +
+                        date.getDate() +
+                        "/" +
+                        date.getFullYear(),
+                    totalAmount: totalAmount,
+                };
+                orders.push(sortedOrders);
+            }
+      }
+      // Send back to the JS
+      // This is the returned object
+      res.send(orders);
+    } catch (err) {
+      res.send("Error page");
+    }
+  },
+
+	getOrderDetailed: async (req, res) => {
+		//Order to get the number to be shown in hbs
+		const id = req.params.id;
+		try {
+			const orderMenuItemList = await OrderMenuItem.find({order: id})
+			.populate('menuItem')
+			.exec();
+
+			let orderMenuItems = [];
+            const orderMenuItemLength = orderMenuItemList.length;
+            for (let i = 0; i < orderMenuItemLength; i++) {
+            	let date = new Date(orderMenuItemList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                let price = (Math.round(orderMenuItemList[i].menuItem.price * 100) / 100).toFixed(2);
+                const sortedOrderMenuItems = {
+                	menuItem: orderMenuItemList[i].menuItem,
+                	price: price
+                };
+                orderMenuItems.push(sortedOrderMenuItems);
+            }
+
+			res.render("managerOrderDetailed", { orderMenuItems: orderMenuItems });
+
+		} catch (err) {
+      res.send("Error page");
+    }
+		
+		
 	},
 };
 

@@ -259,7 +259,7 @@ const purchasingController = {
     }
   },
 
-  getOrderHistoryDates: async (req, res) => {
+  getPurchaseOrderHistoryDates: async (req, res) => {
     // Gets the queried dataes
     let startDate = new Date(req.query.startDate);
     let endDate = new Date(req.query.endDate);

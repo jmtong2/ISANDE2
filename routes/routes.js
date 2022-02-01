@@ -51,7 +51,7 @@ router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
 router.post('/purchasing/addSupplier', purchasingController.addSupplier);
 router.get('/purchasing/reorderInventory', purchasingController.getReorder);
 router.get('/purchasing/purchaseOrdersDetails/:id', purchasingController.getPurchaseOrderDetails);
-router.get('/getOrderHistoryDates', purchasingController.getOrderHistoryDates);
+router.get('/getPurchaseOrderHistoryDates', purchasingController.getPurchaseOrderHistoryDates);
 
 router.get('/addConversion', cashierController.addConversion);
 /*router.get('/addMeasures', purchasingController.addMeasures);
@@ -75,17 +75,21 @@ router.post("/addIngredientsMenu", managerController.addIngredientsMenu);
 router.post("/editMenuItem", managerController.editMenuItem);
 router.get('/getAddUOMManager', uomController.getAddUOMManager);
 router.get("/manager/orderHistory", managerController.getAllOrderHistory);
-router.get("/manager/orderDetails/:id", managerController.getOrderDetails);
+router.get("/manager/orderDetailed/:id", managerController.getOrderDetailed);
+router.get('/getOrderHistoryDates', managerController.getOrderHistoryDates);
 
 // Inventory routes old
 router.get("/inventory/ingredients", inventoryController.getAllIngredients);
 router.get("/inventory/movement", inventoryController.getMovement);
+router.get('/getMovementDates', inventoryController.getMovementDates);
 router.get("/inventory/shrinkageReport", inventoryController.getShrinkageReport);
+router.get('/getShrinkageDates', inventoryController.getShrinkageDates);
 router.get("/inventory/shrinkage", inventoryController.getInputShrinkage);
 router.get('/listShrinkage', inventoryController.listShrinkage);
 router.post('/makeShrinkage', inventoryController.makeShrinkage);
 router.post("/setReorderEOQ", inventoryController.setReorderEOQ);
 router.get("/inventory/purchaseOrders", inventoryController.getAllPurchaseOrders);
+router.get('/getInventoryPurchaseOrderHistoryDates', inventoryController.getInventoryPurchaseOrderHistoryDates);
 router.post("/isReceived", inventoryController.isReceived);
 /*router.post('/inventory/addIngredient', inventoryController.addIngredient);*/
 router.get('/getAddUOMInventory', uomController.getAddUOMInventory);
