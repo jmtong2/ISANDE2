@@ -68,7 +68,7 @@
               </div>
 
               <div class="col text-end">
-                <h5 style="color: #243b31">(*Click the date of the PO to receive order)</h5>
+                <h5 style="color: #243b31">(*Click the PO to receive the order)</h5>
               </div>
 
             </div>
@@ -107,12 +107,9 @@
               </thead>
               <tbody id="purchasedTable">
                 {{#each purchaseOrder}}
-                <tr>
+                 <tr class="link" data-href="/inventory/purchaseOrdersDetails/{{_id}}">
                   <td class="text-center">
-                    <a href="/inventory/purchaseOrdersDetails/{{_id}}" class="text-dark"
-                                            style="text-decoration: none">
-                                            {{dateMade}}
-                    </a>
+                    {{dateMade}}
                   </td>
                   <td class="text-end">₱{{total}}</td>
                   <td class="text-center">{{status}}</td>
@@ -131,8 +128,13 @@
       </div>
     </div>
 
-
-
+<script> 
+            $(document).ready(function() {
+                $(".link").click(function() {
+                    window.location = $(this).data("href");
+                });
+            });
+</script>
 
 
   </body>

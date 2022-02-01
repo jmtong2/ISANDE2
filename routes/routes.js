@@ -51,6 +51,7 @@ router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
 router.post('/purchasing/addSupplier', purchasingController.addSupplier);
 router.get('/purchasing/reorderInventory', purchasingController.getReorder);
 router.get('/purchasing/purchaseOrdersDetails/:id', purchasingController.getPurchaseOrderDetails);
+router.get('/getOrderHistoryDates', purchasingController.getOrderHistoryDates);
 
 router.get('/addConversion', cashierController.addConversion);
 /*router.get('/addMeasures', purchasingController.addMeasures);

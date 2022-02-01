@@ -65,22 +65,27 @@ const purchasingController = {
 
   getReorder: async (req, res) => {
     try {
-
       const reorderIngredients = await Ingredient.find({
-        $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
+        $and: [
+          {
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
+          },
+          {
+            orderStatus: "Present",
+          },
+        ],
       })
         .populate("supplier")
         .exec();
 
-        const suppliersWithReorder = [];
-        let length = reorderIngredients.length;
+      const suppliersWithReorder = [];
+      let length = reorderIngredients.length;
       for (let i = 0; i < length; i++) {
-        let supplier = await Supplier.findOne({_id: reorderIngredients[i].supplier._id})
-        .exec();
+        let supplier = await Supplier.findOne({
+          _id: reorderIngredients[i].supplier._id,
+        }).exec();
 
         suppliersWithReorder.push(supplier.name);
-
-
       }
       // Remove if duplicate
       let uniqueSupplier = [...new Set(suppliersWithReorder)];
@@ -216,6 +221,44 @@ const purchasingController = {
         .exec();
 
       res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
+    } catch (err) {
+      res.send("Error page");
+    }
+  },
+
+  getOrderHistoryDates: async (req, res) => {
+    /*let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);*/
+    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    // set Hours to 0 so you can compare just the dates
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+
+    try {
+      const purchaseOrdersList = await PurchaseOrder.find()
+      .populate('supplier')
+      .exec();
+
+      let purchaseOrders = [];
+      const poLength = purchaseOrdersList.length;
+      for (let i = 0; i < poLength; i++) {
+        let date = new Date(purchaseOrdersList[i].dateMade);
+        date.setHours(0, 0, 0, 0);
+
+        if (!(startDate > date || date > endDate)) {
+          const sortedPurchaseOrder = {
+            id: purchaseOrdersList[i]._id,
+            dateMade: date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(),
+            supplier: purchaseOrdersList[i].supplier.name,
+            status: purchaseOrdersList[i].status,
+            total : parseFloat(purchaseOrdersList[i].total).toFixed(2)
+          };
+         purchaseOrders.push(sortedPurchaseOrder);
+       }
+      }
+      res.send(purchaseOrders);
+
     } catch (err) {
       res.send("Error page");
     }

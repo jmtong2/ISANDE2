@@ -79,7 +79,7 @@ const inventoryController = {
 
     getShrinkageReport: async (req, res) => {
         try {
-            const shrinkage = await Shrinkage.find()
+            const shrinkageList = await Shrinkage.find()
                 .populate({
                     path: "ingredient",
                     populate: {
@@ -89,7 +89,30 @@ const inventoryController = {
                 })
                 .sort({ createdAt: -1 })
                 .exec();
-            res.render("inventoryShrinkageReport", { shrinkage: shrinkage });
+
+            let shrinkages = [];
+            const shrinkageLength = shrinkageList.length;
+            for (let i = 0; i < shrinkageLength; i++) {
+                let date = new Date(shrinkageList[i].date);
+                date.setHours(0, 0, 0, 0);
+
+                    const sortedShrinkage = {
+                        ingredient: shrinkageList[i].ingredient,
+                        date:
+                            date.getMonth() +
+                            1 +
+                            "/" +
+                            date.getDate() +
+                            "/" +
+                            date.getFullYear(),
+                        reason: shrinkageList[i].reason,
+                        remarks: shrinkageList[i].remarks,
+                        lossQuantity: shrinkageList[i].lossQuantity,
+                    };
+                    shrinkages.push(sortedShrinkage);
+            }
+            
+            res.render("inventoryShrinkageReport", { shrinkage: shrinkages });
         } catch (e) {
             res.send("Error page");
         }
