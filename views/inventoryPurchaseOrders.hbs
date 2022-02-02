@@ -110,7 +110,7 @@
                 <th class="text-center">Status</th>
                 <th class="text-start">Supplier</th>
                 <th style="width: 300px" class="text-start">Received Date Of Delivery</th>
-                <th class="text-center">Total</th>
+                <th class="text-center">Amount</th>
 
               </tr>
             </thead>
@@ -126,6 +126,11 @@
                 <td class="text-end">₱{{total}}</td>
               </tr>
               {{/each}}
+                <td></td>
+               <td></td>
+                <td></td>
+                <td class="text-end"><h5>Total Amount:</h5></td>
+                <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
             </tbody>
           </table>
 
@@ -218,6 +223,8 @@
               // Remove the table rows to only put the filtered data
               $("#purchaseOrderTable").empty();
               //let total = 0;
+              let totalAmount = 0.00;
+              totalAmount.toFixed(2);
               // Loop to create the rows
               let length = purchaseOrders.length;
               for (let i = 0; i < length; i++) {
@@ -228,7 +235,7 @@
                 const total = purchaseOrders[i].total;
                 const receivedDateOfDelivery = purchaseOrders[i].receivedDateOfDelivery;
                 // total += parseFloat(resultTotal);
-
+                totalAmount += parseFloat(total);
                 let sortedDate =
                   `<tr class="link" data-href="/inventory/purchaseOrdersDetails/${id}"> 
                                 <td class="text-center">` +
@@ -254,6 +261,14 @@
                   window.location = $(this).data("href");
                 });
               }
+              totalAmount.toFixed(2);
+              const totalRow =`<td></td>
+                              <td></td>
+                              <td></td>
+                              <td class="text-end"><h5>Total Amount:</h5></td>
+                              <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
+                $("#purchaseOrderTable").append(totalRow);
+                $("#totalAmount").text(totalAmount);
 
               //$("#view-order-history-total").text("₱ " + total.toFixed(2));
               // Removes the inputted dates

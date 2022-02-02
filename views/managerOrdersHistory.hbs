@@ -79,7 +79,7 @@
             <tr class="text-light align-top" style="background-color: #7CA6A6">
               <th class="text-center col-4">Date</th>
               <th class="text-center col-4">Cashier</th>
-              <th class="text-center col-4"style="width: ">Total Order Amount</th>
+              <th class="text-center col-4"style="width: ">Amount</th>
             </tr>
           </thead>
           <tbody id="ordersTable">
@@ -89,8 +89,11 @@
               <td class="text-center">{{date}}</td>
               <td class="text-center">{{user.firstName}} {{user.lastName}}</td>
               <td class="text-end">₱{{totalAmount}} </td>
-              
+              </tr>
             {{/each}}
+            <td> </td>
+                <td class="text-end"><h5>Total Amount:</h5></td>
+                <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
           </tbody>
         </table>
 
@@ -115,7 +118,6 @@
     let todayDate = today.toLocaleDateString("en-US", options);
     let asOf = $("#asOf").text("As of " + todayDate);
     $("#reportDate").text(todayDate);
-
 
     // Initializess the startdate picker so it can be fuinctional
     $("#startDate").datepicker();
@@ -187,6 +189,7 @@
               // Remove the table rows to only put the filtered data
               $("#ordersTable").empty();
               //let total = 0;
+              let totalAmount = 0.0;
               // Loop to create the rows
               let length = orders.length;
               for (let i = 0; i < length; i++) {
@@ -194,19 +197,21 @@
                 const userFirstName = orders[i].user.firstName;
                 const userLastName = orders[i].user.lastName;
                 const date = orders[i].date;
-                const totalAmount = orders[i].totalAmount;
+                const totalAmountOrder = orders[i].totalAmount;
                 // total += parseFloat(resultTotal);
-
+                totalAmount += parseFloat(totalAmountOrder);
                 let sortedDate =
                   `<tr class="link" data-href="/manager/orderDetailed/${id}"> 
                                 <td class="text-center">` +
                   date +
                   `</td>
                                 <td class="text-center">` +
-                  userFirstName + ` ` + userLastName +
+                  userFirstName +
+                  ` ` +
+                  userLastName +
                   `</td>
                                 <td class="text-end"> ₱` +
-                  totalAmount +
+                  totalAmountOrder +
                   `</td>
                               </tr>`;
                 $("#ordersTable").append(sortedDate);
@@ -216,6 +221,12 @@
                   window.location = $(this).data("href");
                 });
               }
+              totalAmount.toFixed(2);
+              const totalRow = `<td></td> 
+                                <td class="text-end"><h5>Total Amount:</h5></td> 
+                                <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
+              $("#ordersTable").append(totalRow);
+              $("#totalAmount").text(totalAmount);
 
               //$("#view-order-history-total").text("₱ " + total.toFixed(2));
               // Removes the inputted dates

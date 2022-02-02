@@ -221,6 +221,8 @@ const purchasingController = {
         .exec();
 
       let purchaseOrders = [];
+      let totalAmount = 0.00;
+      totalAmount.toFixed(2);
       const poLength = purchaseOrderList.length;
       for (let i = 0; i < poLength; i++) {
         let date = new Date(purchaseOrderList[i].dateMade);
@@ -229,7 +231,8 @@ const purchasingController = {
           purchaseOrderList[i].receivedDateOfDelivery
         );
         dateReceived.setHours(0, 0, 0, 0);
-
+        let totalDecimal = (Math.round(purchaseOrderList[i].total * 100) / 100).toFixed(2);
+        totalAmount += parseFloat(totalDecimal);
         const sortedPO = {
           id: purchaseOrderList[i]._id,
           ingredient: purchaseOrderList[i].ingredient,
@@ -249,11 +252,11 @@ const purchasingController = {
             dateReceived.getFullYear(),
           supplier: purchaseOrderList[i].supplier,
           status: purchaseOrderList[i].status,
-          total: purchaseOrderList[i].total,
+          total: totalDecimal,
         };
         purchaseOrders.push(sortedPO);
       }
-      res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders });
+      res.render("purchasingPurchaseOrders", { purchaseOrder: purchaseOrders, totalAmount: totalAmount.toFixed(2) });
     } catch (err) {
       res.send("Error page");
     }
@@ -282,7 +285,7 @@ const purchasingController = {
         // Loads the date of the PO to be converted to proper format
         let date = new Date(purchaseOrdersList[i].dateMade);
         date.setHours(0, 0, 0, 0);
-
+        let totalDecimal = (Math.round(purchaseOrdersList[i].total * 100) / 100).toFixed(2);
         // Checks if the PO is inside the inputted dates
         if (!(startDate > date || date > endDate)) {
           // Saves the PO to a new Object to be put into the POArray
@@ -297,7 +300,7 @@ const purchasingController = {
               date.getFullYear(),
             supplier: purchaseOrdersList[i].supplier.name,
             status: purchaseOrdersList[i].status,
-            total: parseFloat(purchaseOrdersList[i].total).toFixed(2),
+            total: totalDecimal,
           };
           purchaseOrders.push(sortedPurchaseOrder);
         }

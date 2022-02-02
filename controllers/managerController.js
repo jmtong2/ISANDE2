@@ -256,12 +256,15 @@ const managerController = {
 				.exec();
 
 				let orders = [];
+				let totalAmount = 0.00;
+				totalAmount.toFixed(2);
             const orderLength = orderList.length;
             for (let i = 0; i < orderLength; i++) {
             	let date = new Date(orderList[i].date);
                 date.setHours(0, 0, 0, 0);
 
-                let totalAmount = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
+                let totalAmountOrder = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
+                totalAmount += parseFloat(totalAmountOrder);
                 const sortedOrders = {
                 	id: orderList[i]._id,
                 	user: orderList[i].user,
@@ -272,12 +275,12 @@ const managerController = {
                         date.getDate() +
                         "/" +
                         date.getFullYear(),
-                    totalAmount: totalAmount,
+                    totalAmount: totalAmountOrder,
                 };
                 orders.push(sortedOrders);
             }
 
-			res.render("managerOrdersHistory", { orders: orders });
+			res.render("managerOrdersHistory", { orders: orders, totalAmount: totalAmount.toFixed(2) });
 		} catch (err) {
 			res.send("Error page");
 		}

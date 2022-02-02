@@ -51,6 +51,8 @@ const inventoryController = {
                 .exec();
 
             let purchaseOrders = [];
+            let totalAmount = 0.00;
+            totalAmount.toFixed(2);
             const poLength = purchaseOrderList.length;
             for (let i = 0; i < poLength; i++) {
                 let date = new Date(purchaseOrderList[i].dateMade);
@@ -59,6 +61,8 @@ const inventoryController = {
                     purchaseOrderList[i].receivedDateOfDelivery
                 );
                 dateReceived.setHours(0, 0, 0, 0);
+                let totalDecimal = (Math.round(purchaseOrderList[i].total * 100) / 100).toFixed(2);
+        totalAmount += parseFloat(totalDecimal);
 
                 const sortedPO = {
                     id: purchaseOrderList[i]._id,
@@ -79,13 +83,14 @@ const inventoryController = {
                         dateReceived.getFullYear(),
                     supplier: purchaseOrderList[i].supplier,
                     status: purchaseOrderList[i].status,
-                    total: purchaseOrderList[i].total,
+                    total: totalDecimal,
                 };
                 purchaseOrders.push(sortedPO);
             }
 
             res.render("inventoryPurchaseOrders", {
                 purchaseOrder: purchaseOrders,
+                totalAmount: totalAmount.toFixed(2) 
             });
         } catch (err) {
             res.send("Error page");
