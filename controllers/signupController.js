@@ -30,11 +30,12 @@ const signupController = {
             res.redirect(401, '/signup');
         }
         else {
-            var firstName = req.body.firstName;
-            var lastName = req.body.lastName;
-            var email = req.body.email;
-            var password = req.body.password;
-            var confirmPW = req.body.confirmPW;
+            const firstName = req.body.firstName;
+            const lastName = req.body.lastName;
+            const email = req.body.email;
+            const password = req.body.password;
+            const confirmPW = req.body.confirmPW;
+            const role = req.body.role;
     
             bcrypt.hash(password, saltRounds, function(err, hash) {
                 var user = {
@@ -42,11 +43,12 @@ const signupController = {
                     lastName: lastName,
                     email: email,
                     password: hash,
-                }
+                    role: role
+                };
         
                 db.insertOne(User, user, function(flag) {
                     if(flag) {
-                        res.redirect('/login')
+                        res.redirect('/login');
                         //res.send('firstName: ' + firstName +'lastName: ' + lastName + 'email: ' + email);
                     }
                 });
@@ -62,6 +64,6 @@ const signupController = {
             res.send(result);
         });
     }
-}
+};
 
 module.exports = signupController;

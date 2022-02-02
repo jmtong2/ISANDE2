@@ -1,0 +1,57 @@
+/* .main-bg {
+    background: var(--main-bg) !important;
+  } */
+
+  body {
+    background-color: #E3F6F5 !important;
+  }
+.container{
+    padding: 70px;
+}
+
+  /* input:focus, button:focus {
+    border: 1px solid var(--main-bg) !important;
+    box-shadow: none !important;
+  }
+
+  .form-check-input:checked {
+    background-color: var(--main-bg) !important;
+    border-color: var(--main-bg) !important;
+  } */
+
+   .card, .btn, input{
+    border-radius:0 !important;
+  }
+
+
+  /* .loginbox{
+    width: 320px;
+    height: 420px;
+    background: #ffffff;
+    color: #000000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    position: center;
+  } */
+
+/* body{
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(-45deg, #243b31, #e6e6de, #7ca6a6);
+  background-size: 400% 400%;
+  position: relative;
+  font-family: 'Montserrat';
+  font-size:40px;
+} */
+
+  .full-page
+  {
+      height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(images/bg-2.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+  }

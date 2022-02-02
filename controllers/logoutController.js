@@ -8,6 +8,6 @@ const logoutController = {
             res.render('index');
         });
     }
-}
+};
 
 module.exports = logoutController;
