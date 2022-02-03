@@ -71,10 +71,10 @@ app.use(express.static('public'));
 
 // implement 'express-session'
 app.use(session({
-    'secret': 'InStock-session',
+    'secret': 'Appdate-session',
     'resave': false,
     'saveUninitialized': false,
-    store: mongoStore.create({ mongoUrl: 'mongodb+srv://draco:nAG5fKmyDbDqsUS5@itisdev-in-stock.mjmm5.mongodb.net/inventory?retryWrites=true&w=majority' })
+    store: mongoStore.create({ mongoUrl: 'mongodb+srv://Group2:Appdate@appdate.adtwc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' })
 }));
 
 app.use(function(req, res, next) {
