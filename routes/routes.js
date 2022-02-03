@@ -79,6 +79,7 @@ router.get("/manager/orderDetailed/:id", managerController.getOrderDetailed);
 router.get('/getOrderHistoryDates', managerController.getOrderHistoryDates);
 
 // Inventory routes old
+router.get("/inventory/dashboard", inventoryController.getDashboard);
 router.get("/inventory/ingredients", inventoryController.getAllIngredients);
 router.get("/inventory/movement", inventoryController.getMovement);
 router.get('/getMovementDates', inventoryController.getMovementDates);

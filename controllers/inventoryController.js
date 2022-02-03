@@ -12,6 +12,37 @@ function ManualCountInstance(purchasedIngredient, manualCount, lossQuantity) {
 }
 
 const inventoryController = {
+
+    getDashboard: async (req, res) => {
+        const outOfStockIngredients = await Ingredients.find({totalQuantity: 0}).exec();
+        // Priority ingredients that haven't been ordered 
+        const priorityIngredients = await Ingredient.find({
+        $and: [
+          {
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
+          },
+          {
+            orderStatus: "Present",
+          },
+        ],
+      })
+        .sort({ totalQuantity: 1 })
+        .exec();
+
+        const ordersToBeRecieved = await PurchaseOrder.find({status: "Ordered"}).exec();
+        const shrinkages = await Shrinkage.find().exec();
+
+        // Send to hbs to be received
+        // To get the number of out of stock ingredients in the dashobard hbs use {{outOfStockIngredientsNumber}} inside
+        // This will display the number
+        res.render("inventoryDashboard", {
+            outOfStockIngredientsNumber: outOfStockIngredients.length, 
+            priorityIngredients: priorityIngredients,
+            ordersToBeRecieved: ordersToBeRecieved.length,
+            shrinkages: shrinkages.length
+            });
+    },
+
     getAllIngredients: async (req, res) => {
         try {
             const inventory = await Ingredients.find()
