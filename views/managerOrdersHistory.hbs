@@ -11,6 +11,24 @@
       <!-- Datepicker -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+   <style>
+  @media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .print-container, .print-container * {
+    visibility: visible !important;
+  }
+  .print-container {
+    position: absolute !important;
+     /*Adjust depending on the size to align it to the center*/
+    left: 5vh !important;
+    right: 5vh !important;
+    top:  -50vh !important;
+  }
+}
+
+  </style>
 </head>
 
 {{> navbarManager}}
