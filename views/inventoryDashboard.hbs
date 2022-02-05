@@ -7,455 +7,94 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
-
-  <!-- Datepicker -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet"  href="../css/styleDashboard.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 
   <title>Document</title>
 </head>
 <body style="background-color: #E6E6DE ">
 
-  <style>
-    @media print {
-      body * {
-        visibility: hidden !important;
-      }
-      .print-container, .print-container * {
-        visibility: visible !important;
-      }
-      .print-container {
-        position: absolute !important;
-        /*Adjust depending on the size to align it to the center*/
-        left: 3vh !important;
-        top: -60vh !important;
-      }
-    }
-
-  </style>
   <title>Inventory</title>
+ {{> navbarInventory}} 
 
 </head>
 
-<body>
+<body style="background-color: #E6E6DE ">
+    <center>
 
-  
- {{> navbarInventory}} 
-
-  <div class=" p-3" >
-    <div class="card">
-      <div class="card-body rounded shadow" style="background-color: #CC985A">
-        <h3 class="text-light mb-3">Inventory</h3>
-        <div class="d-flex justify-content-between">
-          <div class="col">
-            <div class="row">
-              <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="startDate">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="endDate">
-                  <input type="text" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-
-              <div class="col text-end">
-                <button type="button" class="text-light btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <i class="fa-solid fa-circle-plus"></i>
-                  Create Ingredient
-                </button>
-                
-              </div>
-
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-body">
-                      <section>
-                        <div class="card position-absolute top-10 start-50 translate-middle" style="width: 100vh">
-                          <div style="background-color:#F8F5F1;">
-                            <form action="/purchasing/addIngredient" method="POST" class="m-4">
-                              <header class="pb-4">
-                                <h3>Create Ingredient</h3>
-                              </header>
-
-                              <section>
-                                <div class="input-group mb-3">
-                                  <span class="input-group-text col-4 bg-success text-light" id="basic-addon3">Name</span
-                                  >
-                                  <input 
-                                  type="text"
-                                  class="form-control"
-                                  id="purchased-ingredient-name"
-                                  aria-describedby="basic-addon3"
-                                  name="name"
-                                  required
-                                  />
-                                </div>
-
-                              <div class="input-group mb-3">
-                                <span
-                                class="input-group-text col-4 bg-success text-light"
-                                id="basic-addon3"
-                                >Unit of Measurement</span
-                                >
-                                <select
-                                class="form-select"
-                                id="inputGroupSelect01"
-                                name="uom"
-                                required
-                                >
-                                <option selected>Choose...</option>
-                                {{#each uom}}
-                                <option value="{{{abbrev}}}">{{abbrev}}</option>
-                                {{/each}}
-                              </select>
-                              
-                              
-                            </div>
-
-                            <div class="input-group mb-3">
-                              <span
-                              class="input-group-text col-4 bg-success text-light"
-                              id="basic-addon3"
-                              >Quantity Per Stock</span
-                              >
-                              <input
-                              type="number"
-                              min="0"
-                              class="form-control col-3"
-                              id="quantityPerStock"
-                              aria-describedby="basic-addon3"
-                              name="quantityPerStock"
-                              required
-                              />
-                            </div>
-
-                            <div class="input-group mb-3">
-                              <span
-                              class="input-group-text col-4 bg-success text-light"
-                              id="basic-addon3"
-                              >Price</span
-                              >
-                              <input
-                              type="number"
-                              min="0"
-                              class="form-control"
-                              id="price"
-                              aria-describedby="basic-addon3"
-                              name="price"
-                              required
-                              />
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <span
-                                class="input-group-text col-4 bg-success text-light"
-                                id="basic-addon3"
-                                >Supplier</span
-                                >
-                                <select
-                                class="form-select"
-                                id="inputGroupSelect01"
-                                name="supplier"
-                                required
-                                >
-                                <option selected>Choose...</option>
-                                {{#each supplier}}
-                                <option value="{{{name}}}">{{name}}</option>
-                                {{/each}}
-                              </select>
-                              
-                              
-                            </div>
-
-                          <div class="float-end m-3">
-                            <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
-                            <button type="submit" class="d-inline float-end btn btn-m text-light" style="background-color: #7CA6A6">
-                              Save
-                            </button>
-                          </div>
-                        </section>
-                      </form>
+        <div class=" p-3" style=" background-color: #E6E6DE">
+            <div class="card shadow-lg">
+                <div class="card-body rounded ">
+                    <h2 class="text-secondary">Hi! Welcome Inventory Manager, {{managerName}}</h2>
+                    <div class="w3-padding-32">
+                        <a href="inventory.html"><button class="button">Check the Inventory</button></a>
                     </div>
-                  </div>
-                </section>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-
-        <!-- End -->
-        
-        
-
-      </div>
-    </div>
-
-
-  </div>
-</div>
-</div>
-
-<div class="d-flex m-2 flex-row justify-content-between">
-  <div class="p-2 mt-1">As of November 21, 2021</div>
-  <div class="p-2 "><button class="btn btn-secondary" style="background-color: #7CA6A6 " onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
-
-</div>
-
-<div class="col-md-12">
-
-  <div class="card ">
-    <div class="card-body overflow-auto  border rounded shadow-lg bg-light ">
-      <div class="table-responsive rounded print-container">
-        <table class="table overflow-auto table-hover table-hover table-bordered table-striped  ">
-          <div id="reportTitle" class="text-center my-3 " >
-            <h4>Inventory Summary Report</h4>
-            <h5>November 1-31, 2021</h5>
-            <h6 class="p-2 mt-1 text-end">Rows: 8</h6>
-          </div>
-          <thead>
-            <tr class="text-light align-top" style="background-color: #7CA6A6">
-              <th class="text-center">Ingredient</th>
-              <th class="text-center" style="width: 150px">Unit of Measurement</th>
-              <th class="text-center" style="width: 150px">Quantity Per Stock</th>
-              <th class="text-center" style="width: 200px">Unit Price (₱)</th>
-              <th class="text-center">Supplier</th>
-            </tr>
-          </thead>
-          <tbody>
-             {{#each inventory}}
-            <tr>
-              <td class="text-center">{{ingredientName}}</td>
-              <td class="text-end">{{uom.abbrev}}</td>
-              <td class="text-end">{{quantityPerStock}}</td>
-              <td class="text-end">{{price}}</td>
-              <td class="text-start">{{supplier.name}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
-
-
-      </div>
-      <h6 class="text-center">**END OF REPORT**</h6>
-    </div>
-
-  </div>
-</div>
-</div>
-
-
-<!-- Modal -->
-              <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-body">
-                     <section>
-                      <div class="card position-absolute top-10 start-50 translate-middle" style="width: 130vh">
-                        <div style="background-color:#F8F5F1;">
-                          <form action="/purchasing/edit" method="PATCH" class=" p-2">
-                            <header class="p-4">
-                              <h3>Edit Ingredient</h3>
-                            </header>
-
-                            <section>
-                              <div class="input-group px-4 mb-3">
-                                <span class="input-group-text col-3 bg-success text-light" id="basic-addon3">Name</span
-                                >
-                                <div class="row">
-                                  <input 
-                                  type="text"
-                                  class="form-control  ingredientName"
-                                  id="purchased-ingredient-name"
-                                  aria-describedby="basic-addon3"
-                                  
-                                  disabled
-                                  required
-                                  />
-                                  <input 
-                                  type="text"
-                                  class="form-control "
-                                  aria-describedby="basic-addon3"
-                                  name="name"
-                                  />
-                                </div>
-                              </div>
-
-                            <div class="input-group px-4 mb-3">
-                              <span
-                              class="input-group-text col-3 bg-success text-light"
-                              id="basic-addon3"
-                              >Unit of Measurement</span
-                              >
-                              <input 
-                                type="text"
-                                class="form-control ingredientUOM"
-                                aria-describedby="basic-addon3"
-                                name="uom"
-                                disabled
-                                />
-                              <select
-                              class="form-select "
-                              id="inputGroupSelect01"
-                              name="uom"
-                              required
-                              >
-                              <option selected>Choose...</option>
-                              {{#each uom}}
-                              <option value="{{{abbrev}}}">{{abbrev}}</option>
-                              {{/each}}
-                            </select>
-
-
-
-                          </div>
-
-                          <div class="input-group px-4 mb-3">
-                            <span
-                            class="input-group-text col-3 bg-success text-light"
-                            id="basic-addon3"
-                            >Quantity Per Stock</span
-                            >
-                            <input 
-                                type="text"
-                                class="form-control ingredientQtyPerStock"
-                                aria-describedby="basic-addon3"
-                                
-                                disabled
-                                />
-                            <input
-                            type="number"
-                            min="0"
-                            class="form-control col-3 ingredientQtyPerStock"
-                            id="quantityPerStock"
-                            aria-describedby="basic-addon3"
-                            name="quantityPerStock"
-                            required
-                            />
-                          </div>
-
-                          <div class="input-group px-4 mb-3">
-                            <span
-                            class="input-group-text col-3 bg-success text-light"
-                            id="basic-addon3"
-                            >Price</span
-                            >
-                            <input 
-                                type="text"
-                                class="form-control ingredientPrice"
-                                aria-describedby="basic-addon3"
-                                
-                                disabled
-                                />
-                            <input
-                            type="number"
-                            min="0"
-                            class="form-control ingredientPrice"
-                            id="price"
-                            aria-describedby="basic-addon3"
-                            name="price"
-                            required
-                            />
-                          </div>
-
-                          <div class="input-group px-4 mb-3">
-                            <span
-                            class=" text-light input-group-text col-3 bg-success"
-                            id="basic-addon3"
-                            >Supplier</span
-                            >
-                            <div class="row">
-                              <input 
-                                  type="text"
-                                  class="form-control ingredientSupplier"
-                                  id="purchased-ingredient-name"
-                                  aria-describedby="basic-addon3"
-                                  name="name"
-                                  disabled
-                                  />
-                              <select
-                              class="form-select ingredientSupplier"
-                              id="inputGroupSelect01"
-                              name="name"
-                              required
-                              >
-                              <option selected>Choose...</option>
-                              {{#each supplier}}
-                              <option value="{{{name}}}">{{name}}</option>
-                              {{/each}}
-                                                        </select>
-                            </div>
-                           <a href="purchasing/suppliers">
-                            <button type="button" class=" text-light btn btn-info rounded ms-3 float-end text-light"><a class="text-light" style="text-decoration: none">Add Supplier</a></button>
-                            </a>
-                        </div>
-
-                        <div class="float-end m-3">
-                         <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
-                         <button type="submit" class="d-inline float-end btn btn-m text-light" style="background-color: #7CA6A6">
-                          Save
-                        </button>
-                      </div>
-                    </section>
-                  </form>
                 </div>
+            </div>
+
+
+        <div class=" mt-3">
+            <div class="card">
+                <div class="card-body overflow-auto rounded shadow-lg">
+                    <h3 class="col text-secondary">INVENTORY SUMMARY</h3><br>
+                    <div class="w3-row-padding w3-margin-bottom">
+                        <div class="w3-quarter">
+                          <div class= "w3-container w3-teal w3-padding-16">
+                            <div class="w3-left"><i class="fa fa-exclamation w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                              <h3>{{priorityIngredients.length}}</h3>
+                          </div>
+                          <div class="w3-clear"></div>
+                          <h4>Priority Products</h4>
+                          {{#each priorityIngredients}}
+                          <p>• {{ingredientName}}</p>
+                          {{/each}}
+                      </div>
+                  </div>
+
+                  <div class="w3-quarter">
+                      <div class="w3-container w3-teal w3-padding-16">
+                        <div class="w3-left"><i class="fa fa-cart-arrow-down w3-xxxlarge"></i></div>
+                        <div class="w3-right">
+                          <h3>{{outOfStockIngredientsNumber}}</sh3>
+                      </div>
+                      <div class="w3-clear"></div>
+                      <h4>Products Out of Stock</h4>
+                  </div>
               </div>
-            </section>
+
+              <div class="w3-quarter">
+                  <div class="w3-container w3-teal w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-edit w3-xxxlarge"></i></div>
+                    <div class="w3-right">
+                      <h3>{{ordersToBeRecieved}}</h3>
+                  </div>
+                  <div class="w3-clear"></div>
+                  <h4>Orders to be received</h4>
+              </div>
           </div>
-
-        </div>
+          <div class="w3-quarter">
+              <div class="w3-container w3-teal w3-text-white w3-padding-16">
+                <div class="w3-left"><i class="fa fa-compress w3-xxxlarge"></i></div>
+                <div class="w3-right">
+                  <h3>{{shrinkages}}</h3>
+              </div>
+              <div class="w3-clear"></div>
+              <h4>Number of Shrinkage</h4>
+          </div>
       </div>
-    </div>
 
-    <!-- End -->
-
-<script>
-
-  $(document).ready( () => {
-
-    $(function() {
-      $('#startDate').datepicker();
-    });
-
-    $(function() {
-      $('#endDate').datepicker();
-    });
-
-    $('table tbody tr  td').on('click',function(){
-      $("#editModal").modal("show");
-      $(".ingredientName").val($(this).closest('tr').children()[0].textContent);
-      $(".ingredientUOM").val($(this).closest('tr').children()[1].textContent);
-      $(".ingredientQtyPerStock").val($(this).closest('tr').children()[2].textContent);
-      $(".ingredientPrice").val($(this).closest('tr').children()[3].textContent);
-      $(".ingredientSupplier").val($(this).closest('tr').children()[4].textContent);
-    });
-    
-  });
+  </div>
+</div>
+</div>
+</div>
+</div>
 
 
-
-
-
-</script>
+</center>
+</body>
 
 </body>
 

@@ -16,7 +16,7 @@ const inventoryController = {
     getDashboard: async (req, res) => {
         const outOfStockIngredients = await Ingredients.find({totalQuantity: 0}).exec();
         // Priority ingredients that haven't been ordered 
-        const priorityIngredients = await Ingredient.find({
+       /* const priorityIngredients = await Ingredients.find({
         $and: [
           {
             $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
@@ -27,11 +27,17 @@ const inventoryController = {
         ],
       })
         .sort({ totalQuantity: 1 })
+        .exec();*/
+         const priorityIngredients = await Ingredients.find({
+            $expr: { $lte: ["$totalQuantity", "$reorderPoint"] },
+      })
+        .sort({ totalQuantity: 1 })
         .exec();
 
         const ordersToBeRecieved = await PurchaseOrder.find({status: "Ordered"}).exec();
         const shrinkages = await Shrinkage.find().exec();
-
+        const name = req.session.firstName + " " + req.session.lastName;
+ 
         // Send to hbs to be received
         // To get the number of out of stock ingredients in the dashobard hbs use {{outOfStockIngredientsNumber}} inside
         // This will display the number
@@ -39,7 +45,8 @@ const inventoryController = {
             outOfStockIngredientsNumber: outOfStockIngredients.length, 
             priorityIngredients: priorityIngredients,
             ordersToBeRecieved: ordersToBeRecieved.length,
-            shrinkages: shrinkages.length
+            shrinkages: shrinkages.length,
+            managerName: name
             });
     },
 
@@ -91,6 +98,8 @@ const inventoryController = {
                 let dateReceived = new Date(
                     purchaseOrderList[i].receivedDateOfDelivery
                 );
+                if(dateReceived == null)
+                    res.send(true);
                 dateReceived.setHours(0, 0, 0, 0);
                 let totalDecimal = (Math.round(purchaseOrderList[i].total * 100) / 100).toFixed(2);
         totalAmount += parseFloat(totalDecimal);
