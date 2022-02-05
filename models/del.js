@@ -11,20 +11,24 @@ mongoose.set('useUnifiedTopology', true);
 //   useNewUrlParser: true
 // };
 
-/*const dbURI = 'mongodb+srv://Group2:Appdate@appdate.adtwc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; */// ADD ATLAS MONGODB DATABASE
+
+
+const dbURI = 'mongodb+srv://Group2:Appdate@appdate.adtwc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; // ADD ATLAS MONGODB DATABASE
       //"mongodb+srv://admin:admin@jkl.8e9pu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-const dbURI = 'mongodb://Group2:Appdate@appdate-shard-00-00.adtwc.mongodb.net:27017,appdate-shard-00-01.adtwc.mongodb.net:27017,appdate-shard-00-02.adtwc.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-2gvmdp-shard-0&authSource=admin&retryWrites=true&w=majority';
 const database = {
+  
   connect: function () {
+    
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://Group2:Appdate@appdate.adtwc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
-    mongoose
-      .connect(dbURI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      .then(result => console.log("Connected to database"))
-      .catch(err => console.log(err));
   },
 
 
