@@ -26,6 +26,7 @@
         position: absolute !important;
         /*Adjust depending on the size to align it to the center*/
         left: 5vh !important;
+        right: 5vh !important;
         top:  -65vh !important;
       }
     }
@@ -37,8 +38,8 @@
 <body style="background-color: #E6E6DE">
 
   <title>Purchasing</title>
-  
-  {{> navbarInventory}} 
+
+  {{> navbarInventory}}
 
   <div class=" p-3" >
     <div class="card">
@@ -73,7 +74,7 @@
 
               <div class="col">
                 <button type="button" class="text-light btn btn-success m-1" style="height: 34px; margin-left: 10px" id="orderHistoryDate"><i class="fa fa-search"></i> Search dates</button>
-              </div> 
+              </div>
 
               <div class="col text-end">
                 <h6 style="color: #243b31">(*Click the PO row to receive the order </h6>
@@ -135,7 +136,7 @@
           </table>
           <h6 class="text-center">**END OF REPORT**</h6>
         </div>
-        
+
 
       </div>
 
@@ -237,13 +238,13 @@
                 // total += parseFloat(resultTotal);
                 totalAmount += parseFloat(total);
                 let sortedDate =
-                `<tr class="link" data-href="/inventory/purchaseOrdersDetails/${id}"> 
+                `<tr class="link" data-href="/inventory/purchaseOrdersDetails/${id}">
                 <td class="text-center">` +
                 dateMade +
                 `</td>
                 <td class="text-center">` +
                 status +
-                `</td>        
+                `</td>
                 <td class="text-start"> ` +
                 supplier +
                 `</td>
