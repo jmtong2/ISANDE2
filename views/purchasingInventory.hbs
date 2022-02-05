@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-  <title>Document</title>
+  <title>Inventory</title>
 </head>
 <body style="background-color: #E6E6DE ">
 
@@ -28,6 +28,7 @@
         position: absolute !important;
         /*Adjust depending on the size to align it to the center*/
         left: 3vh !important;
+        right: 3vh !important;
         top: -60vh !important;
       }
     }
@@ -39,8 +40,8 @@
 
 <body>
 
-  
- {{> navbarPurchasing}} 
+
+ {{> navbarPurchasing}}
 
   <div class=" p-3" >
     <div class="card">
@@ -79,7 +80,7 @@
                   <i class="fa-solid fa-circle-plus"></i>
                   Create Ingredient
                 </button>
-                
+
               </div>
 
 
@@ -100,7 +101,7 @@
                                 <div class="input-group mb-3">
                                   <span class="input-group-text col-4 bg-success text-light" id="basic-addon3">Name</span
                                   >
-                                  <input 
+                                  <input
                                   type="text"
                                   class="form-control"
                                   id="purchased-ingredient-name"
@@ -127,8 +128,8 @@
                                 <option value="{{{abbrev}}}">{{fullName}}</option>
                                 {{/each}}
                               </select>
-                              
-                              
+
+
                             </div>
 
                             <div class="input-group mb-3">
@@ -182,12 +183,12 @@
                                 <option value="{{{name}}}">{{name}}</option>
                                 {{/each}}
                               </select>
-                              
-                              
+
+
                             </div>
 
                           <div class="float-end m-3">
-                            <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
+                            <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="d-inline float-end btn btn-m text-light" style="background-color: #7CA6A6">
                               Save
                             </button>
@@ -198,14 +199,14 @@
                   </div>
                 </section>
               </div>
-              
+
             </div>
           </div>
         </div>
 
         <!-- End -->
-        
-        
+
+
 
       </div>
     </div>
@@ -285,7 +286,7 @@
                                 <span class="input-group-text col-4 bg-success text-light" id="basic-addon3">Name</span
                                 >
                                 <div class="row col-8">
-                                  <input 
+                                  <input
                                   type="text"
                                   class="form-control ingredientName"
                                   aria-describedby="basic-addon3"
@@ -372,7 +373,7 @@
                         </div>
 
                         <div class="float-end m-3">
-                         <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>  
+                         <button type="button" class="btn btn-secondary mx-3 text-light" data-bs-dismiss="modal">Cancel</button>
                          <button type="submit" class="d-inline float-end btn btn-m text-light" id="save-edited" style="background-color: #7CA6A6">
                           Save
                         </button>
@@ -447,10 +448,10 @@
          window.location.reload();
         });
       }
-      
+
     });
-    
-    
+
+
   });
 
 
