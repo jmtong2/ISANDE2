@@ -25,8 +25,8 @@
       .print-container {
         position: absolute !important;
         /*Adjust depending on the size to align it to the center*/
-        left: 18vh !important;
-        top:  -55vh !important;
+        left: 5vh !important;
+        top:  -65vh !important;
       }
     }
 
@@ -126,24 +126,24 @@
                 <td class="text-end">₱{{total}}</td>
               </tr>
               {{/each}}
-                <td></td>
-               <td></td>
-                <td></td>
-                <td class="text-end"><h5>Total Amount:</h5></td>
-                <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-end"><h5>Total Amount:</h5></td>
+              <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
             </tbody>
           </table>
-
+          <h6 class="text-center">**END OF REPORT**</h6>
         </div>
-        <h6 class="text-center">**END OF REPORT**</h6>
+        
 
       </div>
 
     </div>
   </div>
 
-<script>
-  $(document).ready(function () {
+  <script>
+    $(document).ready(function () {
     // Updates the date today in the html
     options = { year: "numeric", month: "long", day: "numeric" };
     let today = new Date();
@@ -179,7 +179,7 @@
         startDate == "" ||
         endDate == null ||
         endDate == ""
-      ) {
+        ) {
         if (startDate == null || startDate == "") {
           $("#startDateValue").css("border", "3px solid #B00000");
           alert("Input a starting date!");
@@ -211,14 +211,14 @@
               let startDateFiltered = convertedStartDate.toLocaleDateString(
                 "en-US",
                 options
-              );
+                );
               let endDateFiltered = convertedEndDate.toLocaleDateString(
                 "en-US",
                 options
-              );
+                );
               $("#reportDate").text(
                 `${startDateFiltered} - ${endDateFiltered}`
-              );
+                );
               $("#rows").text(`Row/s ${purchaseOrders.length}`);
               // Remove the table rows to only put the filtered data
               $("#purchaseOrderTable").empty();
@@ -237,23 +237,23 @@
                 // total += parseFloat(resultTotal);
                 totalAmount += parseFloat(total);
                 let sortedDate =
-                  `<tr class="link" data-href="/inventory/purchaseOrdersDetails/${id}"> 
-                                <td class="text-center">` +
-                  dateMade +
-                  `</td>
-                  <td class="text-center">` +
-                  status +
-                  `</td>        
-                                <td class="text-start"> ` +
-                  supplier +
-                  `</td>
-                  <td class="text-center"> ` +
-                  receivedDateOfDelivery +
-                  `</td>
-                     <td class="text-end"> ₱` +
-                  total +
-                  `</td>
-                              </tr>`;
+                `<tr class="link" data-href="/inventory/purchaseOrdersDetails/${id}"> 
+                <td class="text-center">` +
+                dateMade +
+                `</td>
+                <td class="text-center">` +
+                status +
+                `</td>        
+                <td class="text-start"> ` +
+                supplier +
+                `</td>
+                <td class="text-center"> ` +
+                receivedDateOfDelivery +
+                `</td>
+                <td class="text-end"> ₱` +
+                total +
+                `</td>
+                </tr>`;
                 $("#purchaseOrderTable").append(sortedDate);
 
                 // Makes the link clickable
@@ -263,23 +263,23 @@
               }
               totalAmount.toFixed(2);
               const totalRow =`<td></td>
-                              <td></td>
-                              <td></td>
-                              <td class="text-end"><h5>Total Amount:</h5></td>
-                              <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
-                $("#purchaseOrderTable").append(totalRow);
-                $("#totalAmount").text(totalAmount);
+              <td></td>
+              <td></td>
+              <td class="text-end"><h5>Total Amount:</h5></td>
+              <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
+              $("#purchaseOrderTable").append(totalRow);
+              $("#totalAmount").text(totalAmount);
 
               //$("#view-order-history-total").text("₱ " + total.toFixed(2));
               // Removes the inputted dates
               $("#startDateValue").val(null);
               $("#endDateValue").val(null);
             }
-          );
+            );
         }
       }
     });
-  });
+});
 </script>
 
 

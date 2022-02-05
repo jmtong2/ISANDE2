@@ -1,0 +1,252 @@
+body{
+  /* background: linear-gradient(-45deg, #243b31, #e6e6de, #7ca6a6); */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.3)), url(../images/cafe-agapita.png);
+  background-size: 50%;
+  font-family: 'Montserrat';
+  position: relative;
+}
+
+
+/* WHEN logo is in form */
+.logo{
+position: absolute;
+top: -75px;
+left: calc(50% - 50px);
+}
+
+.form-box
+{
+width:380px;
+height:480px;
+position: relative;
+margin:7% auto;
+background: #ffffff;
+box-shadow: 0 0 100px 2px #000000;
+box-sizing: border-box;
+border-radius: 3%;
+padding:10px;
+overflow: hidden;
+}
+
+.button-box
+{
+width:220px;
+margin:30px auto;
+position:relative;
+box-shadow: 0 0 10px 4px #e6e6de;
+border-radius: 30px;
+}
+
+.toggle-btn
+{
+padding:10px 30px;
+cursor:pointer;
+background:transparent;
+border:0;
+outline: none;
+position: relative;
+}
+
+#btn
+{
+top: 0;
+left:0;
+position: absolute;
+width: 110px;
+height: 100%;
+background: #7ca6a6;
+border-radius: 30px;
+transition: .3s;
+}
+
+.input-group-login
+{
+top: 150px;
+position:absolute;
+width:280px;
+transition:.3s;
+font-family: 'Montserrat';
+}
+
+.input-group-register
+{
+top: 100px;
+position:absolute;
+width:280px;
+transition:.3s;
+}
+
+
+.loginemailid-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.loginpass-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.loginpass-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.rememberpass-checkbox
+{
+margin: 30px 10px 34px 0;
+}
+
+.login-btn
+{
+width: 85%;
+padding: 10px 30px;
+cursor: pointer;
+display: block;
+margin: auto;
+background: #7ca6a6;
+color: white;
+border: 0;
+outline: none;
+border-radius: 30px;
+}
+
+.regfirst-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.reglast-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.regemail-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+.regpass-field
+{
+width: 100%;
+padding:10px 0;
+margin:5px 0;
+border-left:0;
+border-top:0;
+border-right:0;
+border-bottom: 1px solid #999;
+outline:none;
+background: transparent;
+}
+
+ .regselectuser-field{
+ top: 100px;
+ position:absolute;
+ width:280px;
+ transition:.5s;
+ width: 100%;
+ padding: 1px 0;
+ margin-top: 108px;
+ border-left:0;
+ border-top:0;
+ border-right:0;
+ border-bottom: 1px solid #999;
+ color: #75758B;
+ font-family: 'Montserrat';
+ outline:none;
+ background: transparent;
+ }
+
+.register-btn
+{
+width: 85%;
+padding: 10px 30px;
+cursor: pointer;
+display: block;
+margin: auto;
+background: #7ca6a6;
+color: white;
+border: 0;
+outline: none;
+border-radius: 30px;
+}
+
+.termsagree-checkbox
+{
+margin: 30px 10px 34px 0;
+}
+
+span
+{
+color:#777;
+font-size:12px;
+bottom:68px;
+position:absolute;
+}
+
+#login
+{
+left:50px;
+}
+#login input
+{
+color:black;
+font-size:15;
+}
+#register
+{
+left:450px;
+}
+#register input
+{
+color:black;
+font-size: 15;
+}

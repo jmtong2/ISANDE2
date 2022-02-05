@@ -69,7 +69,7 @@ const signupController = {
         
                 db.insertOne(User, user, function(flag) {
                     if(flag) {
-                        res.redirect('/login');
+                        res.redirect('/index');
                         //res.send('firstName: ' + firstName +'lastName: ' + lastName + 'email: ' + email);
                     }
                 });

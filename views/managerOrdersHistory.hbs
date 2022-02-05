@@ -8,128 +8,128 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
-      <!-- Datepicker -->
+  <!-- Datepicker -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-   <style>
-  @media print {
-  body * {
-    visibility: hidden !important;
-  }
-  .print-container, .print-container * {
-    visibility: visible !important;
-  }
-  .print-container {
-    position: absolute !important;
-     /*Adjust depending on the size to align it to the center*/
-    left: 5vh !important;
-    right: 5vh !important;
-    top:  -50vh !important;
-  }
-}
+  <style>
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      .print-container, .print-container * {
+        visibility: visible !important;
+      }
+      .print-container {
+        position: absolute !important;
+        /*Adjust depending on the size to align it to the center*/
+        left: 5vh !important;
+        right: 5vh !important;
+        top:  -50vh !important;
+      }
+    }
 
   </style>
 </head>
 
 {{> navbarManager}}
 
- <body style="background-color: #E6E6DE">
-    <div class="p-3" >
-            <section>
-                <div class="card">
-      <div class="card-body rounded shadow" style="background-color: #CC985A">
-        <h3 class="text-light mb-3">Orders History</h3>
-        <div class="d-flex justify-content-between">
-          <div class="col">
-            <div class="row">
-              <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="startDate">
-                  <input type="text" id="startDateValue" class="form-control">
-                  <span class="input-group-append">
-                    <span id="startDateButton" class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
+<body style="background-color: #E6E6DE">
+  <div class="p-3" >
+    <section>
+      <div class="card">
+        <div class="card-body rounded shadow" style="background-color: #CC985A">
+          <h3 class="text-light mb-3">Orders History</h3>
+          <div class="d-flex justify-content-between">
+            <div class="col">
+              <div class="row">
+                <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
+                <div class="col-sm-2">
+                  <div class="input-group date" id="startDate">
+                    <input type="text" id="startDateValue" class="form-control">
+                    <span class="input-group-append">
+                      <span id="startDateButton" class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
-              </div>
 
-              <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
-              <div class="col-sm-2">
-                <div class="input-group date" id="endDate">
-                  <input type="text"  id="endDateValue" class="form-control">
-                  <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
-                      <i class="fa fa-calendar"></i>
+                <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
+                <div class="col-sm-2">
+                  <div class="input-group date" id="endDate">
+                    <input type="text"  id="endDateValue" class="form-control">
+                    <span class="input-group-append">
+                      <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
+
+                <div class="col">
+                  <button type="button" class="text-light btn btn-success m-1" style="height: 34px; margin-left: 10px" id="orderHistoryDate"><i class="fa fa-search"></i> Search dates</button>
+                </div> 
+
               </div>
-
-             <div class="col">
-              <button type="button" class="text-light btn btn-success m-1" style="height: 34px; margin-left: 10px" id="orderHistoryDate"><i class="fa fa-search"></i> Search dates</button>
-            </div> 
-
-      </div>
-    </div>
+            </div>
 
 
-  </div>
-</div>
-</div>
-
-<div class="d-flex m-2 flex-row justify-content-between">
-      <div id="asOf" class="p-2 mt-1">As of November 21, 2021</div>
-      <div class="p-2 "><button class="btn btn-secondary" style="background-color: #7CA6A6"  style="background-color: #7CA6A6 " onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
-    </div>
-               <div class="col-md-12">
-
-  <div class="card ">
-    <div class="card-body overflow-auto  border rounded shadow-lg bg-light ">
-      <div class="table-responsive rounded print-container">
-        <table class="table overflow-auto table-hover table-hover table-bordered table-striped  ">
-          <div id="reportTitle" class="text-center my-3 " >
-            <h4>Orders History Summary Report</h4>
-            <h5 id="reportDate">November 1-31, 2021</h5>
-            <h6 id="rows" class="p-2 mt-1 text-end">Row/s: {{orders.length}}</h6>
           </div>
-          <thead>
-            <tr class="text-light align-top" style="background-color: #7CA6A6">
-              <th class="text-center col-4">Date</th>
-              <th class="text-center col-4">Cashier</th>
-              <th class="text-center col-4"style="width: ">Amount</th>
-            </tr>
-          </thead>
-          <tbody id="ordersTable">
-            
-             {{#each orders}}
-            <tr class="link" data-href="/manager/orderDetailed/{{id}}">
-              <td class="text-center">{{date}}</td>
-              <td class="text-center">{{user.firstName}} {{user.lastName}}</td>
-              <td class="text-end">₱{{totalAmount}} </td>
-              </tr>
-            {{/each}}
-            <td> </td>
+        </div>
+      </div>
+
+      <div class="d-flex m-2 flex-row justify-content-between">
+        <div id="asOf" class="p-2 mt-1">As of November 21, 2021</div>
+        <div class="p-2 "><button class="btn btn-secondary" style="background-color: #7CA6A6"  style="background-color: #7CA6A6 " onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
+      </div>
+      <div class="col-md-12">
+
+        <div class="card ">
+          <div class="card-body overflow-auto  border rounded shadow-lg bg-light ">
+            <div class="table-responsive rounded print-container">
+              <table class="table overflow-auto table-hover table-hover table-bordered table-striped  ">
+                <div id="reportTitle" class="text-center my-3 " >
+                  <h4>Orders History Summary Report</h4>
+                  <h5 id="reportDate">November 1-31, 2021</h5>
+                  <h6 id="rows" class="p-2 mt-1 text-end">Row/s: {{orders.length}}</h6>
+                </div>
+                <thead>
+                  <tr class="text-light align-top" style="background-color: #7CA6A6">
+                    <th class="text-center col-4">Date</th>
+                    <th class="text-center col-4">Cashier</th>
+                    <th class="text-center col-4"style="width: ">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTable">
+                  
+                 {{#each orders}}
+                 <tr class="link" data-href="/manager/orderDetailed/{{id}}">
+                  <td class="text-center">{{date}}</td>
+                  <td class="text-center">{{user.firstName}} {{user.lastName}}</td>
+                  <td class="text-end">₱{{totalAmount}} </td>
+                </tr>
+                {{/each}}
+                <td> </td>
                 <td class="text-end"><h5>Total Amount:</h5></td>
                 <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
-          </tbody>
-        </table>
+              </tbody>
+            </table>
+            <h6 class="text-center">**END OF REPORT**</h6>
 
+          </div>
+          
+        </div>
 
       </div>
-      <h6 class="text-center">**END OF REPORT**</h6>
     </div>
 
-  </div>
-</div>
-
-           
-
-    </div>
     
 
-<script>
-  $(document).ready(function () {
+  </div>
+  
+
+  <script>
+    $(document).ready(function () {
     // Updates the date today in the html
     options = { year: "numeric", month: "long", day: "numeric" };
     let today = new Date();
@@ -163,7 +163,7 @@
         startDate == "" ||
         endDate == null ||
         endDate == ""
-      ) {
+        ) {
         if (startDate == null || startDate == "") {
           $("#startDateValue").css("border", "3px solid #B00000");
           alert("Input a starting date!");
@@ -195,14 +195,14 @@
               let startDateFiltered = convertedStartDate.toLocaleDateString(
                 "en-US",
                 options
-              );
+                );
               let endDateFiltered = convertedEndDate.toLocaleDateString(
                 "en-US",
                 options
-              );
+                );
               $("#reportDate").text(
                 `${startDateFiltered} - ${endDateFiltered}`
-              );
+                );
               $("#rows").text(`Row/s ${orders.length}`);
               // Remove the table rows to only put the filtered data
               $("#ordersTable").empty();
@@ -219,19 +219,19 @@
                 // total += parseFloat(resultTotal);
                 totalAmount += parseFloat(totalAmountOrder);
                 let sortedDate =
-                  `<tr class="link" data-href="/manager/orderDetailed/${id}"> 
-                                <td class="text-center">` +
-                  date +
-                  `</td>
-                                <td class="text-center">` +
-                  userFirstName +
-                  ` ` +
-                  userLastName +
-                  `</td>
-                                <td class="text-end"> ₱` +
-                  totalAmountOrder +
-                  `</td>
-                              </tr>`;
+                `<tr class="link" data-href="/manager/orderDetailed/${id}"> 
+                <td class="text-center">` +
+                date +
+                `</td>
+                <td class="text-center">` +
+                userFirstName +
+                ` ` +
+                userLastName +
+                `</td>
+                <td class="text-end"> ₱` +
+                totalAmountOrder +
+                `</td>
+                </tr>`;
                 $("#ordersTable").append(sortedDate);
 
                 // Makes the link clickable
@@ -241,8 +241,8 @@
               }
               totalAmount.toFixed(2);
               const totalRow = `<td></td> 
-                                <td class="text-end"><h5>Total Amount:</h5></td> 
-                                <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
+              <td class="text-end"><h5>Total Amount:</h5></td> 
+              <td class="text-end"><h5>₱${totalAmount}</h5></td>`;
               $("#ordersTable").append(totalRow);
               $("#totalAmount").text(totalAmount);
 
@@ -251,11 +251,11 @@
               $("#startDateValue").val(null);
               $("#endDateValue").val(null);
             }
-          );
+            );
         }
       }
     });
-  });
+});
 </script>
 
 </body>

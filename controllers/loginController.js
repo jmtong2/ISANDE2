@@ -26,7 +26,7 @@ const loginController = {
                 res.send('Error page');  
         }
         else {
-            res.render('login');
+            res.render('index');
         }
     },
 
@@ -68,13 +68,13 @@ const loginController = {
                     }
                     else {
                         var details = {error: 'Incorrect Email or Password.'};
-                        res.render('login', details);
+                        res.render('index', details);
                     }
                 });
             }
             else {
                 var details = {error: 'Incorrect Email or Password.'};
-                res.render('login', details);
+                res.render('index', details);
             }
         });
     }
