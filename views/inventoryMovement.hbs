@@ -27,12 +27,13 @@
         position: absolute !important;
         /*Adjust depending on the size to align it to the center*/
         left: 3vh !important;
+        right: 3vh !important;
         top: -60vh !important;
       }
     }
 
   </style>
-  {{> navbarInventory}} 
+  {{> navbarInventory}}
   <!-- End of navbar -->
 
   <div class=" p-3" >
@@ -68,7 +69,7 @@
 
             <div class="col">
               <button type="button" class="text-light btn btn-success m-1" style="height: 34px; margin-left: 10px" id="movementHistoryDate"><i class="fa fa-search"></i> Search dates</button>
-            </div> 
+            </div>
 
           </div>
 
@@ -104,7 +105,7 @@
                 <th class="text-center text-light col-2">Action</th>
                 <th class="text-center text-light" >Quantity </th>
                 <th class="text-center text-light col-2">After Total Quantity</th>
-                
+
               </tr>
             </thead>
 
@@ -118,14 +119,14 @@
                 <td class="text-center">{{action}}</td>
                 <td class="text-end">{{quantity}}</td>
                 <td class="text-end">{{afterTotalQuantity}} {{ingredient.uom.abbrev}}</td>
-               
+
               </tr>
               {{/each}}
             </tbody>
           </table>
            <h6 class="text-center">**END OF REPORT**</h6>
         </div>
-       
+
       </div>
     </div>
   </div>
@@ -228,7 +229,7 @@
                 // total += parseFloat(resultTotal);
 
                 let sortedDate =
-                `<tr> 
+                `<tr>
                 <td class="text-center">` +
                 date +
                 `</td>
