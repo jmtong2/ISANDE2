@@ -28,7 +28,8 @@
     .print-container {
       position: absolute !important;
       /*Adjust depending on the size to align it to the center*/
-      left: 7vh !important;
+      left: 3vh !important;
+      left: 3vh !important;
       top: 0 !important;
     }
   }
@@ -37,7 +38,7 @@
 
 <title>Purchase Order</title>
 
-  {{> navbarInventory}} 
+  {{> navbarInventory}}
 
 <div class=" p-3 print-container" >
   <div class="card mb-2">
@@ -152,13 +153,13 @@
       $("#receive"). attr("disabled", true);
           $("#download"). attr("disabled", true);
           $("#receiveA").removeAttr("href");
-          
+
     }
    });
 
   });
 
- </script> 
+ </script>
 
 
 </body>
