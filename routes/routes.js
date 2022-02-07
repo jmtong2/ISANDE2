@@ -43,6 +43,7 @@ router.post('/sell', cashierController.sell);
 router.get('/purchasing/inventory', purchasingController.getInventory);
 router.post('/purchasing/addIngredient', purchasingController.addIngredient);
 router.post("/editIngredient", purchasingController.editIngredient);
+router.get("/getIngredientDates", purchasingController.getIngredientDates);
 router.get('/purchasing/reorder', purchasingController.getReorderIngredients);
 router.get('/purchasing/purchaseOrders', purchasingController.getAllPurchaseOrders);
 router.post('/savePurchaseOrder', purchasingController.savePurchaseOrder);
@@ -81,6 +82,7 @@ router.get('/getOrderHistoryDates', managerController.getOrderHistoryDates);
 // Inventory routes old
 router.get("/inventory/dashboard", inventoryController.getDashboard);
 router.get("/inventory/ingredients", inventoryController.getAllIngredients);
+router.get("/getIngredientInventoryDates", inventoryController.getIngredientInventoryDates);
 router.get("/inventory/movement", inventoryController.getMovement);
 router.get('/getMovementDates', inventoryController.getMovementDates);
 router.get("/inventory/shrinkageReport", inventoryController.getShrinkageReport);

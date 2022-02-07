@@ -63,6 +63,62 @@ const inventoryController = {
         }
     },
 
+       getIngredientInventoryDates: async (req, res) => {
+    // Gets the queried dataes
+    let startDate = new Date(req.query.startDate);
+    let endDate = new Date(req.query.endDate);
+      /* let startDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+    let endDate = new Date("Thu Feb 03 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
+    // set Hours to 0 so you can compare just the dates
+    startDate.setHours(0, 0, 0, 0);
+    endDate.setHours(0, 0, 0, 0);
+
+
+    try {
+      // save every PO
+      const ingredientList = await Ingredients.find()
+        .populate("supplier")
+        .populate("uom")
+        .exec();
+    
+      // POArray to be returned
+      let ingredients = [];
+      const ingredientLength = ingredientList.length;
+      for (let i = 0; i < ingredientLength; i++) {
+        // Loads the date of the PO to be converted to proper format
+        let date = new Date(ingredientList[i].createdAt);
+        date.setHours(0, 0, 0, 0);
+        // Checks if the PO is inside the inputted dates
+        if (!(startDate > date || date > endDate)) {
+
+          // Saves the PO to a new Object to be put into the POArray
+          const sortedIngredient = {
+            id: ingredientList[i]._id,
+            dateMade:
+              date.getMonth() +
+              1 +
+              "/" +
+              date.getDate() +
+              "/" +
+              date.getFullYear(),
+            ingredientName: ingredientList[i].ingredientName,
+            quantityPerStock: ingredientList[i].quantityPerStock,
+            uom: ingredientList[i].uom,
+            totalQuantity: ingredientList[i].totalQuantity,
+            reorderPoint: ingredientList[i].reorderPoint,
+            economicOrderQuantity: ingredientList[i].economicOrderQuantity,
+          };
+          ingredients.push(sortedIngredient);
+        }
+      }
+      // Send back to the JS
+      // This is the returned object
+      res.send(ingredients);
+    } catch (err) {
+      res.send("Error page");
+    }
+  },
+
     setReorderEOQ: async (req, res) => {
         try {
             const inventory = await Ingredients.findOneAndUpdate(

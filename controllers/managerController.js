@@ -99,7 +99,8 @@ const managerController = {
 			for (let i = 0; i < length; i++) {
 				try {
 					const ingredient = await Ingredients.findOne({
-						ingredientName: oldMenuItemIngredients[i].ingredient.ingredientName,
+						ingredientName:
+							oldMenuItemIngredients[i].ingredient.ingredientName,
 					}).exec();
 					let menuIngredient = new MenuItemIngredient({
 						ingredient: ingredient._id,
@@ -197,7 +198,8 @@ const managerController = {
 			// Load old ingredients to the new edited menu item
 			for (let i = 0; i < length; i++) {
 				const ingredient = await Ingredients.findOne({
-					ingredientName: oldMenuItemIngredients[i].ingredient.ingredientName,
+					ingredientName:
+						oldMenuItemIngredients[i].ingredient.ingredientName,
 				}).exec();
 				let menuIngredient = new MenuItemIngredient({
 					ingredient: ingredient._id,
@@ -220,7 +222,10 @@ const managerController = {
 					new: true,
 				}
 			).exec();
-			res.status(200).send({ result: "redirect", url: "/manager/menuItems" });
+			res.status(200).send({
+				result: "redirect",
+				url: "/manager/menuItems",
+			});
 		} catch (err) {
 			res.send("Error page");
 		}
@@ -255,114 +260,125 @@ const managerController = {
 				.sort({ createdAt: -1 })
 				.exec();
 
-				let orders = [];
-				let totalAmount = 0.00;
-				totalAmount.toFixed(2);
-            const orderLength = orderList.length;
-            for (let i = 0; i < orderLength; i++) {
-            	let date = new Date(orderList[i].date);
-                date.setHours(0, 0, 0, 0);
+			let orders = [];
+			let totalAmount = 0.0;
+			totalAmount.toFixed(2);
+			const orderLength = orderList.length;
+			for (let i = 0; i < orderLength; i++) {
+				let date = new Date(orderList[i].date);
+				date.setHours(0, 0, 0, 0);
 
-                let totalAmountOrder = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
-                totalAmount += parseFloat(totalAmountOrder);
-                const sortedOrders = {
-                	id: orderList[i]._id,
-                	user: orderList[i].user,
-                    date:
-                        date.getMonth() +
-                        1 +
-                        "/" +
-                        date.getDate() +
-                        "/" +
-                        date.getFullYear(),
-                    totalAmount: totalAmountOrder,
-                };
-                orders.push(sortedOrders);
-            }
+				let totalAmountOrder = (
+					Math.round(orderList[i].totalAmount * 100) / 100
+				).toFixed(2);
+				totalAmount += parseFloat(totalAmountOrder);
+				const sortedOrders = {
+					id: orderList[i]._id,
+					user: orderList[i].user,
+					date:
+						date.getMonth() +
+						1 +
+						"/" +
+						date.getDate() +
+						"/" +
+						date.getFullYear(),
+					totalAmount: totalAmountOrder,
+				};
+				orders.push(sortedOrders);
+			}
 
-			res.render("managerOrdersHistory", { orders: orders, totalAmount: totalAmount.toFixed(2) });
+			res.render("managerOrdersHistory", {
+				orders: orders,
+				totalAmount: totalAmount.toFixed(2),
+			});
 		} catch (err) {
 			res.send("Error page");
 		}
 	},
 
-	 getOrderHistoryDates: async (req, res) => {
-    // Gets the queried dataes
-    let startDate = new Date(req.query.startDate);
-    let endDate = new Date(req.query.endDate);
-    /*    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
+	getOrderHistoryDates: async (req, res) => {
+		// Gets the queried dataes
+		let startDate = new Date(req.query.startDate);
+		let endDate = new Date(req.query.endDate);
+		/*    let startDate = new Date("Tue Feb 01 2022 00:00:00 GMT+0800 (Philippine Standard Time)");
     let endDate = new Date("Wed Feb 02 2022 00:00:00 GMT+0800 (Philippine Standard Time)");*/
-    // set Hours to 0 so you can compare just the dates
-    startDate.setHours(0, 0, 0, 0);
-    endDate.setHours(0, 0, 0, 0);
+		// set Hours to 0 so you can compare just the dates
+		startDate.setHours(0, 0, 0, 0);
+		endDate.setHours(0, 0, 0, 0);
 
-    try {
-      // save every PO
-      const orderList = await Order.find()
+		try {
+			// save every PO
+			const orderList = await Order.find()
 				.populate("user")
 				.sort({ createdAt: -1 })
 				.exec();
 
-				let orders = [];
-            const orderLength = orderList.length;
-            for (let i = 0; i < orderLength; i++) {
-            	let date = new Date(orderList[i].date);
-                date.setHours(0, 0, 0, 0);
+			let orders = [];
+			const orderLength = orderList.length;
+			for (let i = 0; i < orderLength; i++) {
+				let date = new Date(orderList[i].date);
+				date.setHours(0, 0, 0, 0);
 
-                let totalAmount = (Math.round(orderList[i].totalAmount * 100) / 100).toFixed(2);
-                if (!(startDate > date || date > endDate)) {
-                const sortedOrders = {
-                	id: orderList[i]._id,
-                	user: orderList[i].user,
-                    date:
-                        date.getMonth() +
-                        1 +
-                        "/" +
-                        date.getDate() +
-                        "/" +
-                        date.getFullYear(),
-                    totalAmount: totalAmount,
-                };
-                orders.push(sortedOrders);
-            }
-      }
-      // Send back to the JS
-      // This is the returned object
-      res.send(orders);
-    } catch (err) {
-      res.send("Error page");
-    }
-  },
+				let totalAmount = (
+					Math.round(orderList[i].totalAmount * 100) / 100
+				).toFixed(2);
+				if (!(startDate > date || date > endDate)) {
+					const sortedOrders = {
+						id: orderList[i]._id,
+						user: orderList[i].user,
+						date:
+							date.getMonth() +
+							1 +
+							"/" +
+							date.getDate() +
+							"/" +
+							date.getFullYear(),
+						totalAmount: totalAmount,
+					};
+					orders.push(sortedOrders);
+				}
+			}
+			// Send back to the JS
+			// This is the returned object
+			res.send(orders);
+		} catch (err) {
+			res.send("Error page");
+		}
+	},
 
 	getOrderDetailed: async (req, res) => {
 		//Order to get the number to be shown in hbs
 		const id = req.params.id;
 		try {
-			const orderMenuItemList = await OrderMenuItem.find({order: id})
-			.populate('menuItem')
-			.exec();
+			const orderMenuItemList = await OrderMenuItem.find({ order: id })
+				.populate("menuItem")
+				.exec();
 
 			let orderMenuItems = [];
-            const orderMenuItemLength = orderMenuItemList.length;
-            for (let i = 0; i < orderMenuItemLength; i++) {
-            	let date = new Date(orderMenuItemList[i].date);
-                date.setHours(0, 0, 0, 0);
+			let totalAmount = 0.0;
+			totalAmount.toFixed(2);
+			const orderMenuItemLength = orderMenuItemList.length;
+			for (let i = 0; i < orderMenuItemLength; i++) {
+				let date = new Date(orderMenuItemList[i].date);
+				date.setHours(0, 0, 0, 0);
+				let totalDecimal = (
+					Math.round(orderMenuItemList[i].menuItem.price * 100) / 100
+				).toFixed(2);
+				totalAmount += parseFloat(totalDecimal);
+				const sortedOrderMenuItems = {
+					menuItem: orderMenuItemList[i].menuItem,
+					price: totalDecimal,
+				};
+				orderMenuItems.push(sortedOrderMenuItems);
+			}
 
-                let price = (Math.round(orderMenuItemList[i].menuItem.price * 100) / 100).toFixed(2);
-                const sortedOrderMenuItems = {
-                	menuItem: orderMenuItemList[i].menuItem,
-                	price: price
-                };
-                orderMenuItems.push(sortedOrderMenuItems);
-            }
-
-			res.render("managerOrderDetailed", { orderMenuItems: orderMenuItems });
-
+			res.render("managerOrderDetailed", {
+				orderMenuItems: orderMenuItems,
+				totalAmount: totalAmount.toFixed(2),
+			});
 		} catch (err) {
-      res.send("Error page");
-    }
-		
-		
+			res.send("Error page");
+		}
 	},
 };
 

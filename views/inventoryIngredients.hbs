@@ -49,12 +49,12 @@
         <div class="d-flex justify-content-between">
           <div class="col">
             <div class="row">
-                <label  style="width: 120px" class="form-label mt-2 text-light">Date Created</label>
+                <label  style="width: 60px" class="form-label mt-2 text-light">Date</label>
               <div class="col-sm-2">
                 <div class="input-group date" id="startDate">
-                  <input type="text" class="form-control">
+                  <input type="text" id="startDateValue" class="form-control">
                   <span class="input-group-append">
-                    <span class="input-group-text bg-white d-block">
+                    <span id="startDateButton" class="input-group-text bg-white d-block">
                       <i class="fa fa-calendar"></i>
                     </span>
                   </span>
@@ -64,14 +64,18 @@
               <label  style="width: 45px" class="form-label mt-2 text-light">To</label>
               <div class="col-sm-2">
                 <div class="input-group date" id="endDate">
-                  <input type="text" class="form-control">
+                  <input type="text"  id="endDateValue" class="form-control">
                   <span class="input-group-append">
                     <span class="input-group-text bg-white d-block">
                       <i class="fa fa-calendar"></i>
                     </span>
                   </span>
                 </div>
-              </div>   
+              </div>
+
+              <div class="col">
+              <button type="button" class="text-light btn btn-success m-1" style="height: 34px; margin-left: 10px" id="orderHistoryDate"><i class="fa fa-search"></i> Search dates</button>
+            </div>
 
               <div class="col text-end">
                <p style="color: #243b31">(*Click the row of the ingredient to edit the Reorder Point and Economic Order Quantity)</p>
@@ -85,7 +89,7 @@
 </div>
 
 <div class="d-flex m-2 flex-row justify-content-between">
-  <div class="p-2 mt-1">As of November 21, 2021</div>
+  <div id="asOf" class="p-2 mt-1">As of November 21, 2021</div>
   <div class="p-2 "><button class="btn btn-secondary" style="background-color: #7CA6A6" onclick="window.print();"><i class="fas fa-file-download"></i> Download</button></div>
 
 </div>
@@ -98,7 +102,7 @@
         <table class="table overflow-auto table-hover table-hover table-bordered table-striped  ">
           <div id="reportTitle" class="text-center my-3 " >
             <h4>Inventory Summary Report</h4>
-            <h5>November 1-31, 2021</h5>
+            <h5 id="reportDate">November 1-31, 2021</h5>
              <h6 class="p-2 mt-1 text-end">Row/s: {{inventory.length}}</h6>
           </div>
           <thead>
@@ -112,7 +116,7 @@
              <!--  <th></th> -->
             </tr>
           </thead>
-          <tbody>
+          <tbody id="inventoryTable">
             
              {{#each inventory}}
             <tr>
@@ -319,6 +323,152 @@
 
          window.location.reload();
         });
+    });
+
+
+    // Updates the date today in the html
+    options = { year: "numeric", month: "long", day: "numeric" };
+    let today = new Date();
+    let todayDate = today.toLocaleDateString("en-US", options);
+    let asOf = $("#asOf").text("As of " + todayDate);
+    $("#reportDate").text(todayDate);
+
+    // Makes the whole row clickable
+    $(".link").click(function () {
+      window.location = $(this).data("href");
+    });
+
+    // Initializess the startdate picker so it can be fuinctional
+    // Must have datepicker script (2) in the upper part of the html
+    $("#startDate").datepicker();
+    $("#endDate").datepicker();
+
+    // Removes the red border after clicking the date
+    $("#startDateButton").click(() => {
+      $("#startDateValue").css("border", "");
+    });
+    $("#endDate").click(() => {
+      $("#endDateValue").css("border", "");
+    });
+
+    // When click the search date button
+    $("#orderHistoryDate").click(function () {
+      const startDate = $("#startDateValue").val();
+      const endDate = $("#endDateValue").val();
+      // Checks if the dates inputted are valid
+      if (
+        startDate == null ||
+        startDate == "" ||
+        endDate == null ||
+        endDate == ""
+      ) {
+        if (startDate == null || startDate == "") {
+          $("#startDateValue").css("border", "3px solid #B00000");
+          alert("Input a starting date!");
+        } else if (endDate == null || endDate == "") {
+          $("#endDateValue").css("border", "3px solid #B00000");
+          alert("Input an ending date!");
+        }
+      } else {
+        // Converts the dates inputted to Date object because the date fields in the database models are date objects
+        let convertedStartDate = new Date(startDate);
+        let convertedEndDate = new Date(endDate);
+
+        if (convertedStartDate > convertedEndDate) {
+          $("#startDateValue").css("border", "3px solid #B00000");
+          $("#endDateValue").css("border", "3px solid #B00000");
+          alert("Starting date can't be higher than ending date!");
+        } else {
+          // valid dates
+          $("#startDateValue").css("border", "");
+          $("#endDateValue").css("border", "");
+
+          // See in routes
+          // Passes the valid dates inputted
+          $.get(
+            "/getIngredientInventoryDates",
+            { startDate: convertedStartDate, endDate: convertedEndDate },
+            (ingredients) => {
+              // After getting the result, update the HTML dates, and table
+              options = { year: "numeric", month: "long", day: "numeric" };
+              let startDateFiltered = convertedStartDate.toLocaleDateString(
+                "en-US",
+                options
+              );
+              let endDateFiltered = convertedEndDate.toLocaleDateString(
+                "en-US",
+                options
+              );
+              $("#reportDate").text(
+                `${startDateFiltered} - ${endDateFiltered}`
+              );
+              $("#rows").text(`Row/s ${ingredients.length}`);
+              // Remove the table rows to only put the filtered data
+              $("#inventoryTable").empty();
+    
+              // Loop to create the rows
+              let length = ingredients.length;
+              for (let i = 0; i < length; i++) {
+                const id = ingredients[i].id;
+
+                const dateMade = ingredients[i].dateMade;
+                const ingredientName = ingredients[i].ingredientName;
+                const quantityPerStock = ingredients[i].quantityPerStock;
+                const abbrev = ingredients[i].uom.abbrev;
+                const totalQuantity = ingredients[i].totalQuantity;
+                const uomFullName = ingredients[i].uom.fullName;
+                const reorderPoint = ingredients[i].reorderPoint;
+                const economicOrderQuantity = ingredients[i].economicOrderQuantity;
+
+                // total += parseFloat(resultTotal);
+
+
+                let sortedDate =
+                  `
+                                <td class="text-center">` +
+                  ingredientName +
+                  `</td>
+                                <td class="text-end"> ` +
+                  totalQuantity + ` ` + abbrev +
+                  `</td>
+                   <td class="text-end">` +
+                  quantityPerStock + ` ` + abbrev +
+                  `</td>
+                  <td style="display:none;">` +
+                  uomFullName +
+                  `</td>
+                      <td class="text-end">` +
+                  reorderPoint +
+                  `</td>
+                  <td class="text-end">` +
+                  economicOrderQuantity +
+                  `</td>
+                 <td style="text-align:center;">
+                {{#isGreaterThan reorderPoint totalQuantity}}
+                    <button type="button" class="btn btn-warning">Low Stock</button>
+                {{else}}
+                    <button type="button" class="btn btn-success">Sufficient Stock</button>
+                {{/isGreaterThan}}
+              </td>
+
+                              </tr>`;
+                $("#inventoryTable").append(sortedDate);
+           
+                // Makes the link clickable
+                $(".link").click(function () {
+                  window.location = $(this).data("href");
+                });
+              }
+      
+
+              //$("#view-order-history-total").text("₱ " + total.toFixed(2));
+              // Removes the inputted dates
+              $("#startDateValue").val(null);
+              $("#endDateValue").val(null);
+            }
+          );
+        }
+      }
     });
     
   });

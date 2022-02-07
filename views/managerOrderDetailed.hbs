@@ -39,7 +39,7 @@
                 <thead>
                   <tr class="text-light align-top" style="background-color: #7CA6A6">
                     <th class="text-center col-4">Menu Item</th>
-                    <th class="text-center col-4">Price</th>
+                    <th class="text-center col-4">Amount</th>
                   </tr>
                 </thead>
                 <tbody id="ordersTable">
@@ -48,7 +48,10 @@
                  <tr>
                   <td class="text-center">{{menuItem.menuItemName}}</td>
                   <td class="text-center">₱{{price}}</td>
+                </tr>
                   {{/each}}
+                <td class="text-end"><h5>Total Amount:</h5></td>
+                <td id="totalAmount" class="text-end"><h5>₱{{totalAmount}}</h5></td>
                 </tbody>
               </table>
             </div>
