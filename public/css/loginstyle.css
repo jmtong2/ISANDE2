@@ -1,7 +1,7 @@
 body{
   /* background: linear-gradient(-45deg, #243b31, #e6e6de, #7ca6a6); */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.3)), url(../images/cafe-agapita.png);
-  background-size: 50%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.3)), url(../images/cafe-agapita2.png);
+  background-size: 100%;
   font-family: 'Montserrat';
   position: relative;
 }
