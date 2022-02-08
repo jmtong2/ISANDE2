@@ -447,6 +447,30 @@ const purchasingController = {
     }
   },
 
+  editSupplier: async (req, res) => {
+try {
+  const id = req.body.id;
+  const inputName = req.body.name;
+      const inputContact = req.body.contact;
+      const inputAddress = req.body.address;
+      res.send(req.body);
+
+   const supplier = await Supplier.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            name: inputName,
+            contactNumber: inputContact,
+            address: inputAddress
+          },
+        }
+      ).exec();
+      res.redirect("/purchasing/suppliers");
+    } catch (e) {
+      res.send("Error page");
+    }
+  },
+          
   /* OLDS ---------------------------------------------------------*/
 
   // for purchased
@@ -539,6 +563,7 @@ const purchasingController = {
     const id = req.params.id;
     try {
       const pO = await PurchaseOrder.findById(id).populate("supplier").exec();
+      let total = (Math.round(pO.total * 100) / 100).toFixed(2);
 
       const pOI = await PurchaseOrderIngredients.find({ purchaseOrder: id })
         .populate({
@@ -559,7 +584,7 @@ const purchasingController = {
 
       res.render("purchasingPurchaseOrderDetails", {
         pOI: pOI,
-        pO: pO,
+        total: total,
       });
     } catch (err) {
       res.send("Error page");

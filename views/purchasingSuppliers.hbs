@@ -144,6 +144,7 @@
           <tbody>
             <tr>
                {{#each supplier}}
+               <td style="display:none;" >{{_id}}</td>
               <td >{{name}}</td>
               <td class="text-center">{{contactNumber}}</td>
               <td class="text-start">{{address}}</td>
@@ -167,29 +168,22 @@
                      <section>
                       <div class="card position-absolute top-10 start-50 translate-middle" style="width: 130vh">
                         <div style="background-color:#F8F5F1;">
-                          <form action="/purchasing/addSupplier" method="POST" class=" p-2">
+                          <form action="/purchasing/editSupplier" method="POST" class=" p-2">
                             <header class="p-4">
                               <h3>Edit Supplier Info</h3>
                             </header>
-
+                            <input type="hidden" name="id" class="ingredientId">
                             <section>
                               <div class="input-group px-4 mb-3">
                                 <span class="input-group-text col-3 bg-success text-light" id="basic-addon3">Name</span
                                 >
-                                <div class="row">
+                                <div class="row col-9">
                                   <input 
                                   type="text"
-                                  class="form-control  supplierName"
-                                  id=""
+                                  class="form-control supplierName"
                                   aria-describedby="basic-addon3"
                                   name="name"
-                                  disabled
-                                  />
-                                  <input 
-                                  type="text"
-                                  class="form-control "
-                                  aria-describedby="basic-addon3"
-                                  name=""
+                                  required
                                   />
                                 </div>
                               </div>
@@ -199,30 +193,25 @@
                             class="input-group-text col-3 bg-success text-light"
                             >Contact #</span
                             >
-                            <input 
-                                type="text"
-                                class="form-control supplierContactNumber"
-                                aria-describedby="basic-addon3"
-                                name="contact"
-                                disabled
-                                />
-                            <input 
-                          type="tel"
-                          class="form-control"
-                          id="purchased-ingredient-name"
-                          aria-describedby="basic-addon3"
-                          placeholder="09XXXXXXXXX"
-                          pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                          required
-                          />
-                          </div>
+                            <div class="col-2">
+                              <input 
+                                                        type="tel"
+                                                        class="form-control col-1 supplierContactNumber"
+                                                        id="purchased-ingredient-name"
+                                                        aria-describedby="basic-addon3"
+                                                        placeholder="09XXXXXXXXX"
+                                                        
+                                                        name="contact"
+                                                        required
+                                                        />
+                                                        </div>
+                            </div>
 
                               <div class="input-group px-4 mb-3">
                                 <span class="input-group-text col-3 bg-success text-light" id="basic-addon3">Address</span
                                 >
-                                <div class="row">
-                                  <textarea class="form-control supplierAddress" id="" rows="2" required disabled></textarea>
-                                  <textarea class="form-control" id="" rows="2" required></textarea>
+                                <div class="row col-8">
+                                  <textarea class="form-control supplierAddress" id="" rows="2" name="address" required></textarea>
                                 </div>
                               </div>
 
@@ -266,9 +255,10 @@
 
     $('table tbody tr  td').on('click',function(){
       $("#editModal").modal("show");
-      $(".supplierName").val($(this).closest('tr').children()[0].textContent);
-      $(".supplierContactNumber").val($(this).closest('tr').children()[1].textContent);
-      $(".supplierAddress").val($(this).closest('tr').children()[2].textContent);
+      $(".ingredientId").val($(this).closest('tr').children()[0].textContent);
+      $(".supplierName").val($(this).closest('tr').children()[1].textContent);
+      $(".supplierContactNumber").val($(this).closest('tr').children()[2].textContent);
+      $(".supplierAddress").val($(this).closest('tr').children()[3].textContent);
     });
     
   });

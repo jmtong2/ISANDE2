@@ -233,12 +233,7 @@
           $(`#row` + button_id + ``).remove();
           let i = button_id;
           let num = listIndex.findIndex(item => item == i);
-          
-          listIngredient.splice(num, 1);
-          listUnit.splice(num, 1);
-          listQuantity.splice(num, 1);
-          listIndex.splice(num,1);
-          alert(listIngredient);
+
       });
 
         
@@ -263,7 +258,7 @@
                     listQuantity: listQuantity,
                     listUnit: listUnit
                 }, result => {
-                    alert(result.menuItemName);
+
                     listIngredient = [];
                     listQuantity = [];
                     listUnit = [];

@@ -50,6 +50,7 @@ router.post('/savePurchaseOrder', purchasingController.savePurchaseOrder);
 router.get('/getOrderIngredients', purchasingController.getOrderIngredients);
 router.get('/purchasing/suppliers', purchasingController.getAllSuppliers);
 router.post('/purchasing/addSupplier', purchasingController.addSupplier);
+router.post('/purchasing/editSupplier', purchasingController.editSupplier);
 router.get('/purchasing/reorderInventory', purchasingController.getReorder);
 router.get('/purchasing/purchaseOrdersDetails/:id', purchasingController.getPurchaseOrderDetails);
 router.get('/getPurchaseOrderHistoryDates', purchasingController.getPurchaseOrderHistoryDates);
@@ -95,10 +96,6 @@ router.get("/inventory/purchaseOrders", inventoryController.getAllPurchaseOrders
 router.get('/getInventoryPurchaseOrderHistoryDates', inventoryController.getInventoryPurchaseOrderHistoryDates);
 router.post("/isReceived", inventoryController.isReceived);
 /*router.post('/inventory/addIngredient', inventoryController.addIngredient);*/
-router.get('/getAddUOMInventory', uomController.getAddUOMInventory);
-router.post("/inventory/postManualCount", inventoryController.postManualCount);
-router.get("/inventory/discrepancyReport", inventoryController.getdiscrepancyReport);
-
 // Inventory routes new
 router.get('/inventory/purchaseOrdersDetails/:id', inventoryController.getPurchaseOrderDetails);
 router.get('/inventory/purchaseOrdersReceive/:id', inventoryController.receivePurchaseOrder);
