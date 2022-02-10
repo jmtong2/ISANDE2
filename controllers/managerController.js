@@ -83,9 +83,9 @@ const managerController = {
 			const newMenuItem = new MenuItem({
 				menuItemName: oldMenuItem.menuItemName,
 				price: oldMenuItem.price,
-				status: oldMenuItem.status,
+				status: "Active",
 			});
-
+			await newMenuItem.save();
 			// connect previous menuItemIngredients to the new MenuItem
 			// load ingredients of old menuItem
 			const oldMenuItemIngredients = await MenuItemIngredient.find({
@@ -142,7 +142,7 @@ const managerController = {
 					_id: id,
 				},
 				{
-					status: "Old version",
+					status: "Old Version",
 				},
 				{
 					new: true,

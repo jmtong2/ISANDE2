@@ -346,7 +346,6 @@ Done Editing Menu Item
         $("#doneAdding").click( () =>  {
             const oldMenuItemName = $("#oldMenuItemName").val();
             const id = $("#id").val();
-           
             if (listIngredient.length === 0)
                 alert('Add ingredients first!');
             else {
@@ -357,7 +356,7 @@ Done Editing Menu Item
                     listQuantity: listQuantity,
                     listUnit: listUnit
                 }, result => {
-                    listIngredient = [];
+                   listIngredient = [];
                     listQuantity = [];
                     listUnit = [];
                     alert('Ingredients are added to the Menu Item!');

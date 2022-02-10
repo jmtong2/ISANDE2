@@ -453,7 +453,6 @@ try {
   const inputName = req.body.name;
       const inputContact = req.body.contact;
       const inputAddress = req.body.address;
-      res.send(req.body);
 
    const supplier = await Supplier.findOneAndUpdate(
         { _id: id },
