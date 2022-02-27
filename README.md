@@ -47,3 +47,13 @@ The reordering module focuses on the reordering process that is connected to the
 The system has an authorization part where the user must first sign-up and input their designated role, where the system has three options available for the role. 
 * The roles are front office manager, cashier, inventory manager, and purchasing manager.
 * The login feature requests the user’s info, such as their email and password, and when they input the right details, they can use the system. 
+
+# What We Learned
+
+* Conversion of units in JavaScript
+* Integration of MongoDB database
+* jQuery
+ * AJAX GET and POST request
+* Bootstrap
+ * Modals 
+
