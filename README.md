@@ -56,4 +56,5 @@ The system has an authorization part where the user must first sign-up and input
  * AJAX GET and POST request
 * Bootstrap
   * Modals 
+* Node JS as backend framework
 
